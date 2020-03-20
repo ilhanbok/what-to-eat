@@ -27,8 +27,8 @@ html {
 
 .header {
   display: grid;
-  background-color: #ab14ab;
-  color: #fff;
+  color: gray;
+  border: 1px gray solid;
 
   grid-template-columns:1fr;
   padding: 1em;

@@ -3,7 +3,7 @@ import React from 'react';
 const Title = () => {
   return (
     <div className="title">
-      Simple <span className="bold-title">Restaurant Application</span>
+      What <span className="bold-title">To Eat</span>
     </div>
   );
 };

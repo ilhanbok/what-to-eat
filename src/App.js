@@ -20,31 +20,58 @@ class App extends Component {
     super(props);
 
     this.state = {
-      showContent: false,
-      searchText: ''
+      username: '',
+      password: '',
+      confirm: ''
     }
-    this.searchByValue = this.searchByValue.bind(this)
+    
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleConfirmChange = this.handleConfirmChange.bind(this);
   }
-
-  searchByValue(searchText) {
-    console.log('Search text is now', searchText)
-    this.setState({ showContent: true, searchText })
+  
+  handleUsernameChange(e) {
+    this.setState({...this.state, username: e.target.value});
   }
-
+  
+  handlePasswordChange(e) {
+    this.setState({...this.state, password: e.target.value});
+  }
+  
+  handleConfirmChange(e) {
+    this.setState({...this.state, confirm: e.target.value});
+  }
 
   render() {
-    let { showContent, userInfo, searchByValue, searchText } = this.state
     return (
-      <BrowserRouter>
         <div className="container">
-          { /* including the Title and other components */}
           <Header />
-          {(showContent == false)
-            ? <Hero searchByValue={this.searchByValue} />
-            : <Content searchText={searchText} userInfo={userInfo} />}
-
+					<div className="card">
+					  USER PROFILE
+					  <div className="update">
+					    <label className="stack">
+					      <div className="wrapper">
+					        USERNAME:
+					        <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+					      </div>
+					    </label>
+					    <label className="stack">
+					      <div className="wrapper">
+					        PASSWORD:
+					        <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+					      </div>
+					    </label>
+					    <label className="stack">
+					      <div className="wrapper">
+					        CONFIRM PASSWORD:
+					        <input type="password" value={this.state.confirm} onChange={this.handleConfirmChange} />
+					      </div>
+					    </label>
+					    <button className="button" OnClick={this.verifyCredentials}>UPDATE</button>
+					    <button className="button" OnClick={this.updateCredentials}>SAVE</button>
+					  </div>
+					</div>
         </div>
-      </BrowserRouter>
     );
   }
 }
