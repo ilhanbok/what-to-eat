@@ -27,7 +27,7 @@ html {
 
 .header {
   display: grid;
-  color: gray;
+  color: black;
   border: 1px gray solid;
 
   grid-template-columns:1fr;

@@ -17,6 +17,11 @@
   font-size: 18px;
 }
 
+.biguser {
+  font-size: 120px;
+  margin: 10px;
+}
+
 .wrapper {
   border: 1px solid gray;
   border-radius: 25px;
@@ -29,15 +34,15 @@
 }
 
 .stack {
-	display: block;
-	margin: 30px;
+  display: block;
+  margin: 30px;
 }
 
 input[type="text"], input[type="password"] {
-	border: none;
-	font-size: 18px !important;
-	padding: 0px !important;
-	margin-left: 10px;
+  border: none;
+  font-size: 18px !important;
+  padding: 0px !important;
+  margin-left: 10px;
 }
 
 .button {
@@ -79,7 +84,7 @@ html {
 
 .header {
   display: grid;
-  color: gray;
+  color: black;
 
   grid-template-columns:1fr;
   padding: 1em;
@@ -90,6 +95,27 @@ html {
 .title {
   font-weight: 300;
   text-transform: uppercase;
+  text-align: left;
+}
+
+.home, .profile, .favorite {
+  font-size: 28px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.home {
+  /* add attributes as needed */
+}
+
+.profile {
+  width: 28px;
+  float: right;
+}
+
+.favorite {
+  width: 28px;
+  float: right;
 }
 
 .bold-title {
@@ -111,12 +137,12 @@ html {
 /* Hero component related */
 .hero-div {
   background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0,0.5)), url(http://localhost:3000/images/hero.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	display: grid;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
 
-	/* height: calc(100vh - 50px); */
-	align-items: end;
+  /* height: calc(100vh - 50px); */
+  align-items: end;
   justify-items: center;
   position: relative;
 }

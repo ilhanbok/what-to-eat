@@ -46,31 +46,32 @@ class App extends Component {
     return (
         <div className="container">
           <Header />
-					<div className="card">
-					  USER PROFILE
-					  <div className="update">
-					    <label className="stack">
-					      <div className="wrapper">
-					        USERNAME:
-					        <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
-					      </div>
-					    </label>
-					    <label className="stack">
-					      <div className="wrapper">
-					        PASSWORD:
-					        <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-					      </div>
-					    </label>
-					    <label className="stack">
-					      <div className="wrapper">
-					        CONFIRM PASSWORD:
-					        <input type="password" value={this.state.confirm} onChange={this.handleConfirmChange} />
-					      </div>
-					    </label>
-					    <button className="button" OnClick={this.verifyCredentials}>UPDATE</button>
-					    <button className="button" OnClick={this.updateCredentials}>SAVE</button>
-					  </div>
-					</div>
+          <div className="card">
+            USER PROFILE
+            <div className="update">
+              <i class="fa fa-user-circle biguser"></i>
+              <label className="stack">
+                <div className="wrapper">
+                  USERNAME:
+                  <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+                </div>
+              </label>
+              <label className="stack">
+                <div className="wrapper">
+                  PASSWORD:
+                  <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                </div>
+              </label>
+              <label className="stack">
+                <div className="wrapper">
+                  CONFIRM PASSWORD:
+                  <input type="password" value={this.state.confirm} onChange={this.handleConfirmChange} />
+                </div>
+              </label>
+              <button className="button" OnClick={this.verifyCredentials}>UPDATE</button>
+              <button className="button" OnClick={this.updateCredentials}>SAVE</button>
+            </div>
+          </div>
         </div>
     );
   }
