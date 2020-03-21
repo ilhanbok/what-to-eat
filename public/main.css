@@ -1,4 +1,59 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
+
+.card {
+  border: 1px solid gray;
+  border-radius: 30px;
+  padding: 20px;
+  height: 80%;
+  width: 80%;
+  
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  font-size: 50px;
+}
+
+.update {
+  font-size: 18px;
+}
+
+.biguser {
+  font-size: 120px;
+  margin: 10px;
+}
+
+.wrapper {
+  border: 1px solid gray;
+  border-radius: 25px;
+  width: 40%;
+  text-align: left;
+  padding: 15px;
+  
+  display: inline-block;
+  margin: auto;
+}
+
+.stack {
+  display: block;
+  margin: 30px;
+}
+
+input[type="text"], input[type="password"] {
+  border: none;
+  font-size: 18px !important;
+  padding: 0px !important;
+  margin-left: 10px;
+}
+
+.button {
+  margin: 20px;
+  background: white;
+  padding: 15px;
+  border: 1px gray solid;
+  text-decoration: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
 
 * {
   margin: 0;
@@ -20,15 +75,16 @@ html {
 }
 
 .container {
-  display: grid;
+  /*display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px calc(100vh - 50px);
+  grid-template-rows: 50px calc(100vh - 50px);*/
+  text-align: center;
+  width: 100%;
 }
 
 .header {
   display: grid;
   color: black;
-  border: 1px gray solid;
 
   grid-template-columns:1fr;
   padding: 1em;
@@ -39,16 +95,31 @@ html {
 .title {
   font-weight: 300;
   text-transform: uppercase;
+  text-align: left;
+}
+
+.home, .profile, .favorite {
+  font-size: 28px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.home {
+  /* add attributes as needed */
+}
+
+.profile {
+  width: 28px;
+  float: right;
+}
+
+.favorite {
+  width: 28px;
+  float: right;
 }
 
 .bold-title {
   font-weight: 700;
-}
-
-input[type=text] {
-  padding: 1.9em;
-  font-size: 0.7em;
-  letter-spacing: 1px;  
 }
 
 
@@ -66,12 +137,12 @@ input[type=text] {
 /* Hero component related */
 .hero-div {
   background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0,0.5)), url(http://localhost:3000/images/hero.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	display: grid;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
 
-	/* height: calc(100vh - 50px); */
-	align-items: end;
+  /* height: calc(100vh - 50px); */
+  align-items: end;
   justify-items: center;
   position: relative;
 }
