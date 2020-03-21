@@ -46,10 +46,10 @@ class App extends Component {
     return (
         <div className="container">
           <Header />
-          <div className="profile-card card">
+          <div className="profile-card card" style={{padding:50}}>
             USER PROFILE
             <div className="update">
-              <i class="fa fa-user-circle biguser"></i>
+              <i class="fa fa-user-circle biguser" style={{marginTop:30, fontSize: 100}}></i>
               <label className="stack">
                 <div className="wrapper">
                   USERNAME:
