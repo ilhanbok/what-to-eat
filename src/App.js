@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as HashRouter, Route, Switch } from 'react-router-dom';
+
+
 
 // components 
 import Header from './components/layout/Header';
 import Content from './components/Content';
-import Hero from './components/layout/Hero'
+import Hero from './components/layout/Hero';
+import Home from './components/Home';
 
 
 // css
@@ -38,10 +42,10 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           { /* including the Title and other components */}
-          <Header />
-          {(showContent == false)
-            ? <Hero searchByValue={this.searchByValue} />
-            : <Content searchText={searchText} userInfo={userInfo} />}
+          <Switch>
+            <Route exact path='/home' component={Home} />
+            {/* <Route exact path='/login' component={Login}/> */}
+          </Switch>
 
         </div>
       </BrowserRouter>
