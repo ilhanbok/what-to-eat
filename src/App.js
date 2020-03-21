@@ -46,7 +46,7 @@ class App extends Component {
     return (
         <div className="container">
           <Header />
-          <div className="card">
+          <div className="profile-card card">
             USER PROFILE
             <div className="update">
               <i class="fa fa-user-circle biguser"></i>
