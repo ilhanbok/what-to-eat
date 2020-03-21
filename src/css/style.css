@@ -23,6 +23,7 @@ html {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px calc(100vh - 50px);
+  background-color: #FAF7F2;
 }
 
 .header {
@@ -447,5 +448,7 @@ a {
     width: 100%;
     /* height: calc(100vh - 62px); */
   }
+
+
   
 }

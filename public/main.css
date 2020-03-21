@@ -1,20 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
 
 .card {
-  border: 1px solid gray;
-  border-radius: 30px;
+  border: 1px solid #F2DED0;
+  border-radius: 80px;
   padding: 20px;
   height: 80%;
   width: 80%;
+  background-color: #F2DED0;
   
   display: inline-block;
   margin: auto;
   text-align: center;
-  font-size: 50px;
+  font-size: 40px;
+  color: #544F59;
+  font-family: "Franklin Gothic light";
 }
 
 .update {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .biguser {
@@ -23,12 +26,12 @@
 }
 
 .wrapper {
-  border: 1px solid gray;
-  border-radius: 25px;
+  border: 1px solid #FCBA8F;
+  border-radius: 20px;
   width: 40%;
   text-align: left;
   padding: 15px;
-  
+  background-color: #FCBA8F;
   display: inline-block;
   margin: auto;
 }
@@ -47,12 +50,13 @@ input[type="text"], input[type="password"] {
 
 .button {
   margin: 20px;
-  background: white;
   padding: 15px;
-  border: 1px gray solid;
-  text-decoration: none;
-  border-radius: 15px;
+  border: 1px #F47D31 solid;
+  background-color: #F47D31;
+  font-family: "Franklin Gothic Medium";
+  border-radius: 20px;
   cursor: pointer;
+  color: #544F59;
 }
 
 * {

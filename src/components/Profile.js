@@ -38,14 +38,16 @@ class Profile extends Component {
         return (
             <div className="container">
                 <Header />
-                <div className="card">
+                <div className="card" style={ {padding:50}}>
                     USER PROFILE
                     <div className="update">
-                        <i class="fa fa-user-circle biguser"></i>
+                        <i class="fa fa-user-circle biguser" style={ {marginTop:30, fontSize: 100}} ></i>
                         <label className="stack">
                             <div className="wrapper">
                                 USERNAME:
-                                <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+                                <input type="text"
+                                       value={this.state.username}
+                                       onChange={this.handleUsernameChange} />
                             </div>
                         </label>
                         <label className="stack">
