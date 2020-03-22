@@ -11,7 +11,7 @@ const ListPanel = (props) => {
   return (
     <div className="all-restaurants">
       <Switch>
-        <Route exact path="/" render={(props) => (
+        <Route exact path="/search" render={(props) => (
           <ListAllRestaurants {...props} restaurants={restaurants} />
         )}>
         </Route>
