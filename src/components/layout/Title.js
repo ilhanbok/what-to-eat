@@ -1,9 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
+//import { LinkContainer } from "react-router-bootstrap";
 import Button from "react-bootstrap/Button";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
@@ -19,9 +17,14 @@ const Title = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-
+              </Nav>
+              <Nav pullRight>
                   <Nav.Link href="../favorite">Favorite</Nav.Link>
                   <Nav.Link href="../Profile">Profile</Nav.Link>
+                  <Nav.Link href="../signup">Sign-Up
+                  </Nav.Link>
+                  <Nav.Link href="../login">Login
+                  </Nav.Link>
               </Nav>
           </Navbar.Collapse>
       </Navbar>

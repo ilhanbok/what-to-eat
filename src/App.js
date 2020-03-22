@@ -12,6 +12,8 @@ import Hero from './components/layout/Hero';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Favorite from "./components/Favorite";
+import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
 
 
 // css
@@ -49,6 +51,8 @@ class App extends Component {
             <Route exact path='/home' component={Home} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/favorite' component={Favorite} />
+            <Route exact path='/login' component ={Login}/>
+            <Route exact path='/signup' component ={Signup}/>
             {/* <Route exact path='/login' component={Login}/> */}
           </Switch>
 
