@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const route = require('./routes')
 
 // PORT 3000
-const PORT = 3000
+const PORT = 5000
 
 // serve the static pages
 app.use(morgan("dev"))

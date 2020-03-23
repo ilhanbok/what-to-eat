@@ -1,106 +1,68 @@
-# react-app-simple-restaurant-app
-A Simple Restaurant Application using [React JS](https://reactjs.org/docs/getting-started.html), a JavaScript library to make awesome UI by Facebook, [Node JS](https://nodejs.org/docs/latest-v8.x/api/), [Express JS](https://expressjs.com/en/api.html) and [MongoDB](https://docs.mongodb.com/).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This application uses [React JS](https://reactjs.org/docs/getting-started.html) component oriented UI creation paradigm. All components are written in [JSX](https://reactjs.org/docs/jsx-in-depth.html) and ES6 style and are
-combined to get a single build for production purpose using [Webpack 4](https://webpack.js.org/concepts/). 
+## Available Scripts
 
-ES6 `module` creation along with `import /export` is used. [Babel](https://babeljs.io/docs/en/babel-preset-react) is used to *transpile* all [JSX](https://reactjs.org/docs/jsx-in-depth.html) code to vanilla JavaScript code. To install all the dependecies `npm` is used.
+In the project directory, you can run:
 
-Back end is implemented using [Node JS](https://nodejs.org/docs/latest-v8.x/api/), [Express JS](https://expressjs.com/en/api.html) and [MongoDB](https://docs.mongodb.com/). [Atlas](https://www.mongodb.com/cloud/atlas), the *Cloud* version of [MongoDB](https://docs.mongodb.com/) is used. 
+### `npm start`
 
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-For UI creation [HTML5](https://www.w3schools.com/html/html5_intro.asp) and [CSS3](https://www.w3schools.com/css/) are used. [Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), the new feature of [CSS3](https://www.w3schools.com/css/) is used for layout creation purpose.
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-This is a *responsive web application* for viewing in both Mobile and Desktop.
+### `npm test`
 
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Features
-<ul>
- <li> This is Simple Restaurant Application </li>
- <li> It is a Full Stack Application </li>
-</ul>
+### `npm run build`
 
-- All the restaurant details namely *cusines, establishment type, address, locality, rating, cost for two persons* are stored in the [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). This is a *free/ shared* account on [Atlas](https://www.mongodb.com/cloud/atlas). **So Please use it wisely** 
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-<br/> 
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-<ul>
- <li> <b>Searching</b> facility using <code>locality, name</code> and <code>cuisines</code are supported </li>
-  <ul>
-    <li> <b>Searching</b> can be done from <i>two</i> places - the <i>Search box</i> and clicking on the several features of a restaurant like <i>name, locality</i> and so on </li>
-  </ul>
-  <li> <b>Sorting</b> of the searched restaurants can be done using <code>price</code> both<i> ascending and descending order</i> and <code>rating</code> in <i>descending order</i> only </li>
- <li> <strong>Filters</strong> namely <code>cost for two persons, establishment type, locality</code> can be applied on a list of searched results </li>
-  <ul>
-   <li> Only one filter can be selected from a particular category </li>
-   <li> Click on an active filter will deselect the filter</li>
-  </ul>
-</ul>
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-<br/> 
+### `npm run eject`
 
-<ul>
- <li> Viewing the details of <i>a</i> restaurant can be done <i>clicking the photo/ logo </i> of the restaurant or <i>clicking the View Details </i> button </li>
- <li> Viewing the details of <i>all</i> restaurants can be done by <i>clicking the <code><-</code> </i> of the individual restaurant page </li>
- <li> Listing of restaurants both <i>all</i> and <i>individual</i> are done using <a href="https://www.npmjs.com/package/react-router-dom">React Router</a></li>
- <li> All the restaurant details are stored in the database i.e. <i>persistant</i>
- <li> All the currencies are shown in <i>INR</i> &#8377; format
-</ul>
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## Installation
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-1. Clone the repository using `git clone https://github.com/anijitsahu/react-app-simple-restaurant-app.git` from `Git Bash / Command Prompt`
-2. Navigate inside the directory by `cd react-app-simple-restaurant-app`
-3. Install all the necessary dependecies by using `npm install` 
-4. Navigate to the directory `cd server`
-5. Run the server by `node server.js`
-6. Open the web browser and type`http://localhost:3000` in the address bar to load the application 
-7. Search restaurants using `name`, `cuisines`, `locality` etc
-8. Filter the search results by `cost for 2 persons`, `establishment type` and `locality`
-9. Sort the results by `price` and `rating`
-10. View details of each restaurant by clicking `View Details` button
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
- 
-*tested with <img src="screenshots/chrome.png" width="20px" title="Google Chrome">Google Chrome v70 and <img src="screenshots/firefox.png" width="25px" title="Firefox Developer edition">Mozilla Firefox Developer Editon*  
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Screenshots
+## Learn More
 
-Some screens of the application is given below for better understanding. 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Desktop as well as Mobile version of the screenshots are given side by side.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-<p> Home Screen <br/> 
- <img src="screenshots/desktop 1.png" width="590px" title="Home screen"/>
- <img src="screenshots/mobile 1.png" width="190px" title="Home screen"/> 
-</p>
- 
- <p> Entering search text <br/> 
- <img src="screenshots/desktop 2.png" width="590px" title="Entering search text screen"/>
- <img src="screenshots/mobile 2.png" width="190px" title="Entering search text screen"/> 
-</p>
+### Code Splitting
 
-<p> Loading results <br/> 
- <img src="screenshots/desktop 3.png" width="590px" title="Loading results screen"/>
- <img src="screenshots/mobile 3.png" width="190px" title="Loading results screen"/> 
-</p>
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-<p> When results are loaded <br/> 
- <img src="screenshots/desktop 4.png" width="590px" title="When results are loaded screen"/>
- <img src="screenshots/mobile 4.png" width="190px" title="When results are loaded screen"/> 
-</p>
+### Analyzing the Bundle Size
 
-<p> View Individual restaurant  <br/> 
- <img src="screenshots/desktop 5.png" width="590px" title="View Individual restaurant screen"/>
- <img src="screenshots/mobile 5.png" width="190px" title="View Individual restaurant screen"/> 
-</p>
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-<p> Sorting with ascending prices <br/> 
- <img src="screenshots/desktop 6.png" width="590px" title="Sorting with ascending prices screen"/>
- <img src="screenshots/mobile 6.png" width="190px" title="Sorting with ascending prices screen"/> 
-</p>
+### Making a Progressive Web App
 
-<p> Apply the filter <span> <code>bar</code> </span> <br/> 
- <img src="screenshots/desktop 7.png" width="590px" title="Apply the filter bar screen"/>
- <img src="screenshots/mobile 7.png" width="190px" title="Apply the filter bar screen"/> 
-</p>
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
