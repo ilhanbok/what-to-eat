@@ -1,4 +1,102 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
+
+/* Favorites Page CSS */
+
+.card {
+  margin: auto;
+  text-align: center;
+  font-size: 40px;
+
+  border: 1px solid #F2DED0;
+  border-radius: 80px;
+  background-color: #F2DED0;
+  color: #544F59;
+  font-family: "Franklin Gothic light";
+
+  padding: 20px;
+  min-height: 80%;
+  min-width: 80%;
+}
+
+.fav-card {
+  width: 80%;
+}
+
+.fav-table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+.fav-title {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.fav-item {
+  border: 1px solid black;
+  font-size: 36px;
+  padding: 20px;
+}
+
+.fav-update {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* User Profile CSS */
+
+.profile-card {
+  display: inline-block;
+}
+
+.update {
+  font-size: 16px;
+}
+
+.biguser {
+  font-size: 120px;
+  margin: 10px;
+}
+
+.wrapper {
+  border: 1px solid #FCBA8F;
+  border-radius: 20px;
+  text-align: left;
+  padding: 15px;
+  background-color: #FCBA8F;
+
+  display: inline-block;
+  margin: auto;
+}
+
+.stack {
+  display: block;
+  margin: 30px;
+}
+
+input[type="text"], input[type="password"] {
+  border: none;
+  font-size: 18px !important;
+  padding: 0px !important;
+  margin-left: 10px;
+}
+
+.button {
+  margin: 20px;
+  padding: 15px;
+  border: 1px #F47D31 solid;
+  background-color: #F47D31;
+  font-family: "Franklin Gothic Medium";
+  border-radius: 20px;
+  cursor: pointer;
+  color: #544F59;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -19,35 +117,52 @@ html {
 }
 
 .container {
-  display: grid;
+  /*display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px calc(100vh - 50px);
+  grid-template-rows: 50px calc(100vh - 50px);*/
+  text-align: center;
+  width: 100%;
 }
+
+/* Navigation Bar CSS */
 
 .header {
   display: grid;
-  background-color: #ab14ab;
-  color: #fff;
+  color: black;
 
   grid-template-columns:1fr;
   padding: 1em;
 }
 
-
 /* title of the application related */
 .title {
   font-weight: 300;
   text-transform: uppercase;
+  text-align: left;
+}
+
+.home, .profile, .favorite {
+  font-size: 28px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.home {
+  /* add attributes as needed */
+}
+
+.profile {
+  width: 28px;
+  float: right;
+}
+
+.favorite {
+  width: 28px;
+  float: right;
 }
 
 .bold-title {
   font-weight: 700;
-}
-
-input[type=text] {
-  padding: 1.9em;
-  font-size: 0.7em;
-  letter-spacing: 1px;  
 }
 
 
@@ -65,12 +180,12 @@ input[type=text] {
 /* Hero component related */
 .hero-div {
   background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0,0.5)), url(http://localhost:3000/images/hero.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	display: grid;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
 
-	/* height: calc(100vh - 50px); */
-	align-items: end;
+  /* height: calc(100vh - 50px); */
+  align-items: end;
   justify-items: center;
   position: relative;
 }
@@ -346,7 +461,7 @@ a {
 .restaurant-photo {
   border-radius: 5px;
   border: solid 1px #ddd;
-  
+
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://localhost:3000/images/hero.jpg);
   background-size: cover;
   margin-bottom: 8px;
@@ -419,11 +534,11 @@ a {
     overflow-y: hidden;
   }
 
-  .restaurants-list { 
+  .restaurants-list {
     display: grid;
     grid-template-columns: 1fr;
   }
-  
+
   .category-div {
     padding: 1.2em;
   }
@@ -446,5 +561,5 @@ a {
     width: 100%;
     /* height: calc(100vh - 62px); */
   }
-  
+
 }
