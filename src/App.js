@@ -47,7 +47,6 @@ class App extends Component {
     let { showContent, userInfo, searchByValue, searchText } = this.state
     return (
       <BrowserRouter>
-        <div className="container">
           { /* including the Title and other components */}
           <Switch>
             <Route exact path='/home' component={Home} />
@@ -59,8 +58,6 @@ class App extends Component {
             <Route exact path='/restaurantinfo' component={RestaurantInfo}/>
             {/* <Route exact path='/login' component={Login}/> */}
           </Switch>
-
-        </div>
       </BrowserRouter>
     );
   }

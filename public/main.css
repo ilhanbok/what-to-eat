@@ -52,6 +52,7 @@
 
 .profile-card {
   display: inline-block;
+  width: 80%;
 }
 
 .update {
@@ -116,10 +117,10 @@ html {
   }
 }
 
-.container {
-  /*display: grid;
+.box {
+  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px calc(100vh - 50px);*/
+  grid-template-rows: 50px calc(100vh - 50px);
   text-align: center;
   width: 100%;
 }
@@ -521,7 +522,7 @@ a {
 /* media queries */
 @media screen and (max-width: 500px) {
 
-  .container {
+  .box {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 30px calc(100vh - 30px);

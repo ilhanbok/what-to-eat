@@ -31,7 +31,7 @@ class Home extends React.Component {
     render() {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
-            <div className="container">
+            <div className="box">
                 { /* including the Title and other components */}
                 <Header />
                 <FilterPanel />

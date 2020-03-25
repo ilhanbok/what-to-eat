@@ -25,6 +25,10 @@ const Title = () => {
                   </Nav.Link>
                   <Nav.Link href="../login">Login
                   </Nav.Link>
+                  <Nav.Link href="../search">Home
+                  </Nav.Link>
+                  <Nav.Link href="../restaurantinfo">Restaurant Info
+                  </Nav.Link>
               </Nav>
           </Navbar.Collapse>
       </Navbar>
