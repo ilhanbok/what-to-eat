@@ -15,6 +15,7 @@ import Favorite from "./components/Favorite";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import Search from "./components/Search";
+import RestaurantInfo from "./components/RestaurantInfo";
 
 
 // css
@@ -55,6 +56,7 @@ class App extends Component {
             <Route exact path='/login' component ={Login}/>
             <Route exact path='/signup' component ={Signup}/>
             <Route exact path='/search' component={Search}/>
+            <Route exact path='/restaurantinfo' component={RestaurantInfo}/>
             {/* <Route exact path='/login' component={Login}/> */}
           </Switch>
 
