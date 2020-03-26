@@ -6,9 +6,9 @@ import Title from './Title'
 
 const Header = ({ userInfo }) => {
   return (
-    <div className="header">
+
       <Title />
-    </div>
+
   );
 };
 

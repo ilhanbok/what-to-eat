@@ -1,39 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from "react-bootstrap/Nav";
+//import { LinkContainer } from "react-router-bootstrap";
+import Button from "react-bootstrap/Button";
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
+import StarsIcon from '@material-ui/icons/Stars';
 
-class Title extends Component {
-  constructor() {
-    super();
-    
-    this.goHome = this.goHome.bind(this);
-    this.goFavorites = this.goFavorites.bind(this);
-    this.goProfile = this.goProfile.bind(this);
-  }
-  
-  goHome() {
-    alert('Home button clicked!');
-    // Add redirect code here
-  }
-  
-  goFavorites() {
-    alert('Star button clicked!');
-    // Add redirect code here
-  }
-  
-  goProfile() {
-    alert('User button clicked!');
-    // Add redirect code here
-  }
 
-  render() {
-    return (
-      <div className="title">
-        <i class="fa fa-home home" onClick={this.goHome}></i>
-        What <span className="bold-title">To Eat</span>
-        <i class="fa fa-star favorite" onClick={this.goFavorites}></i>
-        <i class="fa fa-user-circle profile" onClick={this.goProfile}></i>
-      </div>
-    );
-  }
+const Title = () => {
+  return (
+      <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="../home">What to Eat</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+              </Nav>
+              <Nav pullRight>
+                  <Nav.Link href="../favorite">Favorite</Nav.Link>
+                  <Nav.Link href="../Profile">Profile</Nav.Link>
+                  <Nav.Link href="../signup">Sign-Up
+                  </Nav.Link>
+                  <Nav.Link href="../login">Login
+                  </Nav.Link>
+                  <Nav.Link href="../search">Home
+                  </Nav.Link>
+                  <Nav.Link href="../restaurantinfo">Restaurant Info
+                  </Nav.Link>
+              </Nav>
+          </Navbar.Collapse>
+      </Navbar>
+  );
 };
 
 

@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 // components
-import Header from './layout/Header';
+import Header from '../components/layout/Header';
+
+
 // css
 import '../css/style.css'
 
 
 class Profile extends Component {
+    // static propTypes = {
+    //   className: PropTypes.string,
+    // };
 
     constructor(props) {
         super(props);
+
         this.state = {
             username: '',
             password: '',
@@ -36,18 +42,16 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="box">
                 <Header />
-                <div className="card" style={ {padding:50}}>
+                <div className="profile-card card">
                     USER PROFILE
                     <div className="update">
-                        <i class="fa fa-user-circle biguser" style={ {marginTop:30, fontSize: 100}} ></i>
+                        <i class="fa fa-user-circle biguser"></i>
                         <label className="stack">
                             <div className="wrapper">
                                 USERNAME:
-                                <input type="text"
-                                       value={this.state.username}
-                                       onChange={this.handleUsernameChange} />
+                                <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
                             </div>
                         </label>
                         <label className="stack">
