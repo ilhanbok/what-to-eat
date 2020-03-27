@@ -11,24 +11,28 @@ import StarsIcon from '@material-ui/icons/Stars';
 
 
 const Title = () => {
-  return (
-      <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="../home">What to Eat</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-              </Nav>
-              <Nav pullRight>
-                  <Nav.Link href="../favorite">Favorite</Nav.Link>
-                  <Nav.Link href="../Profile">Profile</Nav.Link>
-                  <Nav.Link href="../signup">Sign-Up
-                  </Nav.Link>
-                  <Nav.Link href="../login">Login
-                  </Nav.Link>
-              </Nav>
-          </Navbar.Collapse>
-      </Navbar>
-  );
+    return (
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="../home">What to Eat</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                </Nav>
+                <Nav pullRight>
+                    <Nav.Link href="../favorite">Favorite</Nav.Link>
+                    <Nav.Link href="../Profile">Profile</Nav.Link>
+                    <Nav.Link href="../signup">Sign-Up
+                    </Nav.Link>
+                    <Nav.Link href="../login">Login
+                    </Nav.Link>
+                    <Nav.Link href="../search">Home
+                    </Nav.Link>
+                    <Nav.Link href="../restaurantinfo">Restaurant Info
+                    </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+    );
 };
 
 
