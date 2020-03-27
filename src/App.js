@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Profile from "./components/Profile";
 import { BrowserRouter } from 'react-router-dom';
 import { BrowserRouter as HashRouter, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';

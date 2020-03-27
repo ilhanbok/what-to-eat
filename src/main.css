@@ -33,6 +33,9 @@ html {
   padding: 1em;
 }
 
+.box{
+  background-color: red;
+}
 
 /* title of the application related */
 .title {
@@ -446,5 +449,5 @@ a {
     width: 100%;
     /* height: calc(100vh - 62px); */
   }
-  
+
 }
