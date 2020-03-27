@@ -20,8 +20,8 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      showContent: false,
-      searchText: ''
+      showContent: true,
+      searchText: 'm'
     }
     this.searchByValue = this.searchByValue.bind(this)
   }
