@@ -126,7 +126,10 @@ export default function Signup(props) {
     return (
         <div className="Signup">
             <Header />
+            <div className = "border">
+            <text className = "h1"> Sign UP</text>
             {newUser === null ? renderForm() : renderConfirmationForm()}
+            </div>
         </div>
     );
 }

@@ -3,5 +3,13 @@
         padding-top: 2%;
         margin: 0 auto;
         max-width: 320px;
+        align-items: center;
     }
+    .border {
+        margin: 100px;
+        padding-bottom: 100px;
+        padding-top: 100px;
+    }
+  
+   
 }
