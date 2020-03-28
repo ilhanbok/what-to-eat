@@ -20,7 +20,7 @@ export default function Login(props) {
         <div className="Container">
             <Header />
             <div className="Login">
-            <div className="card">
+            {/* <div className="card"> */}
                 <form onSubmit={handleSubmit}>
                     <FormGroup controlId="email" >
                         <FormLabel>Email</FormLabel>
@@ -46,7 +46,7 @@ export default function Login(props) {
                     </Button>
                 </form>
             </div>
-            </div>
+            {/* </div> */}
         </div>
     );
 }
