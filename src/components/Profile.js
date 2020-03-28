@@ -37,7 +37,7 @@ class Profile extends Component {
         return (
             <div class="Container">
                 <Header />
-                <div className="profile-card card">
+                <div className="profile-card card" style = {{marginTop:100}}>
                     USER PROFILE
                     <div className="update">
                         <i class="fa fa-user-circle biguser"></i>
