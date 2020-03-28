@@ -67,8 +67,8 @@ class RestaurantInfo extends Component {
                     </div>
                     <br/>
                     <body>
-                        Reviews from other users:<br/>
-                        Colonel Sanders: I love Big Mac
+                    Reviews from other users:<br/>
+                    Colonel Sanders: I love Big Mac
                     </body>
                 </div>
             </div>

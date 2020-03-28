@@ -87,12 +87,12 @@ input[type=text] {
 
 /* Search bar related */
 .btn {
-  background-color: #ab14ab;
+  background-color: #F5A571;
   color: #fff;
   padding: 1.3em;
   letter-spacing: 2px;
   border-radius: 2px;
-  border: solid 1px #ab14ab;
+  border: solid 1px #F5A571;
   font-size: 0.7em;
 }
 .search-bar {
@@ -287,6 +287,8 @@ a {
 .filter-info {
   text-transform: capitalize;
   padding: 1em;
+  text-align: left;
+  margin-left: 2%;
 }
 
 .filter-name {
@@ -295,6 +297,7 @@ a {
 
 .filter-title {
   text-transform: capitalize;
+  font-weight: bold;
 }
 
 .item-info {
