@@ -1,4 +1,8 @@
 @media all and (min-width: 480px) {
+    .Signup{
+        background-color: #FAF7F2;
+        padding-bottom: 10%;
+    }
     .Signup form {
         padding-top: 2%;
         margin: 0 auto;
@@ -9,6 +13,10 @@
         margin: 100px;
         padding-bottom: 100px;
         padding-top: 100px;
+        background-color: white;
+    }
+    .h1text{
+        align-items: center;
     }
   
    
