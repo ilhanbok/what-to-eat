@@ -44,19 +44,19 @@ class Profile extends Component {
                         <label className="stack">
                             <div className="wrapper">
                                 USERNAME:
-                                <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+                                <input type="text" className="hide-border" value={this.state.username} onChange={this.handleUsernameChange} />
                             </div>
                         </label>
                         <label className="stack">
                             <div className="wrapper">
                                 PASSWORD:
-                                <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                                <input type="password" className="hide-border" value={this.state.password} onChange={this.handlePasswordChange} />
                             </div>
                         </label>
                         <label className="stack">
                             <div className="wrapper">
                                 CONFIRM PASSWORD:
-                                <input type="password" value={this.state.confirm} onChange={this.handleConfirmChange} />
+                                <input type="password" className="hide-border" value={this.state.confirm} onChange={this.handleConfirmChange} />
                             </div>
                         </label>
                         <button className="button" OnClick={this.verifyCredentials}>UPDATE</button>
