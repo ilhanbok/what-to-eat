@@ -80,7 +80,7 @@
   margin: 30px;
 }
 
-input[type="text"], input[type="password"] {
+.hide-border {
   border: none;
   font-size: 18px !important;
   padding: 0px !important;
