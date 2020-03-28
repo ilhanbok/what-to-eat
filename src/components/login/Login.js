@@ -17,12 +17,12 @@ export default function Login(props) {
     }
 
     return (
-
         <div className="Container">
             <Header />
             <div className="Login">
+            <div className="card">
                 <form onSubmit={handleSubmit}>
-                    <FormGroup controlId="email" bsSize="large">
+                    <FormGroup controlId="email" >
                         <FormLabel>Email</FormLabel>
                         <FormControl
                             autoFocus
@@ -34,15 +34,18 @@ export default function Login(props) {
                     <FormGroup controlId="password" bsSize="large">
                         <FormLabel>Password</FormLabel>
                         <FormControl
+                            autoFocus
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             type="password"
                         />
                     </FormGroup>
-                    <Button disabled={!validateForm()} type="submit">
+
+                    <Button disabled={!validateForm()} type="submit" bsSize = "small">
                         Login
                     </Button>
                 </form>
+            </div>
             </div>
         </div>
     );
