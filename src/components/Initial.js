@@ -9,9 +9,8 @@ export default function Initial() {
         <div className="Initial">
             <div className="lander">
                 <h1>What to Eat</h1>
-                <p>Yo</p>
 
-                <LinkContainer to="/search" className = 'discover_button'>
+                <LinkContainer to="/home" className = 'discover_button'>
                     <Button block bsSize="large">
                         Discover Food
                     </Button>
