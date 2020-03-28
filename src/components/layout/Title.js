@@ -12,22 +12,22 @@ import StarsIcon from '@material-ui/icons/Stars';
 
 const Title = () => {
     return (
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="../home">What to Eat</Navbar.Brand>
+        <Navbar expand="lg" style={{backgroundColor: "darkorange"}}>
+            <Navbar.Brand href="../home" style={{color: "white"}}>What to Eat</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 </Nav>
                 <Nav pullRight>
-                    <Nav.Link href="../favorite">Favorite</Nav.Link>
-                    <Nav.Link href="../Profile">Profile</Nav.Link>
-                    <Nav.Link href="../signup">Sign-Up
+                    <Nav.Link href="../favorite" style={{color: "white"}}>Favorite</Nav.Link>
+                    <Nav.Link href="../Profile" style={{color: "white"}}>Profile</Nav.Link>
+                    <Nav.Link href="../signup" style={{color: "white"}}>Sign-Up
                     </Nav.Link>
-                    <Nav.Link href="../login">Login
+                    <Nav.Link href="../login" style={{color: "white"}}>Login
                     </Nav.Link>
-                    <Nav.Link href="../search">Home
+                    <Nav.Link href="../search" style={{color: "white"}}>Home
                     </Nav.Link>
-                    <Nav.Link href="../restaurantinfo">Restaurant Info
+                    <Nav.Link href="../restaurantinfo" style={{color: "white"}}>Restaurant Info
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>

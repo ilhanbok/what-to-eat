@@ -11,6 +11,7 @@ import FilterPanel from './filter/FilterPanel';
 import ListPanel from './list/ListPanel';
 import NewFilter from './filter/NewFilter';
 import SearchBar from './search/SearchBar';
+import ListRestaurant from './list/ListRestaurant';
 
 
 // css
@@ -36,15 +37,22 @@ class Home extends React.Component {
     render() {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
-            <div className="container">
+            <div className="box">
                 <Header />
                 <div className="Content-div">
-                <div className="content-div-search-bar">
-                    <SearchBar
-                        searchByValue={this.searchByValue}
-                        searchTextChange={this.searchTextChange} />
-                </div>
-                <NewFilter />
+                    <div className="content-div-search-bar">
+                        <SearchBar
+                            searchByValue={this.searchByValue}
+                            searchTextChange={this.searchTextChange} />
+                    </div>
+                    <div className="restaurants-list">
+                        <div className="filter-restaurants">
+                            <NewFilter />
+                        </div>
+                        <div className="filter-restaurants">
+                            <ListRestaurant/>
+                        </div>
+                    </div>
                 </div>
             </div>
             /*<div className="container">

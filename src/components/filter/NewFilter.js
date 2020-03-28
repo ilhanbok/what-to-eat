@@ -6,6 +6,20 @@ const items = [
     'Sweet',
     'Savory',
 ];
+const items2 = [
+    'American',
+    'Chinese',
+    'Mexican',
+    'Indian',
+    'Italian',
+    'Korean',
+];
+const items3 = [
+    'Birthday',
+    'Business',
+    'Date',
+    'Families with Children',
+];
 
 class NewFilter extends Component {
     componentWillMount = () => {
@@ -39,22 +53,46 @@ class NewFilter extends Component {
     createCheckboxes = () => (
         items.map(this.createCheckbox)
     )
+    createCheckboxes2 = () => (
+        items2.map(this.createCheckbox)
+    )
+    createCheckboxes3 = () => (
+        items3.map(this.createCheckbox)
+    )
 
     render() {
         return (
-            <div className="container">
+
                 <div className="row">
-                    <div className="col-sm-12">
-                        <label>Taste</label>
-                        <form onSubmit={this.handleFormSubmit}>
-                            {this.createCheckboxes()}
-
-                            <button className="btn btn-default" type="submit">Search</button>
-                        </form>
-
+                    <div className="col">
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Taste</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes()}
+                            </form>
+                        </div>
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Cuisine</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes2()}
+                            </form>
+                        </div>
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Occassion</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes3()}
+                            </form>
+                        </div>
+                        <button className="btn btn-default" type="submit">SEARCH</button>
                     </div>
                 </div>
-            </div>
+
         );
     }
 }
