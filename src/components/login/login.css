@@ -7,4 +7,10 @@
         margin: 0 auto;
         max-width: 320px;
     }
+    .header{
+        size: 40px;
+    }
+    .plaintext{
+        size: 20px;
+    }
 }

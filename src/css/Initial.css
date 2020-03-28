@@ -1,0 +1,44 @@
+.Initial {
+    background: #FAF7F2;
+}
+
+.Initial .lander {
+    padding: 180px 0;
+    text-align: center;
+}
+
+.Initial .lander h1 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+}
+
+.Initial .lander p {
+    color: #999;
+}
+.Initial .lander .login_button {
+    background: #F5A571;
+    border-color: #F5A571;
+    position: absolute;
+    padding: 20px 0;
+    max-width: 10%;
+    top:50%;
+    left:39%;
+}
+.Initial .lander .signup_button {
+    background: #F5A571;
+    border-color: #F5A571;
+    position: absolute;;
+    padding: 20px 0;
+    max-width: 10%;
+    top:50%;
+    left:51%;
+}
+.Initial .lander .discover_button {
+    background: #F5A571;
+    border-color: #F5A571;
+    position: absolute;
+    padding: 20px 0;
+    max-width: 22%;
+    top:40%;
+    left:39%;
+}

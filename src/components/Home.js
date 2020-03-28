@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Row'
 
 // components
 import Header from './layout/Header';
@@ -6,6 +9,9 @@ import Content from './Content';
 import Hero from './layout/Hero';
 import FilterPanel from './filter/FilterPanel';
 import ListPanel from './list/ListPanel';
+import NewFilter from './filter/NewFilter';
+import SearchBar from './search/SearchBar';
+import ListRestaurant from './list/ListRestaurant';
 
 
 // css
@@ -31,11 +37,30 @@ class Home extends React.Component {
     render() {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
-            <div className="container">
-                { /* including the Title and other components */}
+            <div className="box">
                 <Header />
-                <FilterPanel />
+                <div className="Content-div">
+                    <div className="content-div-search-bar">
+                        <SearchBar
+                            searchByValue={this.searchByValue}
+                            searchTextChange={this.searchTextChange} />
+                    </div>
+                    <div className="restaurants-list">
+                        <div className="filter-restaurants">
+                            <NewFilter />
+                        </div>
+                        <div className="filter-restaurants">
+                            <ListRestaurant/>
+                        </div>
+                    </div>
+                </div>
             </div>
+            /*<div className="container">
+                { /!* including the Title and other components *!/}
+                <Header />
+                <SearchBar />
+                <NewFilter />
+            </div>*/
         );
     }
 }

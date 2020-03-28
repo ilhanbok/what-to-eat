@@ -39,7 +39,7 @@ class RestaurantInfo extends Component {
         const { address } = this.state;
         const { zipcode } = this.state;
         return(
-            <div className="container">
+            <div className="box">
                 <Header />
                 <div className="fav-card card">
                     {name}

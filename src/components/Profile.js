@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
 // components
 import Header from '../components/layout/Header';
-
-
 // css
 import '../css/style.css'
 
 
 class Profile extends Component {
-    // static propTypes = {
-    //   className: PropTypes.string,
-    // };
-
     constructor(props) {
         super(props);
 
@@ -42,7 +35,7 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div class="box">
                 <Header />
                 <div className="profile-card card">
                     USER PROFILE
