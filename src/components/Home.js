@@ -37,7 +37,7 @@ class Home extends React.Component {
     render() {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
-            <div className="box">
+            <div className="Container">
                 <Header />
                 <div className="Content-div">
                     <div className="content-div-search-bar">

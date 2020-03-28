@@ -36,7 +36,7 @@ class Search extends Component {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
             <BrowserRouter>
-                <div className="box">
+                <div className="Container">
                     { /* including the Title and other components */}
                     <Header />
                     {(showContent == false)

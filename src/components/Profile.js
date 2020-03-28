@@ -35,7 +35,7 @@ class Profile extends Component {
 
     render() {
         return (
-            <div class="box">
+            <div class="Container">
                 <Header />
                 <div className="profile-card card">
                     USER PROFILE

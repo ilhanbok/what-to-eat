@@ -56,7 +56,7 @@ class Favorite extends Component {
 
     render() {
         return (
-            <div className="box">
+            <div className="Container">
                 <Header />
                 <div className="fav-card card">
                     <div className="fav-title">
