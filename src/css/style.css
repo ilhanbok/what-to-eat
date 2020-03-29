@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+.fa{
+  font-size: 24px;
+  color: white;
+}
+
 body{
   background-color: #FAF7F2;
 }
@@ -454,5 +459,8 @@ a {
     width: 100%;
     /* height: calc(100vh - 62px); */
   }
+
+
+
 
 }
