@@ -62,7 +62,7 @@ class RestaurantInfo extends Component {
                             onStarClick={this.onStarClick.bind(this)}
                         /></body>
                         <body>Say something about this restaurant:</body>
-                        <body><input/></body>
+                        <body><textarea rows="10" cols="50">Say something here...</textarea></body>
                         <body><button className="button" onClick={this.addReview}>post</button></body>
                     </div>
                     <br/>
