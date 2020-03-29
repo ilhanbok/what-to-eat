@@ -36,6 +36,7 @@ class App extends Component {
                     <ResultList.Image src={image} />
                     <ResultList.Content>
                         <ResultList.Title>{resturant.name}</ResultList.Title>
+                        <i class="fa fa-star favorite"></i>
                         <ResultList.Description>
                             <div>
                                 <p>{address}</p>
