@@ -41,7 +41,7 @@ class RestaurantInfo extends Component {
         return(
             <div className="Container">
                 <Header />
-                <div className="fav-card card">
+                <div className="fav-card card" style = {{marginTop:100}}>
                     {name}
                     <h2>Avg. Rating: {avgRating}/5</h2>
                     <h2><StarRatingComponent
