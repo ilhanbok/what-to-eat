@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
+import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
 
 // components
 
@@ -62,7 +64,8 @@ class RestaurantInfo extends Component {
                             onStarClick={this.onStarClick.bind(this)}
                         /></body>
                         <body>Say something about this restaurant:</body>
-                        <body><input/></body>
+                        <FormControl as="textarea" rows="6" cols="50" placeholder="Write comment here..."/>
+                        {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
                         <body><button className="button" onClick={this.addReview}>post</button></body>
                     </div>
                     <br/>

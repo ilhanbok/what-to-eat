@@ -100,7 +100,7 @@ input[type=text] {
   padding: 1.3em;
   letter-spacing: 2px;
   border-radius: 2px;
-  border: solid 1px #F5A571;
+  border: solid 1px #F5A571 !important;
   font-size: 0.7em;
 }
 .search-bar {
@@ -284,6 +284,7 @@ a {
 
 /* Filter Restaurant related */
 .filter-restaurants {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr;
   background-color: #fff;
@@ -460,8 +461,8 @@ a {
     /* height: calc(100vh - 62px); */
   }
 
-  .fa-star:before{
-    color: white;
+  .textarea.form-control {
+    width: 50% !important;
   }
 
 
