@@ -8,15 +8,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // components
 import Header from './components/layout/Header';
-import Content from './components/Content';
-import Hero from './components/layout/Hero';
 import Initial from './components/Initial'
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Favorite from "./components/Favorite";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
-import Search from "./components/Search";
 import RestaurantInfo from "./components/RestaurantInfo";
 
 
@@ -38,7 +35,6 @@ class App extends Component {
             <Route exact path='/favorite' component={Favorite} />
             <Route exact path='/login' component ={Login}/>
             <Route exact path='/signup' component ={Signup}/>
-            <Route exact path='/search' component={Search}/>
             <Route exact path='/restaurantinfo' component={RestaurantInfo} />
             {/* <Route exact path='/login' component={Login}/> */}
           </Switch>

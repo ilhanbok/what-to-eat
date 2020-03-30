@@ -23,6 +23,7 @@ const Title = () => {
                     <Nav.Link href="../Profile" style={{color: "white"}}><i class="fa fa-user-circle"></i></Nav.Link>
                     {/* <Nav.Link href="../search" style={{color: "white"}}>Home
                     </Nav.Link>*/}
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
