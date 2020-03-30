@@ -2,6 +2,7 @@
     .Login {
         padding: 60px 0;
         background-color: #FAF7F2;
+        padding-bottom: 50%;
     }
 
     .Login form {
@@ -14,7 +15,21 @@
     .plaintext{
         size: 20px;
     }
-    .card{
+    .border{
         margin: 100px;
     }
+    .h1text{
+        text-align: center;
+    }
+
+    /*.btn.btn-primary.btn-block{
+        background-color: black !important;
+    }*/
+    
+}
+#login_button{
+    margin: 10px auto;
+    width: 100px;
+    color:white;
+    text-align: center;
 }

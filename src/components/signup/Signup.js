@@ -117,8 +117,11 @@ export default function Signup(props) {
                     isLoading={isLoading}
                     disabled={!validateForm()}
                 >
-                    Signup
+                    SIGN UP
                 </LoaderButton>
+                <center><p className="inline">Already a member? </p><a className="inline" href="/login"><h7 ><u>Log in</u></h7></a></center>
+
+
             </form>
         );
     }
@@ -127,7 +130,7 @@ export default function Signup(props) {
         <div className="Signup">
             <Header />
             <div className = "border">
-            <p className = "h1text"> Sign UP</p>
+            <h4 className = "h1text"> Sign Up</h4>
             {newUser === null ? renderForm() : renderConfirmationForm()}
             </div>
         </div>

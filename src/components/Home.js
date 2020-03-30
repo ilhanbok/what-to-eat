@@ -5,8 +5,6 @@ import Col from 'react-bootstrap/Row'
 
 // components
 import Header from './layout/Header';
-import Content from './Content';
-import Hero from './layout/Hero';
 import FilterPanel from './filter/FilterPanel';
 import ListPanel from './list/ListPanel';
 import NewFilter from './filter/NewFilter';
@@ -37,7 +35,7 @@ class Home extends React.Component {
     render() {
         let { showContent, userInfo, searchByValue, searchText } = this.state
         return (
-            <div className="box">
+            <div className="Container">
                 <Header />
                 <div className="Content-div">
                     <div className="content-div-search-bar">
