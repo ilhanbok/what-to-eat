@@ -95,7 +95,7 @@ input[type=text] {
 
 /* Search bar related */
 .btn {
-  background-color: #F5A571;
+  background-color: #F5A571 !important;
   color: #fff;
   padding: 1.3em;
   letter-spacing: 2px;

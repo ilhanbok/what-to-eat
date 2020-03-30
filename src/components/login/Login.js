@@ -46,7 +46,8 @@ export default function Login(props) {
                     <Button block disabled={!validateForm()} type="submit" bsSize = "small">
                         LOGIN
                     </Button>
-                    <center><h7><u>OR</u></h7></center>
+                    <br/>
+                    <center><h7>New to What to Eat?</h7></center>
 
                     <LinkContainer to="/signup" bsSize = 'large' id = 'login_button'>
                         <Button block bsSize="small" >

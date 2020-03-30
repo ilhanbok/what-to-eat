@@ -117,9 +117,9 @@ export default function Signup(props) {
                     isLoading={isLoading}
                     disabled={!validateForm()}
                 >
-                    Signup
+                    SIGN UP
                 </LoaderButton>
-                <a href="/login"><center><h7 ><u>LOGIN</u></h7></center></a>
+                <center><p className="inline">Already a member? </p><a className="inline" href="/login"><h7 ><u>Log in</u></h7></a></center>
 
 
             </form>
