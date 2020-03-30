@@ -10,7 +10,7 @@
 
 .navbar .fa{
   font-size: 24px;
-  color: white;
+  color: white !important;
 }
 
 body{
@@ -460,7 +460,9 @@ a {
     /* height: calc(100vh - 62px); */
   }
 
-
+  .fa-star:before{
+    color: white;
+  }
 
 
 }
