@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./login.css";
 import Header from "../layout/Header";
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -43,8 +44,15 @@ export default function Login(props) {
                     </FormGroup>
 
                     <Button block disabled={!validateForm()} type="submit" bsSize = "small">
-                        Login
+                        LOGIN
                     </Button>
+                    <center><h7><u>OR</u></h7></center>
+
+                    <LinkContainer to="/signup" bsSize = 'large' id = 'login_button'>
+                        <Button block bsSize="small" >
+                            SIGN UP
+                        </Button>
+                    </LinkContainer>
                 </form>
             </div>
             </div>

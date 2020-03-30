@@ -119,6 +119,9 @@ export default function Signup(props) {
                 >
                     Signup
                 </LoaderButton>
+                <a href="/login"><center><h7 ><u>LOGIN</u></h7></center></a>
+
+
             </form>
         );
     }
