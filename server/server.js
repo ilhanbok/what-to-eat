@@ -1,4 +1,4 @@
-// Import necessary modules
+/ Import necessary modules
 const mongoDB = require('mongodb'),
     express = require('express'),
     app = express();
@@ -148,9 +148,3 @@ const searchRestaurant = function(callback, restaurantName){
 app.listen(PORT);
 console.log('Server running on port %s', PORT);
 
-// Start database
-if (!db) {
-  initdb(function(err) {
-    console.error(err);
-  });
-}
