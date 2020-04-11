@@ -12,8 +12,8 @@ class Profile extends Component {
 
         this.state = {
             username: localStorage.getItem('userEmail'),
-            password: '',
-            confirm: ''
+            password: localStorage.getItem('userPassword'),
+            confirm: localStorage.getItem('userPassword'),
         }
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
