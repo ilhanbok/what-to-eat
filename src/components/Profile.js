@@ -11,7 +11,7 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-            username: '',
+            username: localStorage.getItem('userEmail'),
             password: '',
             confirm: ''
         }
