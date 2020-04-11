@@ -44,20 +44,20 @@ export default function Signup(props) {
     }
 
     async function handleSubmit(event) {
-        event.preventDefault();
+                event.preventDefault();
 
-        setIsLoading(true);
+                setIsLoading(true);
 
-        try {
-            const newUser = await Auth.signUp({
-              username: fields.email,
-              password: fields.password,
-            });
-            setIsLoading(false);
-            setNewUser(newUser);
-          } catch (e) {
-            setIsLoading(false);
-          }
+                try {
+                    const newUser = await Auth.signUp({
+                    username: fields.email,
+                    password: fields.password,
+                    });
+                    setIsLoading(false);
+                    setNewUser(newUser);
+                } catch (e) {
+                    setIsLoading(false);
+                }
     }
 
     async function handleConfirmationSubmit(event) {
@@ -68,12 +68,12 @@ export default function Signup(props) {
         try {
             await Auth.confirmSignUp(fields.email, fields.confirmationCode);
             await Auth.signIn(fields.email, fields.password);
-        
+
             // userHasAuthenticated(true);
             // history.push("/");
-          } catch (e) {
+        } catch (e) {
             setIsLoading(false);
-          }
+        }
     }
 
     function renderConfirmationForm() {
