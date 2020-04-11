@@ -2,6 +2,7 @@
 const mongoDB = require('mongodb'),
       express = require('express'),
       app = express();
+	  MongoClient = require('mongodb').MongoClient;
 
 // Which port to run mongoDB on localhost
 const PORT = 5000;
@@ -10,6 +11,7 @@ const mongoURL = 'mongodb://localhost';
 var db = null, // Entire database
     ut = null, // User info table
     rt = null; // Restaurant table
+// TODO: need the comment table from yelp data
 
 //var yt = null; // Yelp data table
 
@@ -67,7 +69,7 @@ const getPassword = function(callback, name) {
 
 // Looks up and returns a restaurant by its ID.
 const lookupRestaurant = function(callback, restaurantId) {
-  rt.find({ id : restaurantId }).toArray(function(err, docs) {
+  rt.find({ business_id : restaurantId }).toArray(function(err, docs) {
     if (err) {
       callback(err, null); // fail securely
     } else if (docs.length == 0) {
@@ -103,6 +105,44 @@ const lookupUser = function(callback, userId) {
 const lookupComment = function(callback, commentId) {
   // TODO: How would one implement this? We do not have a Comment class
 }
+
+// Search and returns a restaurant by its Name.
+const searchRestaurant = function(callback, restaurantName){
+	rt.find({ name : restaurantName }).toArray(function(err, docs) {
+		if (err) {
+			callback(err, null); // fail securely
+		} else if (docs.length == 0) {
+			console.error('lookupRestaurant: Restaurant to find by Name does not exist');
+			callback(true, null);
+		} else { // Reluctance to trust
+			if (docs.length > 1) {
+				console.log('lookupRestaurant: Duplicate restaurants found, returning first');
+			}
+			callback(true, docs[0]);
+		}
+	});
+}
+
+// Search and returns a restaurant by its Name.
+const searchRestaurant = function(callback, restaurantName){
+	var query = {name: restaurantName};
+	rt.find(query).toArray(function(err, docs) {
+		if (err) {
+			callback(err, null); // fail securely
+		} else if (docs.length == 0) {
+			console.error('lookupRestaurant: Restaurant to find by Name does not exist');
+			callback(true, null);
+		} else { // Reluctance to trust
+			if (docs.length > 1) {
+				console.log('lookupRestaurant: Duplicate restaurants found, returning first');
+			}
+			callback(true, docs[0]);
+			//console.log(docs);
+			//rt.close();
+		}
+	});
+}
+
 
 // Start server
 app.listen(PORT);
