@@ -4,8 +4,10 @@ import "./login.css";
 import Header from "../layout/Header";
 import { LinkContainer } from "react-router-bootstrap";
 import { Auth } from "aws-amplify";
+import { useAppContext } from "../../libs/contextLib";
 
-export default function Login(props) {
+export default function Login(props) {  
+    const { userHasAuthenticated } = useAppContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -18,7 +20,8 @@ export default function Login(props) {
         /*Login button*/
         try {
             await Auth.signIn(email, password);
-            alert("Logged in");
+            alert('Logged in');
+            userHasAuthenticated(true);
         } catch (e) {
             alert(e.message);
         }
