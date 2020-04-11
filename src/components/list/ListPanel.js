@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
 // components
-import ListAllRestaurants from './ListAllRestaurants'
+import ListRestaurants from './ListRestaurant'
 import ListEachRestaurant from './ListEachRestaurant'
 
 const ListPanel = (props) => {
@@ -12,7 +12,7 @@ const ListPanel = (props) => {
     <div className="all-restaurants">
       <Switch>
         <Route exact path="/search" render={(props) => (
-          <ListAllRestaurants {...props} restaurants={restaurants} />
+          <ListRestaurants {...props} restaurants={restaurants} />
         )}>
         </Route>
         <Route path="/showrestaurant/:id" render={(props) => (

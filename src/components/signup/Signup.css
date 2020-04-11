@@ -18,6 +18,9 @@
     .h1text{
         text-align: center;
     }
+    .inline {
+        display: inline;
+    }
   
    
 }

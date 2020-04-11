@@ -16,6 +16,28 @@ import desserts from "../Images/desserts.jpeg";
 import sandwich from "../Images/sandwich.jpeg";
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            starName : {}
+        }
+    }
+    
+    toggleStar(res) {
+        const toToggle = document.getElementById("star" + res);
+        if (toToggle.classList.contains("fa-star-o")) {
+            toToggle.classList.remove("fa-star-o");
+            toToggle.classList.add("fa-star");
+            this.state.starName[res] = "fa-star";
+        } else {
+            toToggle.classList.remove("fa-star");
+            toToggle.classList.add("fa-star-o");
+            this.state.starName[res] = "fa-star-o";
+        }
+    }
+
     onData(resturant) {
         const image =
             resturant.cuisine === "Bar Food"
@@ -29,6 +51,17 @@ class App extends Component {
                         : sandwich;
 
         const { rating, currency, address, cuisine } = resturant;
+        
+        
+        const sanitize = (name) => {
+            var res = name.match(/\w+/g).join("");
+            return res;
+        }
+        
+        const getStatus = (res) => {
+          if (!(res in this.state.starName)) this.state.starName[res] = "fa-star-o";
+          return this.state.starName[res];
+        }
 
         return (
             <ReactiveList.ResultListWrapper>
@@ -36,6 +69,7 @@ class App extends Component {
                     <ResultList.Image src={image} />
                     <ResultList.Content>
                         <ResultList.Title>{resturant.name}</ResultList.Title>
+                        <i className={"fa favorite " + getStatus(sanitize(resturant.name))} id={"star" + sanitize(resturant.name)} onClick={this.toggleStar.bind(this, sanitize(resturant.name))}></i>
                         <ResultList.Description>
                             <div>
                                 <p>{address}</p>
@@ -69,7 +103,7 @@ class App extends Component {
                                 dataField="name"
                                 from={0}
                                 size={15}
-                                renderItem={this.onData}
+                                renderItem={this.onData.bind(this)}
                                 pagination={true}
                                 react={{
                                     and: [
