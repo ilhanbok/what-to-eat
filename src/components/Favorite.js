@@ -58,7 +58,7 @@ class Favorite extends Component {
         return (
             <div className="Container" >
                 <Header />
-                <div className="fav-card card" style = {{margin:100}}>
+                <div className="fav-card card" style = {{'margin-top':100}}>
                     <div className="fav-title">
                         <div className="fav-title-box">
                             <div>Favorite</div>

@@ -3,6 +3,7 @@ import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./login.css";
 import Header from "../layout/Header";
 import { LinkContainer } from "react-router-bootstrap";
+import { Auth } from "aws-amplify";
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -12,9 +13,15 @@ export default function Login(props) {
         return email.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         /*Login button*/
+        try {
+            await Auth.signIn(email, password);
+            alert("Logged in");
+        } catch (e) {
+            alert(e.message);
+        }
     }
 
     return (
