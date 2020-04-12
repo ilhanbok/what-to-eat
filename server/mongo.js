@@ -89,19 +89,27 @@ const lookupRestaurant = function(callback, id) {
   });
 }
 
-// Looks up and returns a restaurant by its Name.
-const searchRestaurant = function(callback, name) {
-  rt.find({ name : { "$regex": name, "$options": "i" } }).toArray(function(err, docs) {
+// Get restaurants by criteria
+const getRestaurantsByMood = function(callback, mood) {
+  rt.find({ 'attributes.Ambience' : {$regex : "'" + mood + "': True"} }).toArray(function(err, docs) {
     if (err) {
-      callback(err, null); // fail securely
+      callback(err, null);
     } else if (docs.length == 0) {
-      console.error('lookupRestaurant: Restaurant to find by ID does not exist');
+      console.error('getRestaurantsByMood: No restaurants exist for mood: ' + mood);
       callback(false, null);
-    } else { // Reluctance to trust
-      if (docs.length > 1) {
-        console.log('lookupRestaurant: Duplicate restaurants found, returning first');
-      }
-      callback(false, docs[0]);
+    } else {
+      callback(false, docs);
+    }
+  });
+}
+
+// Get all restaurants
+const getAllRestaurants = function(callback) {
+  rt.find({}).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(false, docs);
     }
   });
 }
@@ -152,5 +160,5 @@ module.exports = {
   initdb : initdb,
   lookupRestaurant : lookupRestaurant,
   lookupPhotos : lookupPhotos,
-  searchRestaurant:searchRestaurant
+  getRestaurantsByMood : getRestaurantsByMood
 }
