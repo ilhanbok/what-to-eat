@@ -11,9 +11,9 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
-            confirm: ''
+            username: localStorage.getItem('userEmail'),
+            password: localStorage.getItem('userPassword'),
+            confirm: localStorage.getItem('userPassword'),
         }
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -38,29 +38,29 @@ class Profile extends Component {
             <div class="Container">
                 <Header />
                 <div className="profile-card card" style = {{marginTop:100}}>
-                    USER PROFILE
+                    User Profile
                     <div className="update">
                         <i class="fa fa-user-circle biguser"></i>
                         <label className="stack">
                             <div className="wrapper">
-                                USERNAME:
+                                Username:
                                 <input type="text" className="hide-border" value={this.state.username} onChange={this.handleUsernameChange} />
                             </div>
                         </label>
                         <label className="stack">
                             <div className="wrapper">
-                                PASSWORD:
+                                Password:
                                 <input type="password" className="hide-border" value={this.state.password} onChange={this.handlePasswordChange} />
                             </div>
                         </label>
                         <label className="stack">
                             <div className="wrapper">
-                                CONFIRM PASSWORD:
+                                Confirm Password:
                                 <input type="password" className="hide-border" value={this.state.confirm} onChange={this.handleConfirmChange} />
                             </div>
                         </label>
-                        <button className="button" OnClick={this.verifyCredentials}>UPDATE</button>
-                        <button className="button" OnClick={this.updateCredentials}>SAVE</button>
+                        <button className="button" OnClick={this.verifyCredentials}>Update</button>
+                        <button className="button" OnClick={this.updateCredentials}>Save</button>
                     </div>
                 </div>
             </div>
