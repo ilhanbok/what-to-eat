@@ -160,5 +160,6 @@ module.exports = {
   initdb : initdb,
   lookupRestaurant : lookupRestaurant,
   lookupPhotos : lookupPhotos,
-  getRestaurantsByMood : getRestaurantsByMood
+  getRestaurantsByMood : getRestaurantsByMood,
+  getAllRestaurants : getAllRestaurants
 }
