@@ -1,17 +1,19 @@
 // Import necessary modules
-const mongoDB = require('mongodb'),
-      express = require('express'),
-      app = express();
+const { MongoClient } = require('mongodb'),
+    express = require('express'),
+    fs = require('fs'),
+    app = express();
 
 // Which port to run mongoDB on localhost
 const PORT = 5000;
-const mongoURL = 'mongodb://localhost';
+// Atlas server URL, read from JSON file (DO NOT hardcode this)
+const mongoURL = JSON.parse(fs.readFileSync('url.json')).url;
+// Start the client connection
+const client = new MongoClient(mongoURL);
 
 var db = null, // Entire database
     ut = null, // User info table
     rt = null; // Restaurant table
-
-//var yt = null; // Yelp data table
 
 // Record when DB is properly initialized
 var isInitialized = false;
@@ -21,18 +23,19 @@ var isLoaded = false;
 
 // Configures and connects the database on server startup,
 // returning true and setting isInitialized if successful.
-const initdb = function(callback) {
-  mongoDB.connect(mongoURL, function(err, conn) {
-    if (err) {
-      callback(false);
-    } else {
-      db = conn;
-      ut = db.collection('users');
-      rt = db.collection('rests');
-      isInitialized = true;
-      callback(true);
-    }
-  }, { useUnifiedTopology : true });
+async function initdb(callback) {
+  try {
+    await client.connect();
+    console.log('Connected to Atlas server.');
+    db = client.db('WhatToEatData');
+    ut = db.collection('UserCollection');
+    rt = db.collection('YelpCollection');
+    isInitialized = true;
+    callback(false);
+  } catch (err) {
+    console.error(err);
+    callback(err);
+  }
 }
 
 // Queries the database to determine whether a user with the
@@ -43,7 +46,7 @@ const existsUser = function(callback, name) {
     if (err) {
       callback(err, true); // fail securely
     } else {
-      callback(true, docs.length > 0);
+      callback(false, docs.length > 0);
     }
   });
 }
@@ -55,29 +58,29 @@ const getPassword = function(callback, name) {
       callback(err, ''); // fail securely
     } else if (docs.length == 0) { // Unable to find user
       console.error('getPassword: User to find does not exist');
-      callback(true, '');
+      callback(false, '');
     } else { // Reluctance to trust
       if (docs.length > 1) {
         console.log('getPassword: Duplicate users found, returning password of first');
       }
-      callback(true, docs[0].password);
+      callback(false, docs[0].password);
     }
   });
 }
 
 // Looks up and returns a restaurant by its ID.
-const lookupRestaurant = function(callback, restaurantId) {
-  rt.find({ id : restaurantId }).toArray(function(err, docs) {
+const lookupRestaurant = function(callback, id) {
+  rt.find({ business_id : id }).toArray(function(err, docs) {
     if (err) {
       callback(err, null); // fail securely
     } else if (docs.length == 0) {
       console.error('lookupRestaurant: Restaurant to find by ID does not exist');
-      callback(true, null);
+      callback(false, null);
     } else { // Reluctance to trust
       if (docs.length > 1) {
         console.log('lookupRestaurant: Duplicate restaurants found, returning first');
       }
-      callback(true, docs[0]);
+      callback(false, docs[0]);
     }
   });
 }
@@ -89,12 +92,12 @@ const lookupUser = function(callback, userId) {
       callback(err, null); // fail securely
     } else if (docs.length == 0) {
       console.error('lookupUser: User to find by ID does not exist');
-      callback(true, null);
+      callback(false, null);
     } else { // Reluctance to trust
       if (docs.length > 1) {
         console.log('lookupUser: Duplicaate users found, returning first');
       }
-      callback(true, docs[0]);
+      callback(false, docs[0]);
     }
   });
 }
@@ -108,9 +111,22 @@ const lookupComment = function(callback, commentId) {
 app.listen(PORT);
 console.log('Server running on port %s', PORT);
 
-// Start database
-if (!db) {
-  initdb(function(err) {
-    console.error(err);
-  });
-}
+app.get('/', function(req, res) {
+  // Start database
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  if (!db) {
+    initdb(function(err) {
+            if (err) {
+              console.error(err);
+            }
+    });
+  }
+  lookupRestaurant(function(err, info) {
+    if (err) {
+      console.error(err);
+    } else if (info) {
+      res.send(info);
+    }
+  }, 'KAhavksKQwKbMzZHiNOyOQ');
+});
