@@ -89,6 +89,23 @@ const lookupRestaurant = function(callback, id) {
   });
 }
 
+// Looks up and returns a restaurant by its Name.
+const searchRestaurant = function(callback, name) {
+  rt.find({ name : { "$regex": name, "$options": "i" } }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null); // fail securely
+    } else if (docs.length == 0) {
+      console.error('lookupRestaurant: Restaurant to find by ID does not exist');
+      callback(false, null);
+    } else { // Reluctance to trust
+      if (docs.length > 1) {
+        console.log('lookupRestaurant: Duplicate restaurants found, returning first');
+      }
+      callback(false, docs[0]);
+    }
+  });
+}
+
 // Get all photos of a restaurant by its ID.
 const lookupPhotos = function(callback, id) {
   pt.find({ business_id : id }).toArray(function(err, docs) {
@@ -134,5 +151,6 @@ module.exports = {
   isLoaded : isLoaded,
   initdb : initdb,
   lookupRestaurant : lookupRestaurant,
-  lookupPhotos : lookupPhotos
+  lookupPhotos : lookupPhotos,
+  searchRestaurant:searchRestaurant
 }

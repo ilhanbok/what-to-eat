@@ -14,7 +14,15 @@ mongo.app.get('/rest_info', function(req, res) {
     } else if (info) {
       res.send(info);
     }
-  }, req.body.business_id); 
+  }, req.body.business_id);
+
+  mongo.searchRestaurnt(function(err, info) {
+    if (err) {
+      console.error(err);
+    } else if (info) {
+      res.send(info);
+    }
+  }, req.body.business_id);
 });
 
 mongo.initdb(function(err) {
@@ -26,11 +34,18 @@ mongo.initdb(function(err) {
 mongo.app.get('/', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  mongo.lookupRestaurant(function(err, info) {
+  /*mongo.lookupRestaurant(function(err, info) {
     if (err) {
       console.error(err);
     } else if (info) {
       res.send(info);
     }
-  }, 'KAhavksKQwKbMzZHiNOyOQ');
+  }, 'KAhavksKQwKbMzZHiNOyOQ');*/
+  mongo.searchRestaurant(function(err, info) {
+    if (err) {
+      console.error(err);
+    } else if (info) {
+      res.send(info);
+    }
+  }, 'chicken');
 });
