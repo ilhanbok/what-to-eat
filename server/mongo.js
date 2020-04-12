@@ -89,6 +89,31 @@ const lookupRestaurant = function(callback, id) {
   });
 }
 
+// Get restaurants by criteria
+const getRestaurantsByMood = function(callback, mood) {
+  rt.find({ 'attributes.Ambience' : {$regex : "'" + mood + "': True"} }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null);
+    } else if (docs.length == 0) {
+      console.error('getRestaurantsByMood: No restaurants exist for mood: ' + mood);
+      callback(false, null);
+    } else {
+      callback(false, docs);
+    }
+  });
+}
+
+// Get all restaurants
+const getAllRestaurants = function(callback) {
+  rt.find({}).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(false, docs);
+    }
+  });
+}
+
 // Get all photos of a restaurant by its ID.
 const lookupPhotos = function(callback, id) {
   pt.find({ business_id : id }).toArray(function(err, docs) {
@@ -134,5 +159,6 @@ module.exports = {
   isLoaded : isLoaded,
   initdb : initdb,
   lookupRestaurant : lookupRestaurant,
-  lookupPhotos : lookupPhotos
+  lookupPhotos : lookupPhotos,
+  getRestaurantsByMood : getRestaurantsByMood
 }

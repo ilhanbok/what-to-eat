@@ -28,7 +28,15 @@ class RestaurantInfo extends Component {
 }
 
 getInfo() {
-    fetch('http://localhost:5000',{method: 'GET'},  { mode: 'no-cors'})
+    fetch('http://localhost:5000/rest_info', {
+                                               method: 'POST', 
+                                               body : JSON.stringify({
+                                                 business_id : localStorage.getItem('currRest')
+                                               }),
+                                               headers: {
+                                                 Accept: 'application/json', 'Content-Type': 'application/json'
+                                               }
+                                             })
         .then((response) => response.json())
             .then((json) => {
                 this.setState({ name: json.name,
