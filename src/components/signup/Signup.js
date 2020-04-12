@@ -5,6 +5,8 @@ import {
 import "./Signup.css";
 import LoaderButton from "./LoaderButton";
 import Header from "../layout/Header";
+import { Auth } from "aws-amplify";
+
 
 export function useFormFields(initialState) {
     const [fields, setValues] = useState(initialState);
@@ -42,19 +44,36 @@ export default function Signup(props) {
     }
 
     async function handleSubmit(event) {
-        event.preventDefault();
+                event.preventDefault();
 
-        setIsLoading(true);
+                setIsLoading(true);
 
-        setNewUser("test");
-
-        setIsLoading(false);
+                try {
+                    const newUser = await Auth.signUp({
+                    username: fields.email,
+                    password: fields.password,
+                    });
+                    setIsLoading(false);
+                    setNewUser(newUser);
+                } catch (e) {
+                    setIsLoading(false);
+                }
     }
 
     async function handleConfirmationSubmit(event) {
         event.preventDefault();
 
         setIsLoading(true);
+
+        try {
+            await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+            await Auth.signIn(fields.email, fields.password);
+
+            // userHasAuthenticated(true);
+            // history.push("/");
+        } catch (e) {
+            setIsLoading(false);
+        }
     }
 
     function renderConfirmationForm() {
