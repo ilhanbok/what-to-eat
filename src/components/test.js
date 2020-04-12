@@ -13,34 +13,32 @@ import Header from '../components/layout/Header';
 // css
 import '../css/style.css'
 
-class RestaurantInfo extends Component {
-
+class test extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: this.getInfo(),
+            name: this.getResult(),
             avgRating: 3,
             comments: '',
             rating: 1
+        }
     }
-    //this.addReview......
-}
 
-getInfo() {
-    fetch('http://localhost:5000/rest_info', {
-                                               method: 'POST',
-                                               body : JSON.stringify({
-                                                   mode: 'lookup',
-                                                 business_id : localStorage.getItem('currRest')
-                                               }),
-                                               headers: {
-                                                 Accept: 'application/json', 'Content-Type': 'application/json'
-                                               }
-                                             })
-        .then((response) => response.json())
+    getResult() {
+        fetch('http://localhost:5000/rest_info', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: localStorage.getItem('currRest')
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
             .then((json) => {
-                this.setState({ name: json.name,
+                this.setState({
+                    name: json.name,
                     address: json.address,
                     city: json.city,
                     state: json.state,
@@ -52,22 +50,19 @@ getInfo() {
                     Friday: json.hours.Friday,
                     Saturday: json.hours.Saturday,
                     Sunday: json.hours.Sunday,
-                    avgRating: Math.round(json.stars)});
+                    avgRating: Math.round(json.stars)
+                });
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false });
+                this.setState({isLoading: false});
             });
     }
 
-    onStarClick(nextValue, prevValue, name) {
-        this.setState({rating: nextValue});
-    }
-
-    render(){
-        const { avgRating } = this.state;
-        const { rating } = this.state;
-        const { name } = this.state;
+    render() {
+        const {avgRating} = this.state;
+        const {rating} = this.state;
+        const {name} = this.state;
         const {Monday} = this.state;
         const {Tuesday} = this.state;
         const {Wednesday} = this.state;
@@ -75,14 +70,14 @@ getInfo() {
         const {Friday} = this.state;
         const {Saturday} = this.state;
         const {Sunday} = this.state;
-        const { address } = this.state;
-        const { zipcode } = this.state;
+        const {address} = this.state;
+        const {zipcode} = this.state;
         const {city} = this.state;
         const {state} = this.state;
-        return(
+        return (
             <div className="Container">
-                <Header />
-                <div className= "fav-card card" style = {{marginTop:100}}>
+                <Header/>
+                <div className="fav-card card" style={{marginTop: 100}}>
                     {name}
                     <h2>Avg. Rating: {avgRating}/5</h2>
                     <h2><StarRatingComponent
@@ -113,7 +108,9 @@ getInfo() {
                         <body>Say something about this restaurant:</body>
                         <FormControl as="textarea" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.addReview}>post</button></body>
+                        <body>
+                        <button className="button" onClick={this.addReview}>post</button>
+                        </body>
                     </div>
                     <br/>
                     <body>
@@ -127,4 +124,4 @@ getInfo() {
 }
 
 
-export default RestaurantInfo;
+export default test;

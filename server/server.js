@@ -12,7 +12,7 @@ mongo.app.use(bodyParser.json());
 mongo.app.listen(PORT);
 console.log('Server running on port %s', PORT);
 
-mongo.app.post('/rest_info', function(req, res) {
+/*mongo.app.post('/rest_info', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   mongo.lookupRestaurant(function(err, info) {
@@ -22,14 +22,35 @@ mongo.app.post('/rest_info', function(req, res) {
       res.send(info);
     }
   }, req.body.business_id);
-
-  mongo.searchRestaurnt(function(err, info) {
-    if (err) {
-      console.error(err);
-    } else if (info) {
-      res.send(info);
-    }
-  }, req.body.business_id);
+});*/
+mongo.app.post('/rest_info', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  if(req.body.mode == 'lookup'){
+    mongo.lookupRestaurant(function(err, info) {
+      if (err) {
+        console.error(err);
+      } else if (info) {
+        res.send(info);
+      }
+    }, req.body.business_id);
+  } else if(req.body.mode == 'search') {
+    mongo.searchRestaurant(function(err, info) {
+      if (err) {
+        console.error(err);
+      } else if (info) {
+        res.send(info);
+      }
+    }, req.body.name);
+  } else if(req.body.mode == 'getAll') {
+    mongo.getAllRestaurants(function(err, info) {
+      if (err) {
+        console.error(err);
+      } else if (info) {
+        res.send(info);
+      }
+    });
+  }
 });
 
 mongo.initdb(function(err) {
@@ -54,5 +75,5 @@ mongo.app.get('/', function(req, res) {
     } else if (info) {
       res.send(info);
     }
-  }, 'chicken');
+  }, 'restaurant');
 });
