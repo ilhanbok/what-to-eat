@@ -17,11 +17,20 @@ mongo.app.get('/rest_info', function(req, res) {
   }, req.body.business_id); 
 });
 
+mongo.initdb(function(err) {
+  if (err) {
+    console.error(err);
+  }
+});
+
 mongo.app.get('/', function(req, res) {
-  // Start database
-  mongo.initdb(function(err) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  mongo.lookupRestaurant(function(err, info) {
     if (err) {
       console.error(err);
+    } else if (info) {
+      res.send(info);
     }
-  });
+  }, 'KAhavksKQwKbMzZHiNOyOQ');
 });

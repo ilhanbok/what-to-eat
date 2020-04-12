@@ -26,19 +26,19 @@ var isLoaded = false;
 // returning true and setting isInitialized if successful.
 async function initdb(callback) {
   if (!db) {
-		try {
-		  await client.connect();
-		  console.log('Connected to Atlas server.');
-		  db = client.db('WhatToEatData');
-		  ut = db.collection('UserCollection');
-		  rt = db.collection('YelpCollection');
-		  pt = db.collection('PhotoCollection');
-		  isInitialized = true;
-		  callback(false);
-		} catch (err) {
-		  console.error(err);
-		  callback(err);
-		}
+    try {
+      await client.connect();
+      console.log('Connected to Atlas server.');
+      db = client.db('WhatToEatData');
+      ut = db.collection('UserCollection');
+      rt = db.collection('YelpCollection');
+      pt = db.collection('PhotoCollection');
+      isInitialized = true;
+      callback(false);
+    } catch (err) {
+      console.error(err);
+      callback(err);
+    }
   }
 }
 
