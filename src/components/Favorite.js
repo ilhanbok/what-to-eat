@@ -18,15 +18,15 @@ class Favorite extends Component {
             favorites: [
                 {
                     name_: 'McDonalds',
-                    key: 'aaa'
+                    key: '3a1w3Ufs9CCC3GJTAV8EpQ'
                 },
                 {
-                    name_: 'Swagat',
-                    key: 'bbb'
+                    name_: 'Aldo\'s Cafe',
+                    key: 'opdNlNy2oGE2mxuS0SXR1Q'
                 },
                 {
                     name_: 'Subway',
-                    key: 'ccc'
+                    key: 'bqNV9FU60H9BVPJ4kWptOA'
                 }
             ]
         }
@@ -39,17 +39,25 @@ class Favorite extends Component {
         // Query server and return favorites list
     }
 
-    removeFavorite(key) {
-        var arr = this.state.favorites;
-        var index = arr.findIndex(x => x.key == key);
-        if (index == -1) return;
-        arr.splice(index, 1);
-        this.setState({ favorites: arr });
+    removeFavorite(key, name) {
+        if (window.confirm("Remove " + name + " from favorites?")) {
+          var arr = this.state.favorites;
+          var index = arr.findIndex(x => x.key == key);
+          if (index == -1) return;
+          arr.splice(index, 1);
+          this.setState({ favorites: arr });
+        }
+    }
+    
+    setId(key) {
+        localStorage.setItem('currRest', key);
     }
 
     renderFavorites() {
         return this.state.favorites.map(restaurant => (
-                <tr><td className="fav-item"> {restaurant.name_} <i class="fa fa-star favorite" onClick={this.removeFavorite.bind(this, restaurant.key)}></i> </td></tr>
+                <tr><td className="fav-item">
+                    <a href="/restaurantinfo" onClick={this.setId.bind(this, restaurant.key)}> {restaurant.name_} </a><i class="fa fa-star favorite" onClick={this.removeFavorite.bind(this, restaurant.key, restaurant.name_)}></i>
+                </td></tr>
             )
         );
     }
