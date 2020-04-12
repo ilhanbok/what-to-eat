@@ -1,8 +1,8 @@
 // Import necessary modules
 const { MongoClient } = require('mongodb'),
-      express = require('express'),
-      fs = require('fs'),
-      app = express();
+    express = require('express'),
+    fs = require('fs'),
+    app = express();
 
 // Which port to run mongoDB on localhost
 const PORT = 5000;
@@ -113,19 +113,20 @@ console.log('Server running on port %s', PORT);
 
 app.get('/', function(req, res) {
   // Start database
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (!db) {
     initdb(function(err) {
-      if (err) {
-        console.error(err);
-      } else {
-        lookupRestaurant(function(err, info) {
-          if (err) {
-            console.error(err);
-          } else if (info) {
-            res.send(info);
-          }
-        }, 'KAhavksKQwKbMzZHiNOyOQ');
-      }
+            if (err) {
+              console.error(err);
+            }
     });
   }
+  lookupRestaurant(function(err, info) {
+    if (err) {
+      console.error(err);
+    } else if (info) {
+      res.send(info);
+    }
+  }, 'KAhavksKQwKbMzZHiNOyOQ');
 });
