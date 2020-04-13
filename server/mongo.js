@@ -89,7 +89,7 @@ const getRestaurantsByMood = function(callback, mood) {
 
 // Get all restaurants
 const getAllRestaurants = function(callback) {
-  rt.find({}).toArray(function(err, docs) {
+  rt.find({}).sort( { stars: -1 } ).toArray(function(err, docs) {
     if (err) {
       callback(err, null);
     } else {
