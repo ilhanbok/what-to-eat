@@ -43,6 +43,17 @@ mongo.app.post('/make_comment', function(req, res) {
   }, req.body.business_id, req.body.username, req.body.text, req.body.rating);
 });
 
+mongo.app.get('/getAll_info', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  mongo.getAllRestaurants(function(err,info) {
+    if (err) {
+      console.error(err);
+    } else if (info){
+      res.send(info);
+    }
+  });
+});
+
 mongo.initdb(function(err) {
   if (err) {
     console.error(err);

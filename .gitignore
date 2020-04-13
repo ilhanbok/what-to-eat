@@ -3,3 +3,5 @@ node_modules/
 package-lock.json
 server/url.json
 url.json
+coverage
+.nyc_output
