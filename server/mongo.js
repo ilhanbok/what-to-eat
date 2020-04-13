@@ -164,19 +164,6 @@ const postComment = function(callback, id, username, text, rating) {
   });
 }
 
-// Get our average rating from the DB
-const getOurRating = function(callback, id) {
-  ct.findOne({ business_id : id }, function(err, doc) {
-    if (err) {
-      callback(err);
-    } else if (doc == null) {
-      callback(false, null);
-    } else {
-      callback(false, doc.ourAverage);
-    }
-  });
-}
-
 module.exports = {
   app : app,
   isInitialized : isInitialized,
@@ -188,6 +175,5 @@ module.exports = {
   getAllRestaurants : getAllRestaurants,
   lookupComments : lookupComments,
   postComment : postComment,
-  getOurRating : getOurRating,
   searchRestaurant: searchRestaurant
 }
