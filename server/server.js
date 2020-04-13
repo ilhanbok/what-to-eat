@@ -19,7 +19,17 @@ mongo.app.post('/rest_info', function(req, res) {
     if (err) {
       console.error(err);
     } else if (info) {
-      res.send(info);
+      mongo.lookupComments(function(err, comments) {
+        if (err) {
+          console.error(err);
+        } else {
+          if (null == comments) {
+            res.send({ info: info, comments: null, average: null });
+          } else {
+            res.send({ info : info, comments: comments[0], average: comments[1] });
+          }
+        }
+      });
     }
   }, req.body.business_id); 
 });
