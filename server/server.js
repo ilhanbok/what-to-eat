@@ -34,6 +34,15 @@ mongo.app.post('/rest_info', function(req, res) {
   }, req.body.business_id); 
 });
 
+mongo.app.post('/make_comment', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  mongo.postComment(function(err) {
+    if (err) {
+      console.error(err);
+    }
+  }, req.body.business_id, req.body.username, req.body.text, req.body.rating);
+});
+
 mongo.initdb(function(err) {
   if (err) {
     console.error(err);
