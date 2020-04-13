@@ -24,12 +24,12 @@ mongo.app.post('/rest_info', function(req, res) {
           console.error(err);
         } else {
           if (null == comments) {
-            res.send({ info: info, comments: null, average: null });
+            res.send({ info: info, comments: [], average: null });
           } else {
-            res.send({ info : info, comments: comments[0], average: comments[1] });
+            res.send({ info: info, comments: comments[0], average: comments[1] });
           }
         }
-      });
+      }, req.body.business_id);
     }
   }, req.body.business_id); 
 });
