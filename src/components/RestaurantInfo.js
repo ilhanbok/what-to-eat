@@ -48,14 +48,28 @@ getInfo() {
                     city: json.info.city,
                     state: json.info.state,
                     zipcode: json.info.postal_code,
-                    Monday: json.info.hours.Monday,
-                    Tuesday: json.info.hours.Tuesday,
-                    Wednesday: json.info.hours.Wednesday,
-                    Thursday: json.info.hours.Thursday,
-                    Friday: json.info.hours.Friday,
-                    Saturday: json.info.hours.Saturday,
-                    Sunday: json.info.hours.Sunday,
                     avgRating: Math.round(json.info.stars)});
+                
+                if(json.info.hours){
+                    this.setState({
+                    Monday: json.info.hours.Monday, 
+                        Tuesday: json.info.hours.Tuesday,
+                        Wednesday: json.info.hours.Wednesday,
+                        Thursday: json.info.hours.Thursday,
+                        Friday: json.info.hours.Friday,
+                        Saturday: json.info.hours.Saturday,
+                        Sunday: json.info.hours.Sunday,
+                })} else {
+                    this.setState({
+                        Monday: "N/A",
+                        Tuesday: "N/A",
+                        Wednesday: "N/A",
+                        Thursday: "N/A",
+                        Friday: "N/A",
+                        Saturday: "N/A",
+                        Sunday: "N/A",
+                    })
+                }
             })
             .catch((error) => console.error(error))
             .finally(() => {
