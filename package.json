@@ -24,6 +24,7 @@
     "html-react-parser": "^0.10.2",
     "mongodb": "^3.5.5",
     "morgan": "^1.9.1",
+    "nyc": "^15.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.1",
@@ -35,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "node ./node_modules/mocha/bin/mocha",
     "eject": "react-scripts eject",
     "server": "node ./server/server.js",
     "stack": "concurrently \"npm start\" \"npm run server\""
@@ -54,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
   }
 }

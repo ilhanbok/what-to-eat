@@ -19,31 +19,79 @@ class RestaurantInfo extends Component {
         super(props);
 
         this.state = {
-            name: this.getInfo(),
+            //name: this.getInfo(),
             avgRating: 3,
-            comments: '',
+            //comments: this.getComments(),
             rating: 1
+        };
+    }
+    componentDidMount() {
+        this.getInfo();
+        this.getComments();
     }
     //this.addReview......
-}
 
 getInfo() {
-    fetch('http://localhost:5000',{method: 'GET'},  { mode: 'no-cors'})
+    fetch('http://localhost:5000/rest_info', {
+                                               method: 'POST', 
+                                               body : JSON.stringify({
+                                                 business_id : localStorage.getItem('currRest')
+                                               }),
+                                               headers: {
+                                                 Accept: 'application/json', 'Content-Type': 'application/json'
+                                               }
+                                             })
         .then((response) => response.json())
             .then((json) => {
-                this.setState({ name: json.name,
-                    address: json.address,
-                    city: json.city,
-                    state: json.state,
-                    zipcode: json.postal_code,
-                    Monday: json.hours.Monday,
-                    Tuesday: json.hours.Tuesday,
-                    Wednesday: json.hours.Wednesday,
-                    Thursday: json.hours.Thursday,
-                    Friday: json.hours.Friday,
-                    Saturday: json.hours.Saturday,
-                    Sunday: json.hours.Sunday,
-                    avgRating: Math.round(json.stars)});
+                console.log(json.info.stars);
+                this.setState({ name: json.info.name,
+                    address: json.info.address,
+                    city: json.info.city,
+                    state: json.info.state,
+                    zipcode: json.info.postal_code,
+                    avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
+                
+                if(json.info.hours){
+                    this.setState({
+                    Monday: json.info.hours.Monday, 
+                        Tuesday: json.info.hours.Tuesday,
+                        Wednesday: json.info.hours.Wednesday,
+                        Thursday: json.info.hours.Thursday,
+                        Friday: json.info.hours.Friday,
+                        Saturday: json.info.hours.Saturday,
+                        Sunday: json.info.hours.Sunday,
+                })} else {
+                    this.setState({
+                        Monday: "N/A",
+                        Tuesday: "N/A",
+                        Wednesday: "N/A",
+                        Thursday: "N/A",
+                        Friday: "N/A",
+                        Saturday: "N/A",
+                        Sunday: "N/A",
+                    })
+                }
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    }
+
+    getComments() {
+        var i;
+        fetch('http://localhost:5000/rest_info', {
+            method: 'POST',
+            body : JSON.stringify({
+                business_id : localStorage.getItem('currRest')
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({ comments : json.comments });
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -53,6 +101,27 @@ getInfo() {
 
     onStarClick(nextValue, prevValue, name) {
         this.setState({rating: nextValue});
+    }
+
+    onPostClick(){
+        //send rating and comment to server
+        fetch('http://localhost:5000/make_comment', {
+            method: 'POST',
+            body : JSON.stringify({
+                business_id : localStorage.getItem('currRest'),
+                username : localStorage.getItem('userEmail') || "Anonymous",
+                text : this.refs['comment_text'].value,
+                rating : this.state.rating
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                window.location.reload();
+            })
+            .catch((error) => console.error(error));
     }
 
     render(){
@@ -70,6 +139,7 @@ getInfo() {
         const { zipcode } = this.state;
         const {city} = this.state;
         const {state} = this.state;
+        const {comments} = this.state;
         return(
             <div className="Container">
                 <Header />
@@ -102,14 +172,20 @@ getInfo() {
                             onStarClick={this.onStarClick.bind(this)}
                         /></body>
                         <body>Say something about this restaurant:</body>
-                        <FormControl as="textarea" rows="6" cols="50" placeholder="Write comment here..."/>
+                        <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.addReview}>post</button></body>
+                        <body><button className="button" onClick={this.onPostClick.bind(this)}>post</button></body>
                     </div>
                     <br/>
                     <body>
                     Reviews from other users:<br/>
-                    Colonel Sanders: I love Big Mac
+                    {comments && comments.map((item) =>
+                        {
+                            return <div>{item.username}: {item.text}</div>;
+                        }
+                    )
+                    }
+
                     </body>
                 </div>
             </div>
