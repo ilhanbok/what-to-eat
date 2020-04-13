@@ -39,7 +39,8 @@
     "test": "nyc --reporter=html --reporter=text mocha",
     "eject": "react-scripts eject",
     "server": "node ./server/server.js",
-    "stack": "concurrently \"npm start\" \"npm run server\""
+    "stack": "concurrently \"npm start\" \"npm run server\"",
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
   }
 }

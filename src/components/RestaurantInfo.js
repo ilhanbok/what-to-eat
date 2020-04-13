@@ -19,25 +19,29 @@ class RestaurantInfo extends Component {
         super(props);
 
         this.state = {
-            name: this.getInfo(),
+            //name: this.getInfo(),
             avgRating: 3,
-            comments: '',
+            //comments: this.getComments(),
             rating: 1
-        }
-        //this.addReview......
+        };
     }
+    componentDidMount() {
+        this.getInfo();
+        this.getComments();
+    }
+    //this.addReview......
 
-    getInfo() {
-        fetch('http://localhost:5000/rest_info', {
-            method: 'POST',
-            body : JSON.stringify({
-                business_id : localStorage.getItem('currRest')
-            }),
-            headers: {
-                Accept: 'application/json', 'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => response.json())
+getInfo() {
+    fetch('http://localhost:5000/rest_info', {
+                                               method: 'POST', 
+                                               body : JSON.stringify({
+                                                 business_id : localStorage.getItem('currRest')
+                                               }),
+                                               headers: {
+                                                 Accept: 'application/json', 'Content-Type': 'application/json'
+                                               }
+                                             })
+        .then((response) => response.json())
             .then((json) => {
                 this.setState({ name: json.info.name,
                     address: json.info.address,
@@ -59,8 +63,33 @@ class RestaurantInfo extends Component {
             });
     }
 
+    getComments() {
+        var i;
+        fetch('http://localhost:5000/rest_info', {
+            method: 'POST',
+            body : JSON.stringify({
+                business_id : localStorage.getItem('currRest')
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({ comments : json.comments });
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    }
+
     onStarClick(nextValue, prevValue, name) {
         this.setState({rating: nextValue});
+    }
+
+    onPostClick(){
+        //send rating and comment to server
     }
 
     render(){
@@ -78,6 +107,7 @@ class RestaurantInfo extends Component {
         const { zipcode } = this.state;
         const {city} = this.state;
         const {state} = this.state;
+        const {comments} = this.state;
         return(
             <div className="Container">
                 <Header />
@@ -112,12 +142,18 @@ class RestaurantInfo extends Component {
                         <body>Say something about this restaurant:</body>
                         <FormControl as="textarea" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.addReview}>post</button></body>
+                        <body><button className="button" onClick="onPostClick()">post</button></body>
                     </div>
                     <br/>
                     <body>
                     Reviews from other users:<br/>
-                    Colonel Sanders: I love Big Mac
+                    {comments && comments.map((item) =>
+                        {
+                            return <div>{item.username}: {item.text}</div>;
+                        }
+                    )
+                    }
+
                     </body>
                 </div>
             </div>

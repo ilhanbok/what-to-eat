@@ -42,6 +42,20 @@ async function initdb(callback) {
   }
 }
 
+// Looks up and returns a restaurant by its Name.
+const searchRestaurant = function(callback, name) {
+  rt.find({ name : { "$regex": name, "$options": "i" } }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null); // fail securely
+    } else if (docs.length == 0) {
+      console.error('searchRestaurant: Restaurant to find by Name does not exist');
+      callback(false, null);
+    } else { // Reluctance to trust
+      callback(false, docs);
+    }
+  });
+}
+
 // Looks up and returns a restaurant by its ID.
 const lookupRestaurant = function(callback, id) {
   rt.find({ business_id : id }).toArray(function(err, docs) {
@@ -163,26 +177,6 @@ const getOurRating = function(callback, id) {
   });
 }
 
-// Looks up and returns a restaurant by its Name.
-const searchRestaurant = function(callback, name) {
-  rt.find({ name : { "$regex": name, "$options": "i" } }).toArray(function(err, docs) {
-    if (err) {
-      callback(err, null); // fail securely
-    } else if (docs.length == 0) {
-      console.error('searchRestaurant: Restaurant to find by Name does not exist');
-      callback(false, null);
-    } else { // Reluctance to trust
-      callback(false, docs);
-    }
-  });
-}
-
-
-// Looks up and returns the name of a comment by its ID.
-const lookupComment = function(callback, commentId) {
-  // TODO: How would one implement this? We do not have a Comment class
-}
-
 module.exports = {
   app : app,
   isInitialized : isInitialized,
@@ -195,5 +189,5 @@ module.exports = {
   lookupComments : lookupComments,
   postComment : postComment,
   getOurRating : getOurRating,
-  searchRestaurant:searchRestaurant
+  searchRestaurant: searchRestaurant
 }
