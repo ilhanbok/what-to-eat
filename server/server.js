@@ -19,9 +19,28 @@ mongo.app.post('/rest_info', function(req, res) {
     if (err) {
       console.error(err);
     } else if (info) {
-      res.send(info);
+      mongo.lookupComments(function(err, comments) {
+        if (err) {
+          console.error(err);
+        } else {
+          if (null == comments) {
+            res.send({ info: info, comments: [], average: null });
+          } else {
+            res.send({ info: info, comments: comments[0], average: comments[1] });
+          }
+        }
+      }, req.body.business_id);
     }
   }, req.body.business_id); 
+});
+
+mongo.app.post('/make_comment', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  mongo.postComment(function(err) {
+    if (err) {
+      console.error(err);
+    }
+  }, req.body.business_id, req.body.username, req.body.text, req.body.rating);
 });
 
 mongo.initdb(function(err) {

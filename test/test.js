@@ -94,3 +94,34 @@ describe('Collection', function() {
 	  });
 	});
 });
+
+////////// Filter the restaurant by name ////////////// Name to filter by not valid
+describe('Collection', function() {
+	describe('#searchRestaurant', function() {
+		it('should return `null` when the name is not available in the collection', function() {
+			mongo.searchRestaurant(function(err, docs) {
+				assert.equal(docs, null);
+			}, 'invalid_name');
+		});
+	});
+});// Valid Name to filter by
+describe('Collection', function() {
+	describe('#searchRestaurant', function() {
+		it('should return a JSON object when the part of name is available in the collection', function() {
+			mongo.searchRestaurant(function(err, docs) {
+				assert.notEqual(docs, null);
+			}, 'chicken');
+		});
+	});
+});
+
+///////// Comments ////////////
+describe('Collection', function() {
+	describe('#lookupComments', function() {
+		it('should return null when the comment does not exist', function() {
+			mongo.lookupComments(function(err, docs) {
+				assert.equal(docs, null);
+			}, 'chicken');
+		});
+	});
+})
