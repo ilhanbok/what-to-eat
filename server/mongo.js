@@ -42,6 +42,20 @@ async function initdb(callback) {
   }
 }
 
+// Looks up and returns a restaurant by its Name.
+const searchRestaurant = function(callback, name) {
+  rt.find({ name : { "$regex": name, "$options": "i" } }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null); // fail securely
+    } else if (docs.length == 0) {
+      console.error('searchRestaurant: Restaurant to find by Name does not exist');
+      callback(false, null);
+    } else { // Reluctance to trust
+      callback(false, docs);
+    }
+  });
+}
+
 // Looks up and returns a restaurant by its ID.
 const lookupRestaurant = function(callback, id) {
   rt.find({ business_id : id }).toArray(function(err, docs) {
@@ -75,7 +89,7 @@ const getRestaurantsByMood = function(callback, mood) {
 
 // Get all restaurants
 const getAllRestaurants = function(callback) {
-  rt.find({}).toArray(function(err, docs) {
+  rt.find({}).sort( { stars: -1 } ).toArray(function(err, docs) {
     if (err) {
       callback(err, null);
     } else {
@@ -174,5 +188,6 @@ module.exports = {
   getAllRestaurants : getAllRestaurants,
   lookupComments : lookupComments,
   postComment : postComment,
-  getOurRating : getOurRating
+  getOurRating : getOurRating,
+  searchRestaurant: searchRestaurant
 }
