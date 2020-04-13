@@ -40,6 +40,7 @@ mongo.app.post('/make_comment', function(req, res) {
     if (err) {
       console.error(err);
     }
+    res.send({});
   }, req.body.business_id, req.body.username, req.body.text, req.body.rating);
 });
 
