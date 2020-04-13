@@ -36,11 +36,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "nyc --reporter=html --reporter=text mocha",
+    "test": "node ./node_modules/mocha/bin/mocha",
     "eject": "react-scripts eject",
     "server": "node ./server/server.js",
-    "stack": "concurrently \"npm start\" \"npm run server\"",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "stack": "concurrently \"npm start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": "react-app"
