@@ -12,45 +12,46 @@ mongo.app.use(bodyParser.json());
 mongo.app.listen(PORT);
 console.log('Server running on port %s', PORT);
 
-/*mongo.app.post('/rest_info', function(req, res) {
+mongo.app.post('/rest_info', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   mongo.lookupRestaurant(function(err, info) {
     if (err) {
       console.error(err);
     } else if (info) {
-      res.send(info);
+      mongo.lookupComments(function(err, comments) {
+        if (err) {
+          console.error(err);
+        } else {
+          if (null == comments) {
+            res.send({ info: info, comments: null, average: null });
+          } else {
+            res.send({ info : info, comments: comments[0], average: comments[1] });
+          }
+        }
+      });
     }
   }, req.body.business_id);
-});*/
-mongo.app.post('/rest_info', function(req, res) {
+});
+
+mongo.app.get('/getAll_info', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  if(req.body.mode == 'lookup'){
-    mongo.lookupRestaurant(function(err, info) {
-      if (err) {
-        console.error(err);
-      } else if (info) {
-        res.send(info);
-      }
-    }, req.body.business_id);
-  } else if(req.body.mode == 'search') {
-    mongo.searchRestaurant(function(err, info) {
-      if (err) {
-        console.error(err);
-      } else if (info) {
-        res.send(info);
-      }
-    }, req.body.name);
-  } else if(req.body.mode == 'getAll') {
-    mongo.getAllRestaurants(function(err, info) {
-      if (err) {
-        console.error(err);
-      } else if (info) {
-        res.send(info);
-      }
-    });
-  }
+  mongo.getAllRestaurants(function(err,info) {
+    if (err) {
+      console.error(err);
+    } else if (info){
+      res.send(info);
+    }
+  });
+});
+
+mongo.app.post('/make_comment', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  mongo.postComment(function(err) {
+    if (err) {
+      console.error(err);
+    }
+  }, req.body.business_id, req.body.username, req.body.text, req.body.rating);
 });
 
 mongo.initdb(function(err) {
@@ -62,18 +63,11 @@ mongo.initdb(function(err) {
 mongo.app.get('/', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  /*mongo.lookupRestaurant(function(err, info) {
+  mongo.lookupRestaurant(function(err, info) {
     if (err) {
       console.error(err);
     } else if (info) {
       res.send(info);
     }
-  }, 'KAhavksKQwKbMzZHiNOyOQ');*/
-  mongo.searchRestaurant(function(err, info) {
-    if (err) {
-      console.error(err);
-    } else if (info) {
-      res.send(info);
-    }
-  }, 'restaurant');
+  }, 'KAhavksKQwKbMzZHiNOyOQ');
 });

@@ -23,36 +23,35 @@ class RestaurantInfo extends Component {
             avgRating: 3,
             comments: '',
             rating: 1
+        }
+        //this.addReview......
     }
-    //this.addReview......
-}
 
-getInfo() {
-    fetch('http://localhost:5000/rest_info', {
-                                               method: 'POST',
-                                               body : JSON.stringify({
-                                                   mode: 'lookup',
-                                                 business_id : localStorage.getItem('currRest')
-                                               }),
-                                               headers: {
-                                                 Accept: 'application/json', 'Content-Type': 'application/json'
-                                               }
-                                             })
-        .then((response) => response.json())
+    getInfo() {
+        fetch('http://localhost:5000/rest_info', {
+            method: 'POST',
+            body : JSON.stringify({
+                business_id : localStorage.getItem('currRest')
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
             .then((json) => {
-                this.setState({ name: json.name,
-                    address: json.address,
-                    city: json.city,
-                    state: json.state,
-                    zipcode: json.postal_code,
-                    Monday: json.hours.Monday,
-                    Tuesday: json.hours.Tuesday,
-                    Wednesday: json.hours.Wednesday,
-                    Thursday: json.hours.Thursday,
-                    Friday: json.hours.Friday,
-                    Saturday: json.hours.Saturday,
-                    Sunday: json.hours.Sunday,
-                    avgRating: Math.round(json.stars)});
+                this.setState({ name: json.info.name,
+                    address: json.info.address,
+                    city: json.info.city,
+                    state: json.info.state,
+                    zipcode: json.info.postal_code,
+                    Monday: json.info.hours.Monday,
+                    Tuesday: json.info.hours.Tuesday,
+                    Wednesday: json.info.hours.Wednesday,
+                    Thursday: json.info.hours.Thursday,
+                    Friday: json.info.hours.Friday,
+                    Saturday: json.info.hours.Saturday,
+                    Sunday: json.info.hours.Sunday,
+                    avgRating: Math.round(json.info.stars)});
             })
             .catch((error) => console.error(error))
             .finally(() => {

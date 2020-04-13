@@ -12,30 +12,15 @@ class ListRestaurant extends Component {
     }
 
     getInfo() {
-        fetch('http://localhost:5000/rest_info', {
-            method: 'POST',
-            body: JSON.stringify({
-                mode: 'lookup',
-            }),
-            headers: {
-                Accept: 'application/json', 'Content-Type': 'application/json'
-            }
+        fetch('http://localhost:5000/getAll_info', {
+            method: 'GET'
         })
             .then((response) => response.json())
             .then((json) => {
-                this.setState({ name: json.name,
-                    address: json.address,
-                    city: json.city,
-                    state: json.state,
-                    zipcode: json.postal_code,
-                    Monday: json.hours.Monday,
-                    Tuesday: json.hours.Tuesday,
-                    Wednesday: json.hours.Wednesday,
-                    Thursday: json.hours.Thursday,
-                    Friday: json.hours.Friday,
-                    Saturday: json.hours.Saturday,
-                    Sunday: json.hours.Sunday,
-                    avgRating: Math.round(json.stars)});
+                this.setState({ name: json[0].name,
+                    address: json[0].address,
+                    star: json[0].stars
+                    });
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -46,26 +31,22 @@ class ListRestaurant extends Component {
     render() {
 
         return (
-            <div>
-                {
-                    name.map((info, i) => {
-                        return (
-                            <div key={i}>
+
                                 <div>
                                     <div>
                                         <div>
-                                            <p>{info.name}</p>
+                                            <p>{this.state.name}</p>
                                         </div>
-                                        <p>{info.address}</p>
-                                        <p>{info.stars}</p>
+                                        <p>{this.state.address}</p>
+                                        <p>{this.state.stars}</p>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-        );
+                            /*</div>*/
+
+                   /* })
+
+            </div>*/
+        )
     }
 }
 
