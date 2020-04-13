@@ -6,10 +6,15 @@ import "./Signup.css";
 import LoaderButton from "./LoaderButton";
 import Header from "../layout/Header";
 import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
+import { useAppContext } from "../../libs/contextLib";
+
+
 
 
 export function useFormFields(initialState) {
     const [fields, setValues] = useState(initialState);
+
     return [
         fields,
         function(event) {
@@ -30,13 +35,21 @@ export default function Signup(props) {
     });
     const [newUser, setNewUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
+    const { userHasAuthenticated } = useAppContext();
+
 
     function validateForm() {
-        return (
-            fields.email.length > 0 &&
-            fields.password.length > 0 &&
-            fields.password === fields.confirmPassword
-        );
+        if( fields.password.length <= 4){
+            alert('Please type a longer password');
+        }
+        else{
+            return (
+                fields.email.length > 0 &&
+                fields.password.length > 0 &&
+                fields.password === fields.confirmPassword
+            );
+        }
     }
 
     function validateConfirmationForm() {
@@ -62,15 +75,14 @@ export default function Signup(props) {
 
     async function handleConfirmationSubmit(event) {
         event.preventDefault();
-
         setIsLoading(true);
 
         try {
             await Auth.confirmSignUp(fields.email, fields.confirmationCode);
             await Auth.signIn(fields.email, fields.password);
 
-            // userHasAuthenticated(true);
-            // history.push("/");
+            userHasAuthenticated(true);
+            history.push("/");
         } catch (e) {
             setIsLoading(false);
         }

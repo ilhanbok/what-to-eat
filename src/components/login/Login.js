@@ -5,11 +5,16 @@ import Header from "../layout/Header";
 import { LinkContainer } from "react-router-bootstrap";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../../libs/contextLib";
+import { useHistory } from "react-router-dom";
+
 
 export default function Login(props) {  
     const { userHasAuthenticated } = useAppContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
+
+
 
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userpassword', password);
@@ -24,6 +29,7 @@ export default function Login(props) {
             await Auth.signIn(email, password);
             alert('Logged in');
             userHasAuthenticated(true);
+            history.push("/home");
         } catch (e) {
             alert(e.message);
         }

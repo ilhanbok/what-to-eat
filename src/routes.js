@@ -9,7 +9,6 @@ import Favorite from "./components/Favorite";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import RestaurantInfo from "./components/RestaurantInfo";
-import Test from "./components/test";
 
 export default function Routes() {
   return (
@@ -21,7 +20,6 @@ export default function Routes() {
         <Route exact path='/login' component ={Login}/>
         <Route exact path='/signup' component ={Signup}/>
         <Route exact path='/restaurantinfo' component={RestaurantInfo} />
-        <Route exact path='/test' component={Test} />
         {/* <Route exact path='/login' component={Login}/> */}
     </Switch>
   );
