@@ -40,16 +40,13 @@ export default function Signup(props) {
 
 
     function validateForm() {
-        if( fields.password.length <= 4){
-            alert('Please type a longer password');
-        }
-        else{
+
             return (
                 fields.email.length > 0 &&
                 fields.password.length > 0 &&
                 fields.password === fields.confirmPassword
             );
-        }
+        
     }
 
     function validateConfirmationForm() {
