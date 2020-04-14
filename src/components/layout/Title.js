@@ -17,8 +17,6 @@ const Title = () => {
                 <Nav className="mr-auto">
                 </Nav>
                 <Nav pullRight>
-                    <Nav.Link href="../restaurantinfo" style={{color: "white"}}>Restaurant Info
-                    </Nav.Link>
                     <Nav.Link href="../favorite"><i class="fa fa-star"></i></Nav.Link>
                     <Nav.Link href="../Profile" style={{color: "white"}}><i class="fa fa-user-circle"></i></Nav.Link>
                     {/* <Nav.Link href="../search" style={{color: "white"}}>Home
