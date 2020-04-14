@@ -116,6 +116,8 @@ describe('Collection', function() {
 });
 
 ///////// Comments ////////////
+
+// Looks up comments
 describe('Collection', function() {
 	describe('#lookupComments', function() {
 		it('should return null when the comment does not exist', function() {
@@ -124,4 +126,15 @@ describe('Collection', function() {
 			}, 'chicken');
 		});
 	});
-})
+});
+
+// Try posting comment
+describe('Collection', function() {
+	describe('#postComment', function() {
+		it('should return false when the restaurant exists with a comment', function() {
+		  mongo.postComment(function(err) {
+				assert.equal(err, false);
+			}, 'test', 'name', 'text', 5.0);
+		});
+	});
+});
