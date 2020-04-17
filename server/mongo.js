@@ -68,7 +68,14 @@ const lookupRestaurant = function(callback, id) {
       if (docs.length > 1) {
         console.log('lookupRestaurant: Duplicate restaurants found, returning first');
       }
-      callback(false, docs[0]);
+      lookupPhotos(
+        function(err, item) {
+          if (!err) {
+            docs[0].photo_id = item.photo_id;
+          }
+          callback(false, docs[0]);
+        },
+      id);
     }
   });
 }
