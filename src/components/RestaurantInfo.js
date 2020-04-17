@@ -161,7 +161,7 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
-                    <body>{photo}</body>
+                    <img src = {photo} width="400" height="300"></img>
                     <body>Category: {category}</body>
                     <br/>
                     <body>Hours:</body>
