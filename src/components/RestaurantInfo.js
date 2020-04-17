@@ -20,9 +20,9 @@ class RestaurantInfo extends Component {
 
         this.state = {
             //name: this.getInfo(),
-            avgRating: 3,
+            //avgRating: 3,
             //comments: this.getComments(),
-            rating: 1
+            rating: 0
         };
     }
     componentDidMount() {
@@ -108,11 +108,11 @@ getInfo() {
         fetch('http://localhost:5000/make_comment', {
             method: 'POST',
             body : JSON.stringify({
-                business_id : localStorage.getItem('currRest'),
-                username : localStorage.getItem('userEmail') || "Anonymous",
-                text : this.refs['comment_text'].value,
-                rating : this.state.rating
-            }),
+            business_id : localStorage.getItem('currRest'),
+            username : localStorage.getItem('userEmail') || "Anonymous",
+            text : this.refs['comment_text'].value,
+            rating : (this.state.rating==0? this.state.avgRating:this.state.rating)
+        }),
             headers: {
                 Accept: 'application/json', 'Content-Type': 'application/json'
             }
