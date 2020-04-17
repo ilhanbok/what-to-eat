@@ -45,10 +45,16 @@ getInfo() {
             .then((json) => {
                 console.log(json.info.stars);
                 this.setState({ name: json.info.name,
+                    photo: "https://s3-media0.fl.yelpcdn.com/bphoto/" + json.info.photo_id + "/o.jpg",
                     address: json.info.address,
                     city: json.info.city,
                     state: json.info.state,
                     zipcode: json.info.postal_code,
+                    category: json.info.categories,
+                    delivery: (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
+                    price: (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
+                            json.info.attributes.RestaurantsPriceRange2=='3'? 'Expensive':
+                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very expensive':'Very cheap'),
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
@@ -68,12 +74,12 @@ getInfo() {
                         Thursday: "N/A",
                         Friday: "N/A",
                         Saturday: "N/A",
-                        Sunday: "N/A",
-                    })
-                }
+                Sunday: "N/A",
             })
-            .catch((error) => console.error(error))
-            .finally(() => {
+}
+})
+.catch((error) => console.error(error))
+    .finally(() => {
                 this.setState({ isLoading: false });
             });
     }
@@ -139,6 +145,10 @@ getInfo() {
         const { zipcode } = this.state;
         const {city} = this.state;
         const {state} = this.state;
+        const {delivery} = this.state;
+        const {category} = this.state;
+        const {price} = this.state;
+        const {photo} = this.state;
         const {comments} = this.state;
         return(
             <div className="Container">
@@ -151,6 +161,9 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
+                    <body>{photo}</body>
+                    <body>Category: {category}</body>
+                    <br/>
                     <body>Hours:</body>
                     <body>Monday: {Monday}</body>
                     <body>Tuesday: {Tuesday}</body>
@@ -162,6 +175,8 @@ getInfo() {
                     <br/>
                     <body>Address: {address}, {city}, {state}</body>
                     <body>Zipcode: {zipcode}</body>
+                    <body>Delivery: {delivery}</body>
+                    <body>Price: {price}</body>
                     <br/>
                     <div>
                         <body>Leave your rating:</body>
