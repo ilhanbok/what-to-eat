@@ -20,9 +20,9 @@ class RestaurantInfo extends Component {
 
         this.state = {
             //name: this.getInfo(),
-            avgRating: 3,
+            //avgRating: 3,
             //comments: this.getComments(),
-            rating: 1
+            rating: 0
         };
     }
     componentDidMount() {
@@ -45,10 +45,16 @@ getInfo() {
             .then((json) => {
                 console.log(json.info.stars);
                 this.setState({ name: json.info.name,
+                    photo: json.info.photo_id,
                     address: json.info.address,
                     city: json.info.city,
                     state: json.info.state,
                     zipcode: json.info.postal_code,
+                    category: json.info.categories,
+                    delivery: (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
+                    price: (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
+                            json.info.attributes.RestaurantsPriceRange2=='3'? 'Expensive':
+                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very expensive':'Very cheap'),
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
@@ -68,12 +74,12 @@ getInfo() {
                         Thursday: "N/A",
                         Friday: "N/A",
                         Saturday: "N/A",
-                        Sunday: "N/A",
-                    })
-                }
+                Sunday: "N/A",
             })
-            .catch((error) => console.error(error))
-            .finally(() => {
+}
+})
+.catch((error) => console.error(error))
+    .finally(() => {
                 this.setState({ isLoading: false });
             });
     }
@@ -108,11 +114,11 @@ getInfo() {
         fetch('http://localhost:5000/make_comment', {
             method: 'POST',
             body : JSON.stringify({
-                business_id : localStorage.getItem('currRest'),
-                username : localStorage.getItem('userEmail') || "Anonymous",
-                text : this.refs['comment_text'].value,
-                rating : this.state.rating
-            }),
+            business_id : localStorage.getItem('currRest'),
+            username : localStorage.getItem('userEmail') || "Anonymous",
+            text : this.refs['comment_text'].value,
+            rating : (this.state.rating==0? this.state.avgRating:this.state.rating)
+        }),
             headers: {
                 Accept: 'application/json', 'Content-Type': 'application/json'
             }
@@ -139,6 +145,10 @@ getInfo() {
         const { zipcode } = this.state;
         const {city} = this.state;
         const {state} = this.state;
+        const {delivery} = this.state;
+        const {category} = this.state;
+        const {price} = this.state;
+        const {photo} = this.state;
         const {comments} = this.state;
         return(
             <div className="Container">
@@ -151,6 +161,9 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
+                    <img src = {"https://s3-media0.fl.yelpcdn.com/bphoto/" + photo + "/o.jpg"} style={{ alignSelf: 'center', display: photo ? 'block' : 'none' }} width="400" height="300"></img>
+                    <body>Category: {category}</body>
+                    <br/>
                     <body>Hours:</body>
                     <body>Monday: {Monday}</body>
                     <body>Tuesday: {Tuesday}</body>
@@ -162,6 +175,8 @@ getInfo() {
                     <br/>
                     <body>Address: {address}, {city}, {state}</body>
                     <body>Zipcode: {zipcode}</body>
+                    <body>Delivery: {delivery}</body>
+                    <body>Price: {price}</body>
                     <br/>
                     <div>
                         <body>Leave your rating:</body>
@@ -195,3 +210,4 @@ getInfo() {
 
 
 export default RestaurantInfo;
+
