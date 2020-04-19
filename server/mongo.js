@@ -70,7 +70,7 @@ const lookupRestaurant = function(callback, id) {
       }
       lookupPhotos(
         function(err, item) {
-          if (!err) {
+          if (!err && item) {
             docs[0].photo_id = item.photo_id;
           }
           callback(false, docs[0]);
