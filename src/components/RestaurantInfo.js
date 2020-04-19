@@ -161,7 +161,7 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
-                    <img src = {photo} alt = 'No Photo Found for this Restaurant' width="400" height="300"></img>
+                    <img src = {photo} style={{ alignSelf: 'center' }} alt = 'No Photo Found for this Restaurant' width="400" height="300"></img>
                     <body>Category: {category}</body>
                     <br/>
                     <body>Hours:</body>
