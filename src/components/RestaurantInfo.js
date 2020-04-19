@@ -110,6 +110,13 @@ getInfo() {
     }
 
     onPostClick(){
+        if (this.refs['comment_text'].value==''){
+            alert('Please input comments');
+        }
+        else if (this.state.rating==0){
+            alert('Please input rating');
+        }
+        else{
         //send rating and comment to server
         fetch('http://localhost:5000/make_comment', {
             method: 'POST',
@@ -117,7 +124,7 @@ getInfo() {
             business_id : localStorage.getItem('currRest'),
             username : localStorage.getItem('userEmail') || "Anonymous",
             text : this.refs['comment_text'].value,
-            rating : (this.state.rating==0? this.state.avgRating:this.state.rating)
+            rating : this.state.rating
         }),
             headers: {
                 Accept: 'application/json', 'Content-Type': 'application/json'
@@ -127,7 +134,8 @@ getInfo() {
             .then((json) => {
                 window.location.reload();
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error));}
+
     }
 
     render(){
