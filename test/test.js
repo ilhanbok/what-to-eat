@@ -35,6 +35,17 @@ describe('Collection', function() {
 	});
 });
 
+// Improper input
+describe('Collection', function() {
+	describe('#lookupRestaurant', function() {
+	  it('should assert error when the business_id is an invalid value', function() {
+	    mongo.lookupRestaurant(function(err, docs) {
+	      assert.notEqual(err, false);
+	    }, {$slice : 1});
+	  });
+	});
+});
+
 ////////// Get all restaurants ////////////
 
 describe('Collection', function() {
@@ -95,6 +106,17 @@ describe('Collection', function() {
 	});
 });
 
+// Invalid query
+describe('Collection', function() {
+	describe('#lookupPhotos', function() {
+	  it('should assert error when the business_id is invalid', function() {
+	    mongo.lookupPhotos(function(err, docs) {
+	      assert.notEqual(err, false);
+	    }, {$slice:1});
+	  });
+	});
+});
+
 ////////// Filter the restaurant by name ////////////// Name to filter by not valid
 describe('Collection', function() {
 	describe('#searchRestaurant', function() {
@@ -104,13 +126,26 @@ describe('Collection', function() {
 			}, 'invalid_name');
 		});
 	});
-});// Valid Name to filter by
+});
+
+// Valid Name to filter by
 describe('Collection', function() {
 	describe('#searchRestaurant', function() {
 		it('should return a JSON object when the part of name is available in the collection', function() {
 			mongo.searchRestaurant(function(err, docs) {
 				assert.notEqual(docs, null);
 			}, 'chicken');
+		});
+	});
+});
+
+// Invalid regex
+describe('Collection', function() {
+	describe('#searchRestaurant', function() {
+		it('should return an error when the name is invalid', function() {
+			mongo.searchRestaurant(function(err, docs) {
+				assert.notEqual(err, false);
+			}, null);
 		});
 	});
 });
@@ -128,6 +163,17 @@ describe('Collection', function() {
 	});
 });
 
+// Invalid restaurant ID
+describe('Collection', function() {
+	describe('#lookupComments', function() {
+		it('should assert error when the restaurant is invalid', function() {
+			mongo.lookupComments(function(err, docs) {
+				assert.notEqual(err, false);
+			}, {$slice:1});
+		});
+	});
+});
+
 // Try posting comment
 describe('Collection', function() {
 	describe('#postComment', function() {
@@ -135,6 +181,17 @@ describe('Collection', function() {
 		  mongo.postComment(function(err) {
 				assert.equal(err, false);
 			}, 'test', 'name', 'text', 5.0);
+		});
+	});
+});
+
+// Post comment to invalid restaurant
+describe('Collection', function() {
+	describe('#postComment', function() {
+		it('should assert error when the restaurant is invalid', function() {
+		  mongo.postComment(function(err) {
+				assert.notEqual(err, false);
+			}, {$slice : 1}, 'name', 'text', 5.0);
 		});
 	});
 });
