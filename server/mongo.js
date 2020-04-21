@@ -67,9 +67,7 @@ const lookupRestaurant = function(callback, id) {
       console.error('lookupRestaurant: Restaurant to find by ID does not exist');
       callback(false, null);
     } else { // Reluctance to trust
-      if (docs.length > 1) {
-        console.log('lookupRestaurant: Duplicate restaurants found, returning first');
-      }
+      // If multiple restaurants found, returns first
       lookupPhotos(
         function(err, item) {
           if (!err && item) {
@@ -116,9 +114,7 @@ const lookupPhotos = function(callback, id) {
       console.error('lookupPhotos: No photos exist for restaurant');
       callback(false, null);
     } else {
-      if (docs.length > 1) {
-        console.log('lookupPhotos: Duplicate photos found, returning first');
-      }
+      // If multiple restaurants found, returns first
       callback(false, docs[0]);
     }
   });
@@ -229,9 +225,7 @@ const getAllFavorites = function(callback, email) {
       console.error('getAllFavorites: No users exist with given email');
       callback(false, null);
     } else {
-      if (docs.length > 1) {
-        console.log('getAllFavorites: Multiple users exist with given email');
-      }
+      // If multiple users found, return first
       callback(false, docs[0].favorites);
     }
   });
