@@ -113,31 +113,6 @@ export class ListRestaurant extends Component {
 
                 </div>
             )
-        /*return name.map((item) => {*/
-        console.log('check', name[1].name)
-        return name.filter((restaurant) => {
-            if (this.props.keyword == null)
-                return restaurant
-            else if (restaurant.name.toLowerCase().includes(this.props.keyword.toLowerCase())) {
-                return restaurant
-            }
-        }).map(item => {
-            //console.log('check', name[1].name)
-            return (
-                <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
-                    <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
-                    </h5>
-                    <i className={"fa favorite " + getStatus((item.name))} id={"star"
-                    + (item.name)} onClick={this.toggleStar.bind(this, (item.name))}></i>
-                    <p>{item.address} </p>
-                    <h6><StarRatingComponent
-                        name="rate1"
-                        starCount={5.0}
-                        value={item.stars}
-                    /></h6>
-
-                </div>
-            )
 
         })
         /*return name.filter(restaurant => restaurant.name.includes(this.props.keyword)).map((item) => {
@@ -162,19 +137,19 @@ export class ListRestaurant extends Component {
         })*/
     }
 
-     render() {
+    render() {
         const {name} = this.state;
-         this.setRestaurant.bind(this, name)
-            var restaurant = name && this.setRestaurant(name)
-            console.log(restaurant)
-            console.log('test', this.props.keyword)
-            return (
-                <div className="col scroll">
-                    <div>
-                        {restaurant}
-                    </div>
+        this.setRestaurant.bind(this, name)
+        var restaurant = name && this.setRestaurant(name)
+        console.log(restaurant)
+        console.log('test', this.props.keyword)
+        return (
+            <div className="col scroll">
+                <div>
+                    {restaurant}
                 </div>
-            )
+            </div>
+        )
     }
 }
 
