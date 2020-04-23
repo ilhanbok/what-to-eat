@@ -14,7 +14,8 @@ const client = new MongoClient(mongoURL);
 var db = null, // Entire database
     rt = null, // Restaurant table
     pt = null, // Photo table
-    ct = null;
+    ct = null, // Comment table
+    ft = null; // Favorites table
 
 // Record when DB is properly initialized
 var isInitialized = false;
@@ -33,6 +34,7 @@ async function initdb(callback) {
       rt = db.collection('YelpCollection');
       pt = db.collection('PhotoCollection');
       ct = db.collection('CommentCollection');
+      ft = db.collection('FavoriteCollection');
       isInitialized = true;
       callback(false);
     } catch (err) {
@@ -65,10 +67,15 @@ const lookupRestaurant = function(callback, id) {
       console.error('lookupRestaurant: Restaurant to find by ID does not exist');
       callback(false, null);
     } else { // Reluctance to trust
-      if (docs.length > 1) {
-        console.log('lookupRestaurant: Duplicate restaurants found, returning first');
-      }
-      callback(false, docs[0]);
+      // If multiple restaurants found, returns first
+      lookupPhotos(
+        function(err, item) {
+          if (!err && item) {
+            docs[0].photo_id = item.photo_id;
+          }
+          callback(false, docs[0]);
+        },
+      id);
     }
   });
 }
@@ -107,9 +114,7 @@ const lookupPhotos = function(callback, id) {
       console.error('lookupPhotos: No photos exist for restaurant');
       callback(false, null);
     } else {
-      if (docs.length > 1) {
-        console.log('lookupPhotos: Duplicate photos found, returning first');
-      }
+      // If multiple restaurants found, returns first
       callback(false, docs[0]);
     }
   });
@@ -164,6 +169,68 @@ const postComment = function(callback, id, username, text, rating) {
   });
 }
 
+// Add a favorite item to user's list.
+const addFavorite = function(callback, email, rest_id, rest_name) {
+  ft.find({ email : email }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null); // fail securely
+    } else if (docs.length == 0) {
+      console.error('addFavorite: User to find by email does not exist, adding now.');
+      ft.insert({
+          email: email,
+          favorites: [ { rest_id: rest_id, rest_name: rest_name } ]
+      }, function(err, res){
+          if (err) {
+            console.error(err);
+            callback(err);
+          } else {
+            callback(false);
+          }
+      });
+    } else {
+      ft.update({ email: email },
+                { $push: { favorites: { rest_id : rest_id, rest_name: rest_name } }
+                }, function(err, res) {
+                  if (err) {
+                    console.error(err);
+                    callback(err);
+                  } else {
+                    callback(false);
+                  }
+               });
+    }
+  });
+}
+
+// Remove a favorite from a user's list
+const removeFavorite = function(callback, email, rest_id) {
+  ft.update({ email: email },
+            { $pull: { favorites: { rest_id: rest_id } } },
+            function(err, res) {
+              if (err) {
+                console.error(err);
+                callback(err);
+              } else {
+                callback(false);
+              }
+            });
+}
+
+// Get all favorites for a user
+const getAllFavorites = function(callback, email) {
+  ft.find({ email : email }).toArray(function(err, docs) {
+    if (err) {
+      callback(err, null);
+    } else if (docs.length == 0) {
+      console.log('getAllFavorites: No users exist with given email, returning empty array');
+      callback(false, []);
+    } else {
+      // If multiple users found, return first
+      callback(false, docs[0].favorites);
+    }
+  });
+}
+
 module.exports = {
   app : app,
   isInitialized : isInitialized,
@@ -175,5 +242,8 @@ module.exports = {
   getAllRestaurants : getAllRestaurants,
   lookupComments : lookupComments,
   postComment : postComment,
-  searchRestaurant: searchRestaurant
+  searchRestaurant: searchRestaurant,
+  addFavorite: addFavorite,
+  removeFavorite: removeFavorite,
+  getAllFavorites: getAllFavorites
 }
