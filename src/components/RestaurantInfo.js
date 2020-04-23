@@ -30,8 +30,31 @@ class RestaurantInfo extends Component {
         this.getComments();
     }
     //this.addReview......
-
+    
 getInfo() {
+    const convertToNormalTime = function(range) {
+        if (range) {
+            var times = range.split('-');
+            var start_hour = Number(times[0].substring(0,2));
+            var end_hour = Number(times[1].substring(0,2));
+            var start_suffix = ' AM';
+            var end_suffix = ' AM'
+            if (start_hour >= 12) start_suffix = ' PM';
+            if (start_hour > 12) start_hour -= 12;
+            
+            if (end_hour >= 12) end_suffix = ' PM';
+            if (end_hour > 12) end_hour -= 12;
+            if (start_hour == 0) {
+              start_hour = 12;
+            }
+            if (end_hour == 0) {
+              end_hour = 12;
+            }
+            return [start_hour + ':00' + start_suffix, end_hour + ':00' + end_suffix].join('-');
+        }
+    }
+
+
     fetch('http://localhost:5000/rest_info', {
                                                method: 'POST', 
                                                body : JSON.stringify({
@@ -54,18 +77,18 @@ getInfo() {
                     delivery: json.info.attributes && (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
                     price: json.info.attributes && (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
                             json.info.attributes.RestaurantsPriceRange2=='3'? 'Expensive':
-                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very expensive':'Very cheap'),
+                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very Expensive':'Very Cheap'),
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
                     this.setState({
-                    Monday: json.info.hours.Monday || "N/A", 
-                        Tuesday: json.info.hours.Tuesday || "N/A",
-                        Wednesday: json.info.hours.Wednesday || "N/A",
-                        Thursday: json.info.hours.Thursday || "N/A",
-                        Friday: json.info.hours.Friday || "N/A",
-                        Saturday: json.info.hours.Saturday || "N/A",
-                        Sunday: json.info.hours.Sunday || "N/A",
+                    Monday: convertToNormalTime(json.info.hours.Monday) || "N/A", 
+                        Tuesday: convertToNormalTime(json.info.hours.Tuesday) || "N/A",
+                        Wednesday: convertToNormalTime(json.info.hours.Wednesday) || "N/A",
+                        Thursday: convertToNormalTime(json.info.hours.Thursday) || "N/A",
+                        Friday: convertToNormalTime(json.info.hours.Friday) || "N/A",
+                        Saturday: convertToNormalTime(json.info.hours.Saturday) || "N/A",
+                        Sunday: convertToNormalTime(json.info.hours.Sunday) || "N/A",
                 })} else {
                     this.setState({
                         Monday: "N/A",
@@ -162,9 +185,10 @@ getInfo() {
                         value={avgRating}
                     /></h2>
                     <img src = {"https://s3-media0.fl.yelpcdn.com/bphoto/" + photo + "/o.jpg"} style={{ 'border-radius' : 15, 'margin-bottom': 30, alignSelf: 'center', display: photo ? 'block' : 'none' }} width="400" height="300"></img>
-                    <body>
+                    <div style={{ padding: 15, 'font-size': 20 }}>
                     <p>Category: {category}
-                    <br/><br/>
+                    <br/>
+                    <hr/>
                     Hours:<br/>
                     Monday: {Monday}<br/>
                     Tuesday: {Tuesday}<br/>
@@ -178,24 +202,25 @@ getInfo() {
                     Zipcode: {zipcode}<br/>
                     Delivery: {delivery}<br/>
                     Price: {price}
-                    <br/><br/>
+                    <br/>
+                    <hr/>
                     </p>
-                    </body>
                     <div>
-                        <body>Leave your rating:</body>
-                        <body><StarRatingComponent
+                        Leave your rating:<br/>
+                        <StarRatingComponent
                             name="rate2"
                             starCount={5}
                             value={rating}
                             onStarClick={this.onStarClick.bind(this)}
-                        /></body>
-                        <body>Say something about this restaurant:</body>
+                        />
+                        <br/>
+                        Say something about this restaurant:
+                        <br/>
+                        <br/>
                         <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.onPostClick.bind(this)}>Post</button></body>
+                        <button className="button" onClick={this.onPostClick.bind(this)}>Post</button>
                     </div>
-                    <br/>
-                    <body>
                     Reviews from other users:<br/>
                     {comments && comments.map((item) =>
                         {
@@ -204,7 +229,7 @@ getInfo() {
                     )
                     }
 
-                    </body>
+                    </div>
                 </div>
             </div>
         )
