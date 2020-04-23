@@ -51,21 +51,21 @@ getInfo() {
                     state: json.info.state,
                     zipcode: json.info.postal_code,
                     category: json.info.categories,
-                    delivery: (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
-                    price: (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
+                    delivery: json.info.attributes && (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
+                    price: json.info.attributes && (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
                             json.info.attributes.RestaurantsPriceRange2=='3'? 'Expensive':
                                 json.info.attributes.RestaurantsPriceRange2=='4'? 'Very expensive':'Very cheap'),
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
                     this.setState({
-                    Monday: json.info.hours.Monday, 
-                        Tuesday: json.info.hours.Tuesday,
-                        Wednesday: json.info.hours.Wednesday,
-                        Thursday: json.info.hours.Thursday,
-                        Friday: json.info.hours.Friday,
-                        Saturday: json.info.hours.Saturday,
-                        Sunday: json.info.hours.Sunday,
+                    Monday: json.info.hours.Monday || "N/A", 
+                        Tuesday: json.info.hours.Tuesday || "N/A",
+                        Wednesday: json.info.hours.Wednesday || "N/A",
+                        Thursday: json.info.hours.Thursday || "N/A",
+                        Friday: json.info.hours.Friday || "N/A",
+                        Saturday: json.info.hours.Saturday || "N/A",
+                        Sunday: json.info.hours.Sunday || "N/A",
                 })} else {
                     this.setState({
                         Monday: "N/A",
@@ -161,23 +161,26 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
-                    <img src = {"https://s3-media0.fl.yelpcdn.com/bphoto/" + photo + "/o.jpg"} style={{ alignSelf: 'center', display: photo ? 'block' : 'none' }} width="400" height="300"></img>
-                    <body>Category: {category}</body>
-                    <br/>
-                    <body>Hours:</body>
-                    <body>Monday: {Monday}</body>
-                    <body>Tuesday: {Tuesday}</body>
-                    <body>Wednesday: {Wednesday}</body>
-                    <body>Thursday: {Thursday}</body>
-                    <body>Friday: {Friday}</body>
-                    <body>Saturday: {Saturday}</body>
-                    <body>Sunday: {Sunday}</body>
-                    <br/>
-                    <body>Address: {address}, {city}, {state}</body>
-                    <body>Zipcode: {zipcode}</body>
-                    <body>Delivery: {delivery}</body>
-                    <body>Price: {price}</body>
-                    <br/>
+                    <img src = {"https://s3-media0.fl.yelpcdn.com/bphoto/" + photo + "/o.jpg"} style={{ 'border-radius' : 15, 'margin-bottom': 30, alignSelf: 'center', display: photo ? 'block' : 'none' }} width="400" height="300"></img>
+                    <body>
+                    <p>Category: {category}
+                    <br/><br/>
+                    Hours:<br/>
+                    Monday: {Monday}<br/>
+                    Tuesday: {Tuesday}<br/>
+                    Wednesday: {Wednesday}<br/>
+                    Thursday: {Thursday}<br/>
+                    Friday: {Friday}<br/>
+                    Saturday: {Saturday}<br/>
+                    Sunday: {Sunday}
+                    <br/><br/>
+                    Address: {address}, {city}, {state}<br/>
+                    Zipcode: {zipcode}<br/>
+                    Delivery: {delivery}<br/>
+                    Price: {price}
+                    <br/><br/>
+                    </p>
+                    </body>
                     <div>
                         <body>Leave your rating:</body>
                         <body><StarRatingComponent
@@ -189,7 +192,7 @@ getInfo() {
                         <body>Say something about this restaurant:</body>
                         <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.onPostClick.bind(this)}>post</button></body>
+                        <body><button className="button" onClick={this.onPostClick.bind(this)}>Post</button></body>
                     </div>
                     <br/>
                     <body>
