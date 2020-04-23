@@ -35,8 +35,12 @@ getInfo() {
     const convertToNormalTime = function(range) {
         if (range) {
             var times = range.split('-');
-            var start_hour = Number(times[0].substring(0,2));
-            var end_hour = Number(times[1].substring(0,2));
+            var start_hour = Number(times[0].split(':')[0]);
+            var start_minute = times[0].split(':')[1];
+            if (start_minute == '0') start_minute = '00';
+            var end_minute = times[1].split(':')[1];
+            if (end_minute == '0') end_minute = '00';
+            var end_hour = Number(times[1].split(':')[0]);
             var start_suffix = ' AM';
             var end_suffix = ' AM'
             if (start_hour >= 12) start_suffix = ' PM';
@@ -50,7 +54,8 @@ getInfo() {
             if (end_hour == 0) {
               end_hour = 12;
             }
-            return [start_hour + ':00' + start_suffix, end_hour + ':00' + end_suffix].join('-');
+            return [start_hour + ':' + start_minute + start_suffix,
+                    end_hour + ':' + end_minute + end_suffix].join('-');
         }
     }
 
@@ -81,6 +86,7 @@ getInfo() {
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
+                    console.log(json.info.hours);
                     this.setState({
                     Monday: convertToNormalTime(json.info.hours.Monday) || "N/A", 
                         Tuesday: convertToNormalTime(json.info.hours.Tuesday) || "N/A",

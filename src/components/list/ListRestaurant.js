@@ -108,7 +108,7 @@ export class ListRestaurant extends Component {
                     <h6><StarRatingComponent
                         name="rate1"
                         starCount={5.0}
-                        value={item.stars}
+                        value={Math.round(item.stars)}
                     /></h6>
 
                 </div>
