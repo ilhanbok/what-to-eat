@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import StarRatingComponent from 'react-star-rating-component';
 
 import "./ListRestaurant.css";
+import SearchBar from '../search/SearchBar';
 
-class ListRestaurant extends Component {
+export class ListRestaurant extends Component {
 
     constructor(props) {
         super(props);
@@ -75,40 +76,54 @@ class ListRestaurant extends Component {
         localStorage.setItem('currRest', business_id);
     }
 
+    loadRestaurant(name){
+        //console.log('LR');
+        this.setState({
+            name: name
+        });
+    }
 
-    render() {
-        const {name} = this.state;
+    setRestaurant(name){
         const getStatus = (res) => {
             if (!(res in this.state.starName)) this.state.starName[res] = "fa-star-o";
             return this.state.starName[res];
         }
+        return name.map((item) => {
+            return (
+                <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
+                <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
+                </h5>
+                <i className={"fa favorite " + getStatus((item.name))} id={"star"
+                + (item.name)} onClick={this.toggleStar.bind(this, (item.name))}></i>
+                <p>{item.address} </p>
+                <h6><StarRatingComponent
+                    name="rate1"
+                    starCount={5.0}
+                    value={item.stars}
+                /></h6>
 
-        return (
-
-            <div className="col scroll">
-                <div>
-                    {name && name.map((item) => {
-                            return <div style = {{'marginTop':20, 'marginLeft':25, 'marginRight':25, }}>
-                                <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a></h5>
-                                <i className={"fa favorite " + getStatus((item.name))} id={"star"
-                                + (item.name)} onClick={this.toggleStar.bind(this, (item.name))}></i>
-                                <p>{item.address} </p>
-                                <h6><StarRatingComponent
-                                    name="rate1"
-                                    starCount={5.0}
-                                    value={item.stars}
-                                /></h6>
-
-                            </div>;
-
-                        }
-                    )
-                    }
-
-                </div>
             </div>
-
         )
+
+        })
+    }
+
+     render() {
+        const {name} = this.state;
+         this.setRestaurant.bind(this, name)
+            var restaurant = name && this.setRestaurant(name)
+            console.log(restaurant)
+            console.log('test', this.props.keyword)
+
+            return (
+
+                <div className="col scroll">
+                    <div>
+                        {restaurant}
+                    </div>
+                </div>
+
+            )
     }
 }
 
