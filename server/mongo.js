@@ -222,8 +222,8 @@ const getAllFavorites = function(callback, email) {
     if (err) {
       callback(err, null);
     } else if (docs.length == 0) {
-      console.error('getAllFavorites: No users exist with given email');
-      callback(false, null);
+      console.log('getAllFavorites: No users exist with given email, returning empty array');
+      callback(false, []);
     } else {
       // If multiple users found, return first
       callback(false, docs[0].favorites);

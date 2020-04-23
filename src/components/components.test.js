@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import RestaurantInfo from './RestaurantInfo';
+import Profile from './Profile';
 import ListRestaurant from './list/ListRestaurant';
 
 let container;
@@ -31,6 +32,15 @@ it('can fetch information for a restaurant', (doneCallback) => {
       expect(x.state.name).toBe('McDonald\'s');
       doneCallback();
     });
+  });
+});
+
+it('can render profile page', () => {
+  var x;
+  act(() => {
+    localStorage.setItem('userEmail', 'test@te.st');
+    x = render(<Profile />, container);
+    expect(x.state.username).toBe('test@te.st');
   });
 });
 
