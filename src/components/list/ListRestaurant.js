@@ -93,11 +93,12 @@ export class ListRestaurant extends Component {
         return name.filter((restaurant) => {
             if (this.props.keyword == null)
                 return restaurant
-            else if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
+            else if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
+                restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
                 return restaurant
             }
         }).map(item => {
-            //console.log('check', name[1].name)
+            //console.log('check', name[1].name) categories
             return (
                 <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
                     <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
