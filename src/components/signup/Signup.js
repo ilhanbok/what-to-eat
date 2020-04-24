@@ -67,6 +67,7 @@ export default function Signup(props) {
                     setNewUser(newUser);
                 } catch (e) {
                     setIsLoading(false);
+                    alert(e.message);
                 }
     }
 
@@ -82,6 +83,7 @@ export default function Signup(props) {
             history.push("/");
         } catch (e) {
             setIsLoading(false);
+            alert(e.message);
         }
     }
 
