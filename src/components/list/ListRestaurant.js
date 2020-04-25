@@ -60,15 +60,23 @@ export class ListRestaurant extends Component {
     }
 
     toggleStar(res) {
-        const toToggle = document.getElementById("star" + res);
-        if (toToggle.classList.contains("fa-star-o")) {
-            toToggle.classList.remove("fa-star-o");
-            toToggle.classList.add("fa-star");
-            this.state.starName[res] = "fa-star";
-        } else {
-            toToggle.classList.remove("fa-star");
-            toToggle.classList.add("fa-star-o");
-            this.state.starName[res] = "fa-star-o";
+        if (localStorage.getItem('userEmail')==''){
+            if (window.confirm("Please Login first. Click Ok to direct to Login page!")) {
+                window.location.href = "http://localhost:3000/login"
+            }
+            /*alert('Please log in first');*/
+        }
+        else {
+            const toToggle = document.getElementById("star" + res);
+            if (toToggle.classList.contains("fa-star-o")) {
+                toToggle.classList.remove("fa-star-o");
+                toToggle.classList.add("fa-star");
+                this.state.starName[res] = "fa-star";
+            } else {
+                toToggle.classList.remove("fa-star");
+                toToggle.classList.add("fa-star-o");
+                this.state.starName[res] = "fa-star-o";
+            }
         }
     }
 
