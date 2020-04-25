@@ -225,16 +225,17 @@ getInfo() {
                         <br/>
                         <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <button className="button" onClick={this.onPostClick.bind(this)}>Post</button>
+                        <button className="btn search-btn" onClick={this.onPostClick.bind(this)} style={{marginTop:'1%'}}>Post</button>
                     </div>
-                    Reviews from other users:<br/>
+                    Reviews<br/>
+                    <div className="border infoBorder">
                     {comments && comments.map((item) =>
                         {
                             return <div>{item.username}: {item.text}</div>;
                         }
                     )
                     }
-
+                    </div>
                     </div>
                 </div>
             </div>
