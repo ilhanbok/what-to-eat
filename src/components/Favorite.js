@@ -21,12 +21,12 @@ class Favorite extends Component {
                     key: '3a1w3Ufs9CCC3GJTAV8EpQ'
                 },
                 {
-                    name_: 'Swagat',
-                    key: 'bbb'
+                    name_: 'Aldo\'s Cafe',
+                    key: 'opdNlNy2oGE2mxuS0SXR1Q'
                 },
                 {
                     name_: 'Subway',
-                    key: 'ccc'
+                    key: 'bqNV9FU60H9BVPJ4kWptOA'
                 }
             ]
         }
