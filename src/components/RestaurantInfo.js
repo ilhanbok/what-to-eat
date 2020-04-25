@@ -113,7 +113,7 @@ getInfo() {
         if (this.refs['comment_text'].value==''){
             alert('Please input comments');
         }
-        else if (this.state.rating==0){
+    else if (this.state.rating==0){
             alert('Please input rating');
         }
         else{
