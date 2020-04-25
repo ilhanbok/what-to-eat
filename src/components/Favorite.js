@@ -15,7 +15,7 @@ class Favorite extends Component {
         super(props);
 
         this.state = {
-            favorites: this.getFavoritesClient()/*[
+            favorites: []/*[
                 {
                     name_: 'McDonalds',
                     key: '3a1w3Ufs9CCC3GJTAV8EpQ'
@@ -34,6 +34,10 @@ class Favorite extends Component {
         this.getFavoritesClient = this.getFavoritesClient.bind(this);
         this.renderFavorites = this.renderFavorites.bind(this);
     }
+    
+    componentDidMount() {
+        this.getFavoritesClient();
+    }
 
     getFavoritesClient() {
          var email = localStorage.getItem('userEmail');
@@ -50,6 +54,7 @@ class Favorite extends Component {
                                                      })
                 .then((response) => response.json())
                     .then((json) => {
+                        console.log(json.favorites);
                         this.setState({ favorites : json.favorites })
                 })
         .catch((error) => console.error(error))
