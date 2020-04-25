@@ -33,6 +33,31 @@ export class ListRestaurant extends Component {
                 this.setState({ isLoading: false });
             });
     }
+    
+    toggleFavorite(isAdding, name, id) {
+        var email = localStorage.getItem('userEmail');
+        if (!email) return;
+         fetch('http://localhost:5000/mod_favorites', {
+                                                       method: 'POST', 
+                                                       body : JSON.stringify({
+                                                         email : email,
+                                                         rest_id : id,
+                                                         rest_name : name,
+                                                         mode : isAdding ? 'add' : 'remove'
+                                                       }),
+                                                       headers: {
+                                                         Accept: 'application/json', 'Content-Type': 'application/json'
+                                                       }
+                                                     })
+                .then((response) => response.json())
+                    .then((json) => {
+                        // do nothing
+                })
+        .catch((error) => console.error(error))
+            .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
+    }
 
     getSearchedInfo(){
         fetch('http://localhost:5000/getSearched_info', {
@@ -59,16 +84,22 @@ export class ListRestaurant extends Component {
             });
     }
 
-    toggleStar(res) {
-        const toToggle = document.getElementById("star" + res);
+    toggleStar(name, id) {
+        const toToggle = document.getElementById("star" + id);
+        // Add to favorites
         if (toToggle.classList.contains("fa-star-o")) {
             toToggle.classList.remove("fa-star-o");
             toToggle.classList.add("fa-star");
-            this.state.starName[res] = "fa-star";
-        } else {
+            this.state.starName[name] = "fa-star";
+            this.toggleFavorite.bind(this, true, name, id);
+            this.toggleFavorite(true, name, id);
+        // Remove from favorites
+        } else if (window.confirm("Remove " + name + " from favorites?")) {
             toToggle.classList.remove("fa-star");
             toToggle.classList.add("fa-star-o");
-            this.state.starName[res] = "fa-star-o";
+            this.state.starName[name] = "fa-star-o";
+            this.toggleFavorite.bind(this, false, name, id);
+            this.toggleFavorite(false, name, id);
         }
     }
 
@@ -114,7 +145,7 @@ export class ListRestaurant extends Component {
                         <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
                         </h5>
                         <i className={"fa favorite " + getStatus((item.name))} id={"star"
-                        + (item.name)} onClick={this.toggleStar.bind(this, (item.name))}></i>
+                        + (item.business_id)} onClick={this.toggleStar.bind(this, item.name, item.business_id)}></i>
                         <p>{item.address} </p>
                         <h6><StarRatingComponent
                             name="rate1"
