@@ -139,24 +139,31 @@ getInfo() {
     }
 
     onPostClick(){
-        //send rating and comment to server
-        fetch('http://localhost:5000/make_comment', {
-            method: 'POST',
-            body : JSON.stringify({
-            business_id : localStorage.getItem('currRest'),
-            username : localStorage.getItem('userEmail') || "Anonymous",
-            text : this.refs['comment_text'].value,
-            rating : (this.state.rating==0? this.state.avgRating:this.state.rating)
-        }),
-            headers: {
-                Accept: 'application/json', 'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                window.location.reload();
+        if (this.refs['comment_text'].value==''){
+            alert('Please input comments');
+        }
+        else if (this.state.rating==0){
+            alert('Please input rating');
+        }
+        else{
+            //send rating and comment to server
+            fetch('http://localhost:5000/make_comment', {
+                method: 'POST',
+                body : JSON.stringify({
+                    business_id : localStorage.getItem('currRest'),
+                    username : localStorage.getItem('userEmail') || "Anonymous",
+                    text : this.refs['comment_text'].value,
+                    rating : this.state.rating
+                }),
+                headers: {
+                    Accept: 'application/json', 'Content-Type': 'application/json'
+                }
             })
-            .catch((error) => console.error(error));
+                .then((response) => response.json())
+                .then((json) => {
+                    window.location.reload();
+                })
+                .catch((error) => console.error(error));}
     }
 
     render(){
@@ -225,7 +232,7 @@ getInfo() {
                         <br/>
                         <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <button className="button" onClick={this.onPostClick.bind(this)}>Post</button>
+                        <button className="btn search-btn" onClick={this.onPostClick.bind(this)} style={{marginTop:'1%'}}>Post</button>
                     </div>
                     Reviews from other users:<br/>
                     {comments && comments.map((item) =>
