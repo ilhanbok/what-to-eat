@@ -16,39 +16,59 @@ import ListRestaurant from './list/ListRestaurant';
 import '../css/style.css'
 
 class Home extends React.Component {
+    //const searchTerm = React.useRef(null);
 
     constructor(props) {
         super(props);
 
         this.state = {
-            showContent: false,
-            searchText: ''
+            searchText: 'test'
+            //searchTerm: React.useRef(null)
         }
-        this.searchByValue = this.searchByValue.bind(this)
+        //this.searchTerm = React.useRef(null);
+        //this.searchByValue = this.searchByValue.bind(this)
     }
 
-    searchByValue(searchText) {
-        console.log('Search text is now', searchText)
-        this.setState({ showContent: true, searchText })
-    }
+
+    /*searchByValue = e => {
+        const keyword = this.searchTerm.current.value;
+        this.setState({
+            value: keyword
+        })
+        console.log('Search text is now', keyword);
+    }*/
+
+
 
     render() {
-        let { showContent, userInfo, searchByValue, searchText } = this.state
+        //const searchTerm = React.useRef(null);
+        const searchByValue = e => {
+            const keyword = document.getElementById('textTerm').value;
+            this.setState({
+                value: keyword
+
+            })
+            //ListRestaurant.loadRestaurant(keyword);
+            console.log('Search text is now', keyword);
+        }
+
+        let { showContent, userInfo, searchText } = this.state
         return (
             <div className="Container">
                 <Header />
                 <div className="Content-div">
                     <div className="content-div-search-bar">
                         <SearchBar
-                            searchByValue={this.searchByValue}
-                            searchTextChange={this.searchTextChange} />
+                            searchByValue={searchByValue}
+                            //searchTerm={searchTerm}
+                            />
                     </div>
                     <div className="restaurants-list">
                         <div className="filter-restaurants">
                             <NewFilter />
                         </div>
                         <div className="filter-restaurants">
-                            <ListRestaurant/>
+                            <ListRestaurant keyword = {this.state.value}/>
                         </div>
                     </div>
                 </div>
