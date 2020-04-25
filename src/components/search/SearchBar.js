@@ -12,7 +12,7 @@ const SearchBar = ({ searchTerm, searchTextChange, searchByValue }) => {
         /*onKeyPress={searchTextChange}
         onChange={searchTextChange}*/
           //ref = {searchTerm}
-        placeholder="Search restaurants by name, cuisines etc." />
+        placeholder="Search restaurants by name and categories" />
 
       <button className="btn search-btn"
         onClick={searchByValue}> search </button>
