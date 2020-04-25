@@ -144,7 +144,7 @@ export class ListRestaurant extends Component {
                     <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
                         <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
                         </h5>
-                        <i className={"fa favorite " + getStatus((item.name))} id={"star"
+                        <i className={"fa favorite " + getStatus((item.business_id))} id={"star"
                         + (item.business_id)} onClick={this.toggleStar.bind(this, item.name, item.business_id)}></i>
                         <p>{item.address} </p>
                         <h6><StarRatingComponent
