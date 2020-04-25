@@ -30,8 +30,36 @@ class RestaurantInfo extends Component {
         this.getComments();
     }
     //this.addReview......
-
+    
 getInfo() {
+    const convertToNormalTime = function(range) {
+        if (range) {
+            var times = range.split('-');
+            var start_hour = Number(times[0].split(':')[0]);
+            var start_minute = times[0].split(':')[1];
+            if (start_minute == '0') start_minute = '00';
+            var end_minute = times[1].split(':')[1];
+            if (end_minute == '0') end_minute = '00';
+            var end_hour = Number(times[1].split(':')[0]);
+            var start_suffix = ' AM';
+            var end_suffix = ' AM'
+            if (start_hour >= 12) start_suffix = ' PM';
+            if (start_hour > 12) start_hour -= 12;
+            
+            if (end_hour >= 12) end_suffix = ' PM';
+            if (end_hour > 12) end_hour -= 12;
+            if (start_hour == 0) {
+              start_hour = 12;
+            }
+            if (end_hour == 0) {
+              end_hour = 12;
+            }
+            return [start_hour + ':' + start_minute + start_suffix,
+                    end_hour + ':' + end_minute + end_suffix].join('-');
+        }
+    }
+
+
     fetch('http://localhost:5000/rest_info', {
                                                method: 'POST', 
                                                body : JSON.stringify({
@@ -45,27 +73,28 @@ getInfo() {
             .then((json) => {
                 console.log(json.info.stars);
                 this.setState({ name: json.info.name,
-                    photo: "https://s3-media0.fl.yelpcdn.com/bphoto/" + json.info.photo_id + "/o.jpg",
+                    photo: json.info.photo_id,
                     address: json.info.address,
                     city: json.info.city,
                     state: json.info.state,
                     zipcode: json.info.postal_code,
                     category: json.info.categories,
-                    delivery: (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
-                    price: (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
+                    delivery: json.info.attributes && (json.info.attributes.RestaurantsDelivery=='True'? 'Yes':'No'),
+                    price: json.info.attributes && (json.info.attributes.RestaurantsPriceRange2=='2'? 'Cheap':
                             json.info.attributes.RestaurantsPriceRange2=='3'? 'Expensive':
-                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very expensive':'Very cheap'),
+                                json.info.attributes.RestaurantsPriceRange2=='4'? 'Very Expensive':'Very Cheap'),
                     avgRating: Math.round(json.info.stars / 2 + (json.average || json.info.stars) / 2)});
                 
                 if(json.info.hours){
+                    console.log(json.info.hours);
                     this.setState({
-                    Monday: json.info.hours.Monday, 
-                        Tuesday: json.info.hours.Tuesday,
-                        Wednesday: json.info.hours.Wednesday,
-                        Thursday: json.info.hours.Thursday,
-                        Friday: json.info.hours.Friday,
-                        Saturday: json.info.hours.Saturday,
-                        Sunday: json.info.hours.Sunday,
+                    Monday: convertToNormalTime(json.info.hours.Monday) || "N/A", 
+                        Tuesday: convertToNormalTime(json.info.hours.Tuesday) || "N/A",
+                        Wednesday: convertToNormalTime(json.info.hours.Wednesday) || "N/A",
+                        Thursday: convertToNormalTime(json.info.hours.Thursday) || "N/A",
+                        Friday: convertToNormalTime(json.info.hours.Friday) || "N/A",
+                        Saturday: convertToNormalTime(json.info.hours.Saturday) || "N/A",
+                        Sunday: convertToNormalTime(json.info.hours.Sunday) || "N/A",
                 })} else {
                     this.setState({
                         Monday: "N/A",
@@ -113,29 +142,28 @@ getInfo() {
         if (this.refs['comment_text'].value==''){
             alert('Please input comments');
         }
-    else if (this.state.rating==0){
+        else if (this.state.rating==0){
             alert('Please input rating');
         }
         else{
-        //send rating and comment to server
-        fetch('http://localhost:5000/make_comment', {
-            method: 'POST',
-            body : JSON.stringify({
-            business_id : localStorage.getItem('currRest'),
-            username : localStorage.getItem('userEmail') || "Anonymous",
-            text : this.refs['comment_text'].value,
-            rating : this.state.rating
-        }),
-            headers: {
-                Accept: 'application/json', 'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                window.location.reload();
+            //send rating and comment to server
+            fetch('http://localhost:5000/make_comment', {
+                method: 'POST',
+                body : JSON.stringify({
+                    business_id : localStorage.getItem('currRest'),
+                    username : localStorage.getItem('userEmail') || "Anonymous",
+                    text : this.refs['comment_text'].value,
+                    rating : this.state.rating
+                }),
+                headers: {
+                    Accept: 'application/json', 'Content-Type': 'application/json'
+                }
             })
-            .catch((error) => console.error(error));}
-
+                .then((response) => response.json())
+                .then((json) => {
+                    window.location.reload();
+                })
+                .catch((error) => console.error(error));}
     }
 
     render(){
@@ -169,38 +197,43 @@ getInfo() {
                         starCount={5}
                         value={avgRating}
                     /></h2>
-                    <img src = {photo} style={{ alignSelf: 'center' }} alt = 'No Photo Found for this Restaurant' width="400" height="300"></img>
-                    <body>Category: {category}</body>
+                    <img src = {"https://s3-media0.fl.yelpcdn.com/bphoto/" + photo + "/o.jpg"} style={{ 'border-radius' : 15, 'margin-bottom': 30, alignSelf: 'center', display: photo ? 'block' : 'none' }} width="400" height="300"></img>
+                    <div style={{ padding: 15, 'font-size': 20 }}>
+                    <p>Category: {category}
                     <br/>
-                    <body>Hours:</body>
-                    <body>Monday: {Monday}</body>
-                    <body>Tuesday: {Tuesday}</body>
-                    <body>Wednesday: {Wednesday}</body>
-                    <body>Thursday: {Thursday}</body>
-                    <body>Friday: {Friday}</body>
-                    <body>Saturday: {Saturday}</body>
-                    <body>Sunday: {Sunday}</body>
+                    <hr/>
+                    Hours:<br/>
+                    Monday: {Monday}<br/>
+                    Tuesday: {Tuesday}<br/>
+                    Wednesday: {Wednesday}<br/>
+                    Thursday: {Thursday}<br/>
+                    Friday: {Friday}<br/>
+                    Saturday: {Saturday}<br/>
+                    Sunday: {Sunday}
+                    <br/><br/>
+                    Address: {address}, {city}, {state}<br/>
+                    Zipcode: {zipcode}<br/>
+                    Delivery: {delivery}<br/>
+                    Price: {price}
                     <br/>
-                    <body>Address: {address}, {city}, {state}</body>
-                    <body>Zipcode: {zipcode}</body>
-                    <body>Delivery: {delivery}</body>
-                    <body>Price: {price}</body>
-                    <br/>
+                    <hr/>
+                    </p>
                     <div>
-                        <body>Leave your rating:</body>
-                        <body><StarRatingComponent
+                        Leave your rating:<br/>
+                        <StarRatingComponent
                             name="rate2"
                             starCount={5}
                             value={rating}
                             onStarClick={this.onStarClick.bind(this)}
-                        /></body>
-                        <body>Say something about this restaurant:</body>
+                        />
+                        <br/>
+                        Say something about this restaurant:
+                        <br/>
+                        <br/>
                         <FormControl as="textarea" ref="comment_text" rows="6" cols="50" placeholder="Write comment here..."/>
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
-                        <body><button className="button" onClick={this.onPostClick.bind(this)}>post</button></body>
+                        <button className="btn search-btn" onClick={this.onPostClick.bind(this)} style={{marginTop:'1%'}}>Post</button>
                     </div>
-                    <br/>
-                    <body>
                     Reviews from other users:<br/>
                     {comments && comments.map((item) =>
                         {
@@ -209,7 +242,7 @@ getInfo() {
                     )
                     }
 
-                    </body>
+                    </div>
                 </div>
             </div>
         )
@@ -218,3 +251,4 @@ getInfo() {
 
 
 export default RestaurantInfo;
+

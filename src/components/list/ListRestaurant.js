@@ -61,7 +61,10 @@ export class ListRestaurant extends Component {
 
     toggleStar(res) {
         if (localStorage.getItem('userEmail')==''){
-            alert('Please log in first');
+            if (window.confirm("Please Login first. Click Ok to direct to Login page!")) {
+                window.location.href = "http://localhost:3000/login"
+            }
+            /*alert('Please log in first');*/
         }
         else {
             const toToggle = document.getElementById("star" + res);
