@@ -90,14 +90,14 @@ export class ListRestaurant extends Component {
         if (toToggle.classList.contains("fa-star-o")) {
             toToggle.classList.remove("fa-star-o");
             toToggle.classList.add("fa-star");
-            this.state.starName[name] = "fa-star";
+            this.state.starName[id] = "fa-star";
             this.toggleFavorite.bind(this, true, name, id);
             this.toggleFavorite(true, name, id);
         // Remove from favorites
         } else if (window.confirm("Remove " + name + " from favorites?")) {
             toToggle.classList.remove("fa-star");
             toToggle.classList.add("fa-star-o");
-            this.state.starName[name] = "fa-star-o";
+            this.state.starName[id] = "fa-star-o";
             this.toggleFavorite.bind(this, false, name, id);
             this.toggleFavorite(false, name, id);
         }
