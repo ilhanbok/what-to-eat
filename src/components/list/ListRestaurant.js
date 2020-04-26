@@ -34,6 +34,31 @@ export class ListRestaurant extends Component {
             });
     }
 
+    toggleFavorite(isAdding, name, id) {
+        var email = localStorage.getItem('userEmail');
+        if (!email) return;
+        fetch('http://localhost:5000/mod_favorites', {
+            method: 'POST',
+            body : JSON.stringify({
+                email : email,
+                rest_id : id,
+                rest_name : name,
+                mode : isAdding ? 'add' : 'remove'
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                // do nothing
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    }
+
     getSearchedInfo(){
         fetch('http://localhost:5000/getSearched_info', {
             method: 'POST',
@@ -59,16 +84,22 @@ export class ListRestaurant extends Component {
             });
     }
 
-    toggleStar(res) {
-        const toToggle = document.getElementById("star" + res);
+    toggleStar(name, id) {
+        const toToggle = document.getElementById("star" + id);
+        // Add to favorites
         if (toToggle.classList.contains("fa-star-o")) {
             toToggle.classList.remove("fa-star-o");
             toToggle.classList.add("fa-star");
-            this.state.starName[res] = "fa-star";
-        } else {
+            this.state.starName[id] = "fa-star";
+            this.toggleFavorite.bind(this, true, name, id);
+            this.toggleFavorite(true, name, id);
+            // Remove from favorites
+        } else if (window.confirm("Remove " + name + " from favorites?")) {
             toToggle.classList.remove("fa-star");
             toToggle.classList.add("fa-star-o");
-            this.state.starName[res] = "fa-star-o";
+            this.state.starName[id] = "fa-star-o";
+            this.toggleFavorite.bind(this, false, name, id);
+            this.toggleFavorite(false, name, id);
         }
     }
 
@@ -90,32 +121,41 @@ export class ListRestaurant extends Component {
         }
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
-        return name.filter((restaurant) => {
+        var matches = name.filter((restaurant) => {
             if (this.props.keyword == null)
                 return restaurant
             else if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
                 restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
                 return restaurant
             }
-        }).map(item => {
-            //console.log('check', name[1].name) categories
-            return (
-                <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
-                    <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
-                    </h5>
-                    <i className={"fa favorite " + getStatus((item.name))} id={"star"
-                    + (item.name)} onClick={this.toggleStar.bind(this, (item.name))}></i>
-                    <p>{item.address} </p>
-                    <h6><StarRatingComponent
-                        name="rate1"
-                        starCount={5.0}
-                        value={Math.round(item.stars)}
-                    /></h6>
-
-                </div>
-            )
-
         })
+        console.log('matches: ' + matches);
+        if (matches.length == 0) {
+            return (
+                <div style={{'text-align':'center', 'margin-top':'20%'}}>
+                    <div style={{'font-size': 100}}>🥘 No results :( 🍔</div>
+                    <div style={{'font-size': 40}}>Try searching with fewer criteria or different keywords</div>
+                </div>
+            );
+        } else {
+            return matches.map(item => {
+                //console.log('check', name[1].name) categories
+                return (
+                    <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
+                        <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
+                        </h5>
+                        <i className={"fa favorite " + getStatus((item.business_id))} id={"star"
+                        + (item.business_id)} onClick={this.toggleStar.bind(this, item.name, item.business_id)}></i>
+                        <p>{item.address} </p>
+                        <h6><StarRatingComponent
+                            name="rate1"
+                            starCount={5.0}
+                            value={Math.round(item.stars)}
+                        /></h6>
+                    </div>
+                )
+            })
+        }
         /*return name.filter(restaurant => restaurant.name.includes(this.props.keyword)).map((item) => {
 
             //console.log('check', name[1].name)
