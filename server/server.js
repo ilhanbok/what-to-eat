@@ -55,6 +55,37 @@ mongo.app.get('/getAll_info', function(req, res) {
   });
 });
 
+// Add/remove/retrieve favorites
+
+mongo.app.post('/mod_favorites', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  if (req.body.mode == 'add') {
+    mongo.addFavorite(function(err){
+      if (err) {
+        console.error(err);
+      }
+      res.send({});
+    }, req.body.email, req.body.rest_id, req.body.rest_name);
+  } else if (req.body.mode == 'remove') {
+    mongo.removeFavorite(function(err){
+      if (err) {
+        console.error(err);
+      }
+      res.send({});
+    }, req.body.email, req.body.rest_id);
+  } else if (req.body.mode == 'getall') {
+    mongo.getAllFavorites(function(err, info) {
+      if (err) {
+        console.error(err);
+      } else {
+        res.send({ favorites: info });
+      }
+    }, req.body.email);
+  } else {
+    res.send({});
+  }
+});
+
 mongo.initdb(function(err) {
   if (err) {
     console.error(err);

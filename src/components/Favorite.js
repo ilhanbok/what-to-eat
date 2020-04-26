@@ -15,7 +15,7 @@ class Favorite extends Component {
         super(props);
 
         this.state = {
-            favorites: [
+            favorites: []/*[
                 {
                     name_: 'McDonalds',
                     key: '3a1w3Ufs9CCC3GJTAV8EpQ'
@@ -28,24 +28,69 @@ class Favorite extends Component {
                     name_: 'Subway',
                     key: 'bqNV9FU60H9BVPJ4kWptOA'
                 }
-            ]
+            ]*/
         }
 
         this.getFavoritesClient = this.getFavoritesClient.bind(this);
         this.renderFavorites = this.renderFavorites.bind(this);
     }
+    
+    componentDidMount() {
+        this.getFavoritesClient();
+    }
 
     getFavoritesClient() {
-        // Query server and return favorites list
+         var email = localStorage.getItem('userEmail');
+         if (!email) return;
+         fetch('http://localhost:5000/mod_favorites', {
+                                                       method: 'POST', 
+                                                       body : JSON.stringify({
+                                                         email : email,
+                                                         mode : 'getall'
+                                                       }),
+                                                       headers: {
+                                                         Accept: 'application/json', 'Content-Type': 'application/json'
+                                                       }
+                                                     })
+                .then((response) => response.json())
+                    .then((json) => {
+                        console.log(json.favorites);
+                        this.setState({ favorites : json.favorites })
+                })
+        .catch((error) => console.error(error))
+            .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
     }
 
     removeFavorite(key, name) {
+        var email = localStorage.getItem('userEmail');
+        if (!email) return;
         if (window.confirm("Remove " + name + " from favorites?")) {
-          var arr = this.state.favorites;
-          var index = arr.findIndex(x => x.key == key);
-          if (index == -1) return;
-          arr.splice(index, 1);
-          this.setState({ favorites: arr });
+         fetch('http://localhost:5000/mod_favorites', {
+                                                       method: 'POST', 
+                                                       body : JSON.stringify({
+                                                         email : email,
+                                                         rest_id : key,
+                                                         mode : 'remove'
+                                                       }),
+                                                       headers: {
+                                                         Accept: 'application/json', 'Content-Type': 'application/json'
+                                                       }
+                                                     })
+                .then((response) => response.json())
+                    .then((json) => {
+                        // Remove from favorites visually as well
+                        var arr = this.state.favorites;
+                        var index = arr.findIndex(x => x.rest_id == key);
+                        if (index == -1) return;
+                        arr.splice(index, 1);
+                        this.setState({ favorites: arr });
+                })
+        .catch((error) => console.error(error))
+            .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
         }
     }
     
@@ -54,9 +99,9 @@ class Favorite extends Component {
     }
 
     renderFavorites() {
-        return this.state.favorites.map(restaurant => (
+        return this.state.favorites && this.state.favorites.map(restaurant => (
                 <tr><td className="fav-item">
-                    <a href="/restaurantinfo" onClick={this.setId.bind(this, restaurant.key)}> {restaurant.name_} </a><i class="fa fa-star favorite" onClick={this.removeFavorite.bind(this, restaurant.key, restaurant.name_)}></i>
+                    <a href="/restaurantinfo" onClick={this.setId.bind(this, restaurant.rest_id)}> {restaurant.rest_name} </a><i class="fa fa-star favorite" onClick={this.removeFavorite.bind(this, restaurant.rest_id, restaurant.rest_name)}></i>
                 </td></tr>
             )
         );
