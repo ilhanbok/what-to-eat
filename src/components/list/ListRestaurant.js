@@ -11,8 +11,37 @@ export class ListRestaurant extends Component {
 
         this.state = {
             name: this.getInfo(),
-            starName : {}
+            starName : {},
+            favorites : []
         }
+        this.getFavoritesClient = this.getFavoritesClient.bind(this);
+    }
+    
+    getFavoritesClient() {
+         var email = localStorage.getItem('userEmail');
+         if (!email) return;
+         fetch('http://localhost:5000/mod_favorites', {
+                                                       method: 'POST', 
+                                                       body : JSON.stringify({
+                                                         email : email,
+                                                         mode : 'getall'
+                                                       }),
+                                                       headers: {
+                                                         Accept: 'application/json', 'Content-Type': 'application/json'
+                                                       }
+                                                     })
+                .then((response) => response.json())
+                    .then((json) => {
+                        this.setState({ favorites : json.favorites.map((item) => {
+                                return item.rest_id;
+                            })
+                        })
+                        console.log(this.state.favorites);
+                })
+        .catch((error) => console.error(error))
+            .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
     }
 
     getInfo() {
@@ -32,6 +61,10 @@ export class ListRestaurant extends Component {
             .finally(() => {
                 this.setState({ isLoading: false });
             });
+    }
+    
+    componentDidMount() {
+        this.getFavoritesClient();
     }
     
     toggleFavorite(isAdding, name, id) {
@@ -103,9 +136,10 @@ export class ListRestaurant extends Component {
         }
     }
 
-    setId(business_id) {
+    /*setId(business_id, e) {
         localStorage.setItem('currRest', business_id);
-    }
+        console.log('onclick');
+    }*/
 
     loadRestaurant(name){
         //console.log('LR');
@@ -116,8 +150,12 @@ export class ListRestaurant extends Component {
 
     setRestaurant(name){
         const getStatus = (res) => {
-            if (!(res in this.state.starName)) this.state.starName[res] = "fa-star-o";
+            if (this.state.favorites.includes(res)) this.state.starName[res] = "fa-star";
+            else if (!(res in this.state.starName)) this.state.starName[res] = "fa-star-o";
             return this.state.starName[res];
+        }
+        const setId = (business_id, e) => {
+            localStorage.setItem('currRest', business_id);
         }
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
@@ -142,7 +180,7 @@ export class ListRestaurant extends Component {
                 //console.log('check', name[1].name) categories
                 return (
                     <div style={{'marginTop': 20, 'marginLeft': 25, 'marginRight': 25,}}>
-                        <h5><a href="/restaurantinfo" onClick={this.setId.bind(this, item.business_id)}> {item.name}</a>
+                        <h5><a href="/restaurantinfo" onMouseDown={(e) => setId(item.business_id, e)}> {item.name}</a>
                         </h5>
                         <i className={"fa favorite " + getStatus((item.business_id))} id={"star"
                         + (item.business_id)} onClick={this.toggleStar.bind(this, item.name, item.business_id)}></i>
