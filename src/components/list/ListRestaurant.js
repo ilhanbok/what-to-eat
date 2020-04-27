@@ -117,7 +117,7 @@ export class ListRestaurant extends Component {
             });
     }
 
-    toggleStar(res) {
+    toggleStar(name, id) {
         if (localStorage.getItem('userEmail')==''){
             if (window.confirm("Please Login first. Click Ok to direct to Login page!")) {
                 window.location.href = "http://localhost:3000/login"
