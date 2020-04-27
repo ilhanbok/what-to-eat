@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Row'
 // components
 import Header from './layout/Header';
 import FilterPanel from './filter/FilterPanel';
-import ListPanel from './list/ListPanel';
 import NewFilter from './filter/NewFilter';
 import SearchBar from './search/SearchBar';
 import ListRestaurant from './list/ListRestaurant';
