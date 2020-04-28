@@ -34,66 +34,66 @@ class Favorite extends Component {
         this.getFavoritesClient = this.getFavoritesClient.bind(this);
         this.renderFavorites = this.renderFavorites.bind(this);
     }
-    
+
     componentDidMount() {
         this.getFavoritesClient();
     }
 
     getFavoritesClient() {
-         var email = localStorage.getItem('userEmail');
-         if (!email) return;
-         fetch('http://localhost:5000/mod_favorites', {
-                                                       method: 'POST', 
-                                                       body : JSON.stringify({
-                                                         email : email,
-                                                         mode : 'getall'
-                                                       }),
-                                                       headers: {
-                                                         Accept: 'application/json', 'Content-Type': 'application/json'
-                                                       }
-                                                     })
-                .then((response) => response.json())
-                    .then((json) => {
-                        console.log(json.favorites);
-                        this.setState({ favorites : json.favorites })
-                })
-        .catch((error) => console.error(error))
+        var email = localStorage.getItem('userEmail');
+        if (!email) return;
+        fetch('http://localhost:5000/mod_favorites', {
+            method: 'POST',
+            body : JSON.stringify({
+                email : email,
+                mode : 'getall'
+            }),
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json.favorites);
+                this.setState({ favorites : json.favorites })
+            })
+            .catch((error) => console.error(error))
             .finally(() => {
-                        this.setState({ isLoading: false });
-                    });
+                this.setState({ isLoading: false });
+            });
     }
 
     removeFavorite(key, name) {
         var email = localStorage.getItem('userEmail');
         if (!email) return;
         if (window.confirm("Remove " + name + " from favorites?")) {
-         fetch('http://localhost:5000/mod_favorites', {
-                                                       method: 'POST', 
-                                                       body : JSON.stringify({
-                                                         email : email,
-                                                         rest_id : key,
-                                                         mode : 'remove'
-                                                       }),
-                                                       headers: {
-                                                         Accept: 'application/json', 'Content-Type': 'application/json'
-                                                       }
-                                                     })
+            fetch('http://localhost:5000/mod_favorites', {
+                method: 'POST',
+                body : JSON.stringify({
+                    email : email,
+                    rest_id : key,
+                    mode : 'remove'
+                }),
+                headers: {
+                    Accept: 'application/json', 'Content-Type': 'application/json'
+                }
+            })
                 .then((response) => response.json())
-                    .then((json) => {
-                        // Remove from favorites visually as well
-                        var arr = this.state.favorites;
-                        var index = arr.findIndex(x => x.rest_id == key);
-                        if (index == -1) return;
-                        arr.splice(index, 1);
-                        this.setState({ favorites: arr });
+                .then((json) => {
+                    // Remove from favorites visually as well
+                    var arr = this.state.favorites;
+                    var index = arr.findIndex(x => x.rest_id == key);
+                    if (index == -1) return;
+                    arr.splice(index, 1);
+                    this.setState({ favorites: arr });
                 })
-        .catch((error) => console.error(error))
-            .finally(() => {
-                        this.setState({ isLoading: false });
-                    });
+                .catch((error) => console.error(error))
+                .finally(() => {
+                    this.setState({ isLoading: false });
+                });
         }
     }
-    
+
     setId(key) {
         localStorage.setItem('currRest', key);
     }

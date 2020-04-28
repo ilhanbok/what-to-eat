@@ -10,7 +10,6 @@ import NewFilter from './filter/NewFilter';
 import SearchBar from './search/SearchBar';
 import ListRestaurant from './list/ListRestaurant';
 
-
 // css
 import '../css/style.css'
 
