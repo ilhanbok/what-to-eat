@@ -115,7 +115,7 @@ input[type=text] {
 .search-btn {
   text-transform: uppercase;
   display: inline-block;
-  margin-left: 1em;
+  /*margin-left: 1em;*/
 }
 
 .search-btn:hover {

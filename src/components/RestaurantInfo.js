@@ -234,14 +234,16 @@ getInfo() {
                         {/*<body><textarea rows="10" cols="50" placeholder="Write comment here..."></textarea></body>*/}
                         <button className="btn search-btn" onClick={this.onPostClick.bind(this)} style={{marginTop:'1%'}}>Post</button>
                     </div>
-                    Reviews from other users:<br/>
+                        
+                        <hr/>
+                        <div>
+                    Reviews from users:<br/>
                     {comments && comments.map((item) =>
                         {
                             return <div>{item.username}: {item.text}</div>;
                         }
                     )
-                    }
-
+                    }</div>
                     </div>
                 </div>
             </div>
