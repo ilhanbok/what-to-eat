@@ -12,6 +12,7 @@ import Profile from './Profile';
 import Favorite from './Favorite';
 import Home from './Home';
 import ListRestaurant from './list/ListRestaurant';
+import LoaderButton from './signup/LoaderButton.js';
 
 import ErrorMessage from './login/ErrorMessage';
 
@@ -33,7 +34,6 @@ function fetchData(callback) {
   }, 4000);
 }
 
-// Not used
 /*it('can render login error message', (doneCallback) => {
   var x;
   act(() => {
@@ -45,6 +45,9 @@ function fetchData(callback) {
     });
   });
 });*/
+
+
+
 it('renders app without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
@@ -63,6 +66,13 @@ it('renders index without crashing', () => {
 it('can properly call initial function', () => {
   act(() => {
     Initial();
+    expect(true).toBe(true);
+  });
+});
+
+it('can properly call loaderButton function', () => {
+  act(() => {
+    LoaderButton(false);
     expect(true).toBe(true);
   });
 });
