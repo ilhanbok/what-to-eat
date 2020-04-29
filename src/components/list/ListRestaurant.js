@@ -168,14 +168,44 @@ export class ListRestaurant extends Component {
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
         var matches = name.filter((restaurant) => {
-            if (this.props.keyword == null)
-                return restaurant
-            else if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
-                restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
-                return restaurant
+            //console.log(JSON.stringify(restaurant.attributes));
+            //console.log(this.props.attributes);
+            var matchesBoth = true;
+            if (this.props.keyword == null && this.props.attributes == null)
+                return restaurant;
+            if (this.props.keyword != null) {
+                if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
+                    restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
+                } else {
+                    matchesBoth = false;
+                }
             }
+            if (matchesBoth && this.props.attributes != null) {
+                for (const attr of this.props.attributes) {
+                    var attr_mod = attr.toLowerCase();
+                    if (attr_mod == 'very loud') {
+                        attr_mod = 'very_loud';
+                    }
+                    attr_mod = attr_mod.replace(/ /g,'');
+                    if (['romantic','initmate','classy','hipster','divey','touristy','trendy','upscale','casual'].includes(attr_mod)) {
+                        attr_mod = attr_mod + "': true";
+                        console.log(attr_mod);
+                    }
+                    ///attr_mod = attr_mod.replace('-', '');
+                    if (JSON.stringify(restaurant.attributes).toLowerCase().includes(attr_mod) ||
+                        restaurant.categories.toLowerCase().includes(attr.toLowerCase())) {
+                    } else {
+                        /*console.log(':: backtrace ::');
+                        console.log(attr);
+                        console.log(restaurant.attributes);*/
+                        matchesBoth = false;
+                        break;
+                    }
+                }
+            }
+            if (matchesBoth) return restaurant
         })
-        console.log('matches: ' + matches);
+        console.log('matches: ' + matches.length);
         if (matches.length == 0) {
             return (
                 <div style={{'text-align':'center', 'margin-top':'20%'}}>
@@ -230,7 +260,7 @@ export class ListRestaurant extends Component {
         const {name} = this.state;
         this.setRestaurant.bind(this, name)
         var restaurant = name && this.setRestaurant(name)
-        console.log(restaurant)
+        //console.log(restaurant)
         console.log('test', this.props.keyword)
         return (
             <div className="col scroll">

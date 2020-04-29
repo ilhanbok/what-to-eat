@@ -47,7 +47,10 @@ function fetchData(callback) {
   });
 });*/
 
-
+it('has a valid constants file', () => {
+  const CONFIG = require('../config');
+  expect(CONFIG).toBeDefined();
+});
 
 it('renders app without crashing', () => {
   const div = document.createElement('div');

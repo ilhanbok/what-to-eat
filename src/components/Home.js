@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Row'
 
 // components
 import Header from './layout/Header';
-import FilterPanel from './filter/FilterPanel';
+//import FilterPanel from './filter/FilterPanel';
 import NewFilter from './filter/NewFilter';
 import SearchBar from './search/SearchBar';
 import ListRestaurant from './list/ListRestaurant';
@@ -23,6 +23,7 @@ class Home extends React.Component {
             searchText: 'test'
             //searchTerm: React.useRef(null)
         }
+        this.filter = React.createRef();
         //this.searchTerm = React.useRef(null);
         //this.searchByValue = this.searchByValue.bind(this)
     }
@@ -35,10 +36,12 @@ class Home extends React.Component {
         })
         console.log('Search text is now', keyword);
     }*/
+   
 
 
 
     render() {
+        const filterChild = this.filter.current;
         //const searchTerm = React.useRef(null);
         const searchByValue = e => {
             const keyword = document.getElementById('textTerm').value;
@@ -63,10 +66,10 @@ class Home extends React.Component {
                     </div>
                     <div className="restaurants-list">
                         <div className="filter-restaurants">
-                            <NewFilter />
+                            <NewFilter ref={this.filter} searchByValue={searchByValue}/>
                         </div>
                         <div className="filter-restaurants">
-                            <ListRestaurant keyword = {this.state.value}/>
+                            <ListRestaurant keyword = {this.state.value} attributes = {filterChild && filterChild.state.selectedCheckboxes}/>
                         </div>
                     </div>
                 </div>

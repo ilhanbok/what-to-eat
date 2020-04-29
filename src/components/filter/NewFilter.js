@@ -2,53 +2,94 @@ import React, { Component } from 'react';
 import Checkbox from './Checkbox';
 
 const items = [
-    'Spicy',
-    'Sweet',
-    'Savory',
-    'Healthy',
+    'Credit Card',
+    'Delivery',
+    'Take Out',
+    'Wheelchair Accessible',
 ];
 const items2 = [
-    'American',
+    'Alcohol',
+    'Nightlife',
+    'Good for Dancing'
+];
+const items3 = [
+    'Afghan',
+    'American (Traditional)',
+    'American (New)',
+    'Caribbean',
     'Chinese',
-    'Mexican',
     'Indian',
     'Italian',
     'Korean',
+    'Mexican',
     'Mediterranean',
+    'Middle Eastern',
+    'Peruvian',
+    'Spanish',
+    'Taiwanese',
+    'Thai'
 ];
-const items3 = [
-    'Birthday',
-    'Business Meeting',
-    'Friendly gathering',
-    'Date',
-    'Families with Children',
-];
-
 const items4 = [
-    'Elegant',
-    'Rustic',
-    'Exotic',
-    'Authentic',
-    'Romantic',
+    'Barbeque',
+    'Bars',
+    'Burgers',
+    'Chicken Wings',
+    'Cocktail Bars',
+    'Food Trucks',
+    'Hot Dogs',
+    'Ramen',
+    'Salad',
+    'Sandwiches',
+    'Sushi Bars',
+    'Tacos',
+    'Vegetarian',
 ];
 
-class NewFilter extends Component {
-    componentWillMount = () => {
-        this.selectedCheckboxes = new Set();
+const items5 = [
+    'Quiet',
+    'Average',
+    'Loud',
+    'Very Loud'
+];
+const items6 = [
+    'Romantic',
+    'Initmate',
+    'Classy',
+    'Hipster',
+    'Divey',
+    'Touristy',
+    'Trendy',
+    'Upscale',
+    'Casual'
+];
+
+export class NewFilter extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedCheckboxes : new Set()
+        }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     toggleCheckbox = label => {
-        if (this.selectedCheckboxes.has(label)) {
-            this.selectedCheckboxes.delete(label);
+        console.log("toggled cb");
+        var newSelectedCheckboxes = this.state.selectedCheckboxes;
+        if (newSelectedCheckboxes.has(label)) {
+            newSelectedCheckboxes.delete(label);
         } else {
-            this.selectedCheckboxes.add(label);
+            newSelectedCheckboxes.add(label);
         }
+        this.setState({ selectedCheckboxes : newSelectedCheckboxes });
     }
 
-    handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-
-        for (const checkbox of this.selectedCheckboxes) {
+    handleFormSubmit = () => {
+        console.log("it is working");
+        //formSubmitEvent.preventDefault();
+        console.log(this.state.selectedCheckboxes);
+        for (const checkbox of this.state.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
     }
@@ -56,7 +97,7 @@ class NewFilter extends Component {
     createCheckbox = label => (
         <Checkbox
             label={label}
-            handleCheckboxChange={this.toggleCheckbox}
+            onCheckboxChange={this.toggleCheckbox.bind(this, label)}
             key={label}
         />
     )
@@ -73,6 +114,12 @@ class NewFilter extends Component {
     createCheckboxes4 = () => (
         items4.map(this.createCheckbox)
     )
+    createCheckboxes5 = () => (
+        items5.map(this.createCheckbox)
+    )
+    createCheckboxes6 = () => (
+        items6.map(this.createCheckbox)
+    )
 
     render() {
         return (
@@ -82,7 +129,7 @@ class NewFilter extends Component {
                     <div className="col">
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Taste</label>
+                                <label>Accomodations</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes()}
@@ -90,7 +137,7 @@ class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Cuisine</label>
+                                <label>Nightlife</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes2()}
@@ -98,7 +145,7 @@ class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Occassion</label>
+                                <label>Cuisine</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes3()}
@@ -106,17 +153,32 @@ class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Mood</label>
+                                <label>Food Item</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes4()}
                             </form>
                         </div>
-
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Noise Level</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes5()}
+                            </form>
+                        </div>
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Mood</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes6()}
+                            </form>
+                        </div>
                     </div>
                     </div>
                     <div className="row" style={{justifyContent: "center", marginBottom: '5%'}}>
-                        <button className="btn btn-default" type="submit">SEARCH</button>
+                        <button className="btn btn-default" onClick={this.props.searchByValue}>SEARCH</button>
                     </div>
                 </div>
 
