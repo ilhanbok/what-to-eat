@@ -7,7 +7,7 @@ import LoaderButton from "./LoaderButton";
 import Header from "../layout/Header";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import { useAppContext } from "../../libs/contextLib";
+//import { useAppContext } from "../../libs/contextLib";
 
 
 
@@ -36,7 +36,7 @@ export default function Signup(props) {
     const [newUser, setNewUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const { userHasAuthenticated } = useAppContext();
+    //const { userHasAuthenticated } = useAppContext();
 
 
     function validateForm() {
@@ -79,7 +79,7 @@ export default function Signup(props) {
             await Auth.confirmSignUp(fields.email, fields.confirmationCode);
             await Auth.signIn(fields.email, fields.password);
 
-            userHasAuthenticated(true);
+            //userHasAuthenticated(true);
             history.push("/");
         } catch (e) {
             setIsLoading(false);

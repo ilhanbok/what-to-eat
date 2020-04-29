@@ -15,6 +15,7 @@ import ListRestaurant from './list/ListRestaurant';
 import LoaderButton from './signup/LoaderButton.js';
 
 import ErrorMessage from './login/ErrorMessage';
+import { Auth } from "aws-amplify";
 
 let container;
 
@@ -133,5 +134,38 @@ it('can properly access and use home page', (doneCallback) => {
       doneCallback();
     });
   });
+});
+
+it('calls event handler; "handleSubmit"', async()  => {   
+    //const componentInstance = Wrapper.dive().instance();
+    const mockUser = {
+        userEmail : "admin@example.com",
+        userpassword : "12345678"
+    }
+    act(()=>{
+      Auth.signIn = jest.fn().mockImplementation(
+     (mockUser) => {
+     // return whatever you want to test
+     Promise.resolve(mockUser)
+     const mockSuccessCb = (user) => {
+            expect(user).toBe(mockUser);
+            done();
+        };
+     const mockErrorCb = (err) => {
+            // fail the test if this callback is invoked.
+            done(err);
+        };
+     return 
+    });
+
+    });
+    
+    //componentInstance.setState()
+    // const event = {
+    //     preventDefault : () => {}
+    // };
+    
+    //await componentInstance.handleSubmit(event);
+    //expect(componentInstance.state.isLoading).toEqual(true); 
 });
 
