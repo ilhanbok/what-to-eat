@@ -168,7 +168,7 @@ export class ListRestaurant extends Component {
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
         var matches = name.filter((restaurant) => {
-            console.log(restaurant);
+            //console.log(JSON.stringify(restaurant.attributes));
             //console.log(this.props.attributes);
             var matchesBoth = true;
             if (this.props.keyword == null && this.props.attributes == null)
@@ -186,8 +186,11 @@ export class ListRestaurant extends Component {
                     if (attr_mod == 'very loud') {
                         attr_mod = 'very_loud';
                     }
-                    if (['romantic','initmate','classy','hipster','divey','touristy','trendy','upscale','casual'].includes(attr_mod)) attr_mod = attr_mod + "': True";
                     attr_mod = attr_mod.replace(/ /g,'');
+                    if (['romantic','initmate','classy','hipster','divey','touristy','trendy','upscale','casual'].includes(attr_mod)) {
+                        attr_mod = attr_mod + "': true";
+                        console.log(attr_mod);
+                    }
                     ///attr_mod = attr_mod.replace('-', '');
                     if (JSON.stringify(restaurant.attributes).toLowerCase().includes(attr_mod) ||
                         restaurant.categories.toLowerCase().includes(attr.toLowerCase())) {

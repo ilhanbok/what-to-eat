@@ -4,7 +4,6 @@ import Checkbox from './Checkbox';
 const items = [
     'Credit Card',
     'Delivery',
-    'Parking',
     'Take Out',
     'Wheelchair Accessible',
 ];
@@ -179,7 +178,7 @@ export class NewFilter extends Component {
                     </div>
                     </div>
                     <div className="row" style={{justifyContent: "center", marginBottom: '5%'}}>
-                        <button className="btn btn-default" onClick={this.handleFormSubmit}>SEARCH</button>
+                        <button className="btn btn-default" onClick={this.props.searchByValue}>SEARCH</button>
                     </div>
                 </div>
 

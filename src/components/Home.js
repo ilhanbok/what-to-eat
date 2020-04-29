@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Row'
 
 // components
 import Header from './layout/Header';
-import FilterPanel from './filter/FilterPanel';
+//import FilterPanel from './filter/FilterPanel';
 import NewFilter from './filter/NewFilter';
 import SearchBar from './search/SearchBar';
 import ListRestaurant from './list/ListRestaurant';
@@ -66,7 +66,7 @@ class Home extends React.Component {
                     </div>
                     <div className="restaurants-list">
                         <div className="filter-restaurants">
-                            <NewFilter ref={this.filter} />
+                            <NewFilter ref={this.filter} searchByValue={searchByValue}/>
                         </div>
                         <div className="filter-restaurants">
                             <ListRestaurant keyword = {this.state.value} attributes = {filterChild && filterChild.state.selectedCheckboxes}/>
