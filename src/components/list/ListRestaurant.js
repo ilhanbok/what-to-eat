@@ -168,14 +168,27 @@ export class ListRestaurant extends Component {
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
         var matches = name.filter((restaurant) => {
-            if (this.props.keyword == null)
-                return restaurant
-            else if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
-                restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
-                return restaurant
+            //console.log(this.props.attributes);
+            var matchesKeyword = 0;
+            var matchesAttributes = 0;
+            if (this.props.keyword != null) {
+                if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
+                    restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
+                    matchesKeyword = 1;
+                } else {
+                    matchesKeyword = 2;
+                }
             }
+            if (this.props.attributes != null) {
+                if (/*check for attributes*/ true) {
+                    matchesAttributes = 1;
+                } else {
+                    matchesAttributes = 2;
+                }
+            }
+            if (matchesKeyword < 2 && matchesAttributes < 2) return restaurant
         })
-        console.log('matches: ' + matches);
+        //console.log('matches: ' + matches);
         if (matches.length == 0) {
             return (
                 <div style={{'text-align':'center', 'margin-top':'20%'}}>
@@ -230,7 +243,7 @@ export class ListRestaurant extends Component {
         const {name} = this.state;
         this.setRestaurant.bind(this, name)
         var restaurant = name && this.setRestaurant(name)
-        console.log(restaurant)
+        //console.log(restaurant)
         console.log('test', this.props.keyword)
         return (
             <div className="col scroll">

@@ -32,23 +32,33 @@ const items4 = [
     'Romantic',
 ];
 
-class NewFilter extends Component {
-    componentWillMount = () => {
-        this.selectedCheckboxes = new Set();
+export class NewFilter extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedCheckboxes : new Set()
+        }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     toggleCheckbox = label => {
-        if (this.selectedCheckboxes.has(label)) {
-            this.selectedCheckboxes.delete(label);
+        console.log("toggled cb");
+        var newSelectedCheckboxes = this.state.selectedCheckboxes;
+        if (newSelectedCheckboxes.has(label)) {
+            newSelectedCheckboxes.delete(label);
         } else {
-            this.selectedCheckboxes.add(label);
+            newSelectedCheckboxes.add(label);
         }
+        this.setState({ selectedCheckboxes : newSelectedCheckboxes });
     }
 
-    handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-
-        for (const checkbox of this.selectedCheckboxes) {
+    handleFormSubmit = () => {
+        console.log("it is working");
+        //formSubmitEvent.preventDefault();
+        console.log(this.state.selectedCheckboxes);
+        for (const checkbox of this.state.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
     }
@@ -56,7 +66,7 @@ class NewFilter extends Component {
     createCheckbox = label => (
         <Checkbox
             label={label}
-            handleCheckboxChange={this.toggleCheckbox}
+            onCheckboxChange={this.toggleCheckbox.bind(this, label)}
             key={label}
         />
     )
@@ -116,7 +126,7 @@ class NewFilter extends Component {
                     </div>
                     </div>
                     <div className="row" style={{justifyContent: "center", marginBottom: '5%'}}>
-                        <button className="btn btn-default" type="submit">SEARCH</button>
+                        <button className="btn btn-default" onClick={this.handleFormSubmit}>SEARCH</button>
                     </div>
                 </div>
 
