@@ -2,34 +2,66 @@ import React, { Component } from 'react';
 import Checkbox from './Checkbox';
 
 const items = [
-    'Spicy',
-    'Sweet',
-    'Savory',
-    'Healthy',
+    'Credit Card',
+    'Delivery',
+    'Parking',
+    'Take Out',
+    'Wheelchair Accessible',
 ];
 const items2 = [
-    'American',
+    'Alcohol',
+    'Nightlife',
+    'Good for Dancing'
+];
+const items3 = [
+    'Afghan',
+    'American (Traditional)',
+    'American (New)',
+    'Caribbean',
     'Chinese',
-    'Mexican',
     'Indian',
     'Italian',
     'Korean',
+    'Mexican',
     'Mediterranean',
+    'Middle Eastern',
+    'Peruvian',
+    'Spanish',
+    'Taiwanese',
+    'Thai'
 ];
-const items3 = [
-    'Birthday',
-    'Business Meeting',
-    'Friendly gathering',
-    'Date',
-    'Families with Children',
+const items4 = [
+    'Barbeque',
+    'Bars',
+    'Burgers',
+    'Chicken Wings',
+    'Cocktail Bars',
+    'Food Trucks',
+    'Hot Dogs',
+    'Ramen',
+    'Salad',
+    'Sandwiches',
+    'Sushi Bars',
+    'Tacos',
+    'Vegetarian',
 ];
 
-const items4 = [
-    'Elegant',
-    'Rustic',
-    'Exotic',
-    'Authentic',
+const items5 = [
+    'Quiet',
+    'Average',
+    'Loud',
+    'Very Loud'
+];
+const items6 = [
     'Romantic',
+    'Initmate',
+    'Classy',
+    'Hipster',
+    'Divey',
+    'Touristy',
+    'Trendy',
+    'Upscale',
+    'Casual'
 ];
 
 export class NewFilter extends Component {
@@ -83,6 +115,12 @@ export class NewFilter extends Component {
     createCheckboxes4 = () => (
         items4.map(this.createCheckbox)
     )
+    createCheckboxes5 = () => (
+        items5.map(this.createCheckbox)
+    )
+    createCheckboxes6 = () => (
+        items6.map(this.createCheckbox)
+    )
 
     render() {
         return (
@@ -92,7 +130,7 @@ export class NewFilter extends Component {
                     <div className="col">
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Taste</label>
+                                <label>Accomodations</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes()}
@@ -100,7 +138,7 @@ export class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Cuisine</label>
+                                <label>Nightlife</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes2()}
@@ -108,7 +146,7 @@ export class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Occassion</label>
+                                <label>Cuisine</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes3()}
@@ -116,13 +154,28 @@ export class NewFilter extends Component {
                         </div>
                         <div className="filter-info">
                             <div className="filter-title">
-                                <label>Mood</label>
+                                <label>Food Item</label>
                             </div>
                             <form onSubmit={this.handleFormSubmit}>
                                 {this.createCheckboxes4()}
                             </form>
                         </div>
-
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Noise Level</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes5()}
+                            </form>
+                        </div>
+                        <div className="filter-info">
+                            <div className="filter-title">
+                                <label>Mood</label>
+                            </div>
+                            <form onSubmit={this.handleFormSubmit}>
+                                {this.createCheckboxes6()}
+                            </form>
+                        </div>
                     </div>
                     </div>
                     <div className="row" style={{justifyContent: "center", marginBottom: '5%'}}>

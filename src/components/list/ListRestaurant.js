@@ -168,27 +168,41 @@ export class ListRestaurant extends Component {
         /*return name.map((item) => {*/
         console.log('check', name[1].name)
         var matches = name.filter((restaurant) => {
+            console.log(restaurant);
             //console.log(this.props.attributes);
-            var matchesKeyword = 0;
-            var matchesAttributes = 0;
+            var matchesBoth = true;
+            if (this.props.keyword == null && this.props.attributes == null)
+                return restaurant;
             if (this.props.keyword != null) {
                 if (restaurant.name.toLowerCase().includes(this.props.keyword.trim().toLowerCase()) ||
                     restaurant.categories.toLowerCase().includes(this.props.keyword.trim().toLowerCase())) {
-                    matchesKeyword = 1;
                 } else {
-                    matchesKeyword = 2;
+                    matchesBoth = false;
                 }
             }
-            if (this.props.attributes != null) {
-                if (/*check for attributes*/ true) {
-                    matchesAttributes = 1;
-                } else {
-                    matchesAttributes = 2;
+            if (matchesBoth && this.props.attributes != null) {
+                for (const attr of this.props.attributes) {
+                    var attr_mod = attr.toLowerCase();
+                    if (attr_mod == 'very loud') {
+                        attr_mod = 'very_loud';
+                    }
+                    if (['romantic','initmate','classy','hipster','divey','touristy','trendy','upscale','casual'].includes(attr_mod)) attr_mod = attr_mod + "': True";
+                    attr_mod = attr_mod.replace(/ /g,'');
+                    ///attr_mod = attr_mod.replace('-', '');
+                    if (JSON.stringify(restaurant.attributes).toLowerCase().includes(attr_mod) ||
+                        restaurant.categories.toLowerCase().includes(attr.toLowerCase())) {
+                    } else {
+                        /*console.log(':: backtrace ::');
+                        console.log(attr);
+                        console.log(restaurant.attributes);*/
+                        matchesBoth = false;
+                        break;
+                    }
                 }
             }
-            if (matchesKeyword < 2 && matchesAttributes < 2) return restaurant
+            if (matchesBoth) return restaurant
         })
-        //console.log('matches: ' + matches);
+        console.log('matches: ' + matches.length);
         if (matches.length == 0) {
             return (
                 <div style={{'text-align':'center', 'margin-top':'20%'}}>
