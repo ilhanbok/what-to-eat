@@ -21,7 +21,6 @@ function onProfileClick(){
         if (window.confirm("Please Login first. Click Ok to direct to Login page!")) {
             window.location.href = "http://localhost:3000/login"
         }
-
     }
     else{
         window.location.href = "http://localhost:3000/Profile";
