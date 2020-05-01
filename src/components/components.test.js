@@ -14,7 +14,10 @@ import Home from './Home';
 import ListRestaurant from './list/ListRestaurant';
 import LoaderButton from './signup/LoaderButton.js';
 
-import ErrorMessage from './login/ErrorMessage';
+import Title from './layout/Title.js';
+
+//import ErrorMessage from './login/ErrorMessage';
+
 import { Auth } from "aws-amplify";
 
 let container;
@@ -71,6 +74,100 @@ it('can properly call initial function', () => {
   act(() => {
     Initial();
     expect(true).toBe(true);
+  });
+});
+
+it('can click favorites page link', (doneCallback) => {
+  global.window = Object.create(window);
+  const url = "http://localhost:3000/";
+  Object.defineProperty(window, "location", {
+    value: {
+       href: url
+    },
+    writable: true
+  });
+  localStorage.setItem('userEmail', 'test@te.st');
+  act(() => {
+    ReactDOM.render(<Title />, container);
+  });
+  const favorite_icon = container.querySelector('.fa-star');
+  act(() => {
+    favorite_icon.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  });
+  fetchData(() => {
+    expect(global.window.location.href).toBe('http://localhost:3000/favorite');
+    doneCallback();
+  });
+});
+
+it('can redirect from favorites page', (doneCallback) => {
+  global.window = Object.create(window);
+  const url = "http://localhost:3000/";
+  Object.defineProperty(window, "location", {
+    value: {
+       href: url
+    },
+    writable: true
+  });
+  global.window.confirm = jest.fn(() => true)
+  localStorage.setItem('userEmail', '');
+  act(() => {
+    ReactDOM.render(<Title />, container);
+  });
+  const favorite_icon = container.querySelector('.fa-star');
+  act(() => {
+    favorite_icon.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  });
+  fetchData(() => {
+    expect(global.window.location.href).toBe('http://localhost:3000/login');
+    doneCallback();
+  });
+});
+
+it('can click profile page link', (doneCallback) => {
+  global.window = Object.create(window);
+  const url = "http://localhost:3000/";
+  Object.defineProperty(window, "location", {
+    value: {
+       href: url
+    },
+    writable: true
+  });
+  localStorage.setItem('userEmail', 'test@te.st');
+  act(() => {
+    ReactDOM.render(<Title />, container);
+  });
+  const favorite_icon = container.querySelector('.fa-user-circle');
+  act(() => {
+    favorite_icon.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  });
+  fetchData(() => {
+    expect(global.window.location.href).toBe('http://localhost:3000/Profile');
+    doneCallback();
+  });
+});
+
+it('can redirect from profile page', (doneCallback) => {
+  global.window = Object.create(window);
+  const url = "http://localhost:3000/";
+  Object.defineProperty(window, "location", {
+    value: {
+       href: url
+    },
+    writable: true
+  });
+  global.window.confirm = jest.fn(() => true)
+  localStorage.setItem('userEmail', '');
+  act(() => {
+    ReactDOM.render(<Title />, container);
+  });
+  const favorite_icon = container.querySelector('.fa-user-circle');
+  act(() => {
+    favorite_icon.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  });
+  fetchData(() => {
+    expect(global.window.location.href).toBe('http://localhost:3000/login');
+    doneCallback();
   });
 });
 
