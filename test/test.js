@@ -291,7 +291,7 @@ describe('Collection', function() {
 	describe('#getAllFavorites', function() {
 		it('should return no favorites for uncatalogued user', function() {
 		  mongo.getAllFavorites(function(err, docs) {
-				assert.equal(docs, null);
+				assert.equal(docs.length, 0);
 			}, 'fake@em.ail');
 		});
 	});

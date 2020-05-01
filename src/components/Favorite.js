@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import Avatar from 'react-avatar';
 
 // components
 import Header from '../components/layout/Header';
@@ -108,14 +109,16 @@ class Favorite extends Component {
     }
 
     render() {
+        const email = localStorage.getItem('userEmail')
         return (
             <div className="Container" >
                 <Header />
                 <div className="fav-card card" style = {{'margin-top':100}}>
                     <div className="fav-title">
                         <div className="fav-title-box">
-                            <div>Favorite</div>
-                            <i class="fa fa-user-circle biguser"></i>
+                            <h2 style = {{'marginBottom': '6%'}}>Favorite Restaurant️</h2>
+                            <Avatar name= {email} size="120" round={true} />
+                           
                         </div>
                     </div>
                     <div className="fav-update">
