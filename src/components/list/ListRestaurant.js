@@ -149,13 +149,6 @@ export class ListRestaurant extends Component {
         console.log('onclick');
     }*/
 
-    loadRestaurant(name){
-        //console.log('LR');
-        this.setState({
-            name: name
-        });
-    }
-
     setRestaurant(name){
         const getStatus = (res) => {
             if (this.state.favorites.includes(res)) this.state.starName[res] = "fa-star";
