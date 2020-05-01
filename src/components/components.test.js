@@ -45,6 +45,7 @@ jest.mock('react-router-dom', () => ({
 
 const email = '';
 const password = '';
+global.success = true;
 
 jest.mock('aws-amplify', () => ({
   ...jest.requireActual('aws-amplify'),
@@ -57,7 +58,9 @@ jest.mock('aws-amplify', () => ({
 		currentAuthenticatedUser: () => {
 		  console.log('AAA');
 		  return new Promise(function(resolve, reject) {
-		    return true
+		    if (global.success) resolve(true);
+		    else throw 'whoops';
+		    //return true;
 		  });
 		}
   } 
@@ -97,6 +100,19 @@ it('can render title bar', () => {
   act(() => {
     ReactDOM.render(<Title />, container);
     expect(true).toBe(true);
+  });
+});
+
+it('can detect auth errors in title bar', (doneCallback) => {
+  localStorage.setItem('userEmail', 'admin@example.com');
+  global.success = false;
+  act(() => {
+    ReactDOM.render(<Title />, container);
+    expect(true).toBe(true);
+    fetchData(() => {
+      global.success = true;
+      doneCallback();
+    });
   });
 });
 
@@ -217,20 +233,6 @@ it('can fetch information for a restaurant', (doneCallback) => {
   });
 });
 
-// Defunct test. Do not uncomment or use.
-/*
-it('can render profile page', (doneCallback) => {
-  var x;
-  act(() => {
-    localStorage.setItem('userEmail', 'admin@example.com');
-    ChangePassword();
-    fetchData(() => {
-      expect(true).toBe(true);
-      doneCallback();
-    });
-  });
-});*/
-
 it('can render favorites page', (doneCallback) => {
   var x;
   act(() => {
@@ -254,15 +256,62 @@ it('can fetch server restaurant lists', (doneCallback) => {
   });
 });
 
-it('can properly access and use home page', (doneCallback) => {
+it('can properly access and use home page with no results', (doneCallback) => {
   var x;
   act(() => {
     x = render(<Home />, container);
     document.getElementById('textTerm').value = 'edible computer';
     const button = document.getElementsByClassName('btn search-btn')[0];
     button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+    const checkbox = container.querySelector('[type="checkbox"]');
+    checkbox.dispatchEvent(new MouseEvent('click', {bubbles: true}));
     fetchData(() => {
       expect(x.state.value).toBe('edible computer');
+      doneCallback();
+    });
+  });
+});
+
+it('can properly access and use home page with valid results', (doneCallback) => {
+  var x;
+  act(() => {
+    x = render(<Home />, container);
+    document.getElementById('textTerm').value = 'italian';
+    const checkbox = container.querySelector('[type="checkbox"]');
+    checkbox.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+    const button = document.getElementsByClassName('btn search-btn')[0];
+    button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+    fetchData(() => {
+      expect(x.state.value).toBe('italian');
+      doneCallback();
+    });
+  });
+});
+
+it('can toggle favorites', (doneCallback) => {
+  var x;
+  global.window = Object.create(window);
+  const url = "http://localhost:3000/";
+  Object.defineProperty(window, "location", {
+    value: {
+       href: url,
+       replace: function () {}
+    },
+    writable: true
+  });
+  global.window.confirm = jest.fn(() => true)
+  act(() => {
+    localStorage.setItem('userEmail', 'test@te.st');
+    x = render(<ListRestaurant />, container);
+    fetchData(() => {
+      const star = document.getElementById('starO2OD-ojkZXsSbFyzpuvtIA');
+      if (x.state.favorites.length == 0) {
+        star.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+      }
+      if (x.state.favorites.length > 0) {
+        star.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+      }
+      expect(x.state.favorites.includes('O2OD-ojkZXsSbFyzpuvtIA')).toBe(false);
       doneCallback();
     });
   });
@@ -301,3 +350,17 @@ it('can properly access and use home page', (doneCallback) => {
     //expect(componentInstance.state.isLoading).toEqual(true); 
 });
 */
+
+// Defunct test. Do not uncomment or use.
+/*
+it('can render profile page', (doneCallback) => {
+  var x;
+  act(() => {
+    localStorage.setItem('userEmail', 'admin@example.com');
+    ChangePassword();
+    fetchData(() => {
+      expect(true).toBe(true);
+      doneCallback();
+    });
+  });
+});*/
