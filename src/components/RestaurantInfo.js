@@ -190,7 +190,7 @@ getInfo() {
             <div className="Container">
                 <Header />
                 <div className= "fav-card card" style = {{marginTop:100}}>
-                    {name}
+                    <h1><b>{name}</b></h1>
                     <h2>Avg. Rating: {avgRating}/5</h2>
                     <h2><StarRatingComponent
                         name="rate1"

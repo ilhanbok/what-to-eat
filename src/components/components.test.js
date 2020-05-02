@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
@@ -8,7 +8,7 @@ import index from '../index';
 
 import Initial from './Initial';
 import RestaurantInfo from './RestaurantInfo';
-import ChangePassword from './Profile';
+import Profile from './Profile';
 
 import Login from './login/Login';
 import Signup from './signup/Signup';
@@ -52,19 +52,43 @@ jest.mock('react-router-dom', () => ({
     push: jest.fn()
   })
 }));
+/*
+global.isUseState = true;
 
+function setUseState () {
+  if (global.isUseState) {
+    return (bool) => {
+      return [{
+          oldPassword: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          confirmationCode: ''
+      }, function(){}];
+    }
+  } else {
+    return ()=>{};//useState;
+  }
+}
+
+global.setUseStateFunction = { fn: setUseState };
+*/
+/*
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: (bool) => {
-    return [{
-        oldPassword: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        confirmationCode: ''
-    }, function(){}];
-  }
+      return [{
+          oldPassword: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          confirmationCode: ''
+      }, function(){}];
+    }
 }));
+*/
+
+//jest.mock(useState);
 
 const email = '';
 const password = '';
@@ -75,19 +99,20 @@ jest.mock('aws-amplify', () => ({
   Auth: {
     signIn: (email, password) => {
       return new Promise(function(resolve, reject) {
+        resolve(true);
         // do nothing
       });
     },
     currentAuthenticatedUser: () => {
       console.log('AAA');
       return new Promise(function(resolve, reject) {
-        console.log('resolving to true');
         if (global.success) resolve(true);
         else throw 'whoops';
       });
     },
     changePassword: (user, oldpass, pass) => {
       return new Promise(function(resolve, reject) {
+         resolve(true);
         // do nothing
       });
     }
@@ -315,7 +340,7 @@ it('can properly access and use home page with valid results', (doneCallback) =>
     });
   });
 });
-/*
+
 it('can toggle favorites', (doneCallback) => {
   var x;
   global.window = Object.create(window);
@@ -380,6 +405,16 @@ it('can remove favorites from page', (doneCallback) => {
   });
 });
 */
+
+it('can render profile', () => {
+  localStorage.setItem('userEmail', 'admin@example.com');
+  act(() => {
+    ReactDOM.render(<Profile />, container);
+    expect(true).toBe(true);
+  });
+});
+
+/*
 it('can render profile page', () => {
   var x;
   act(() => {
@@ -388,28 +423,44 @@ it('can render profile page', () => {
     expect(true).toBe(true);
   });
 });
-/*
-it('can render profile', () => {
+*//*
+it('can render login', () => {
   localStorage.setItem('userEmail', 'admin@example.com');
   act(() => {
-    ReactDOM.render(<Profile />, container);
+    ReactDOM.render(<Login />, container);
+    expect(true).toBe(true);
+  });
+});
+
+/*
+it('can render signup', () => {
+  useState.mockImplementation(
+  (bool) => {
+    return [{
+        oldPassword: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        confirmationCode: ''
+    }, function(){}];
+  }
+  );
+  localStorage.setItem('userEmail', 'admin@example.com');
+  act(() => {
+    Signup({});
     expect(true).toBe(true);
   });
 });
 */
 
-it('can render login', () => {
-  localStorage.setItem('userEmail', 'admin@example.com');
+it('can "submit" form', () => {
   act(() => {
-    Login({});
-    expect(true).toBe(true);
-  });
-});
-
-it('can render signup', () => {
-  localStorage.setItem('userEmail', 'admin@example.com');
-  act(() => {
-    Signup({});
+    ReactDOM.render(<Signup />, container);
+    container.querySelector('[id="email"]').value = 'a';
+    container.querySelector('[id="password"]').value = 'a';
+    container.querySelector('[id="confirm"]').value = 'a';
+    const submit = container.querySelector('[id="signup"]');
+    submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
     expect(true).toBe(true);
   });
 });
