@@ -5,7 +5,7 @@
 .card {
   margin: auto;
   text-align: center;
-  font-size: 40px;
+  /*font-size: 40px;*/
 
   border: 1px solid #F2DED0;
   border-radius: 80px;
@@ -24,20 +24,22 @@
 .fav-table {
   border: 1px solid black;
   border-collapse: collapse;
-  width: 80%;
+  width: 70%;
+  margin-bottom: 4%;
 }
 
 .fav-title {
-  width: 30%;
   display: flex;
   justify-content: center;
   align-self: center;
+  margin-bottom: 3%;
 }
 
 .fav-item {
-  border: 1px solid black;
-  font-size: 36px;
+  border: 1px solid lightsteelblue;
+  font-size: 20px;
   padding: 20px;
+  background-color: ghostwhite;
 }
 
 .fav-update {
@@ -82,7 +84,7 @@
 .hide-border {
   border: none;
   font-size: 18px !important;
-  padding: 0px !important;
+  padding: 0 !important;
   margin-left: 10px;
 }
 
@@ -558,5 +560,9 @@ a {
     z-index: 2;
     width: 100%;
     /* height: calc(100vh - 62px); */
+  }
+
+  .profile-form {
+    width: 40%;
   }
 }
