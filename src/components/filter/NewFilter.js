@@ -71,7 +71,7 @@ export class NewFilter extends Component {
         this.state = {
             selectedCheckboxes : new Set()
         }
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        //this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     toggleCheckbox = label => {
@@ -85,14 +85,14 @@ export class NewFilter extends Component {
         this.setState({ selectedCheckboxes : newSelectedCheckboxes });
     }
 
-    handleFormSubmit = () => {
-        console.log("it is working");
+    /*handleFormSubmit = () => {
+        //console.log("it is working");
         //formSubmitEvent.preventDefault();
-        console.log(this.state.selectedCheckboxes);
+        //console.log(this.state.selectedCheckboxes);
         for (const checkbox of this.state.selectedCheckboxes) {
-            console.log(checkbox, 'is selected.');
+            //console.log(checkbox, 'is selected.');
         }
-    }
+    }*/
 
     createCheckbox = label => (
         <Checkbox
@@ -131,7 +131,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Accomodations</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes()}
                             </form>
                         </div>
@@ -139,7 +139,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Nightlife</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes2()}
                             </form>
                         </div>
@@ -147,7 +147,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Cuisine</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes3()}
                             </form>
                         </div>
@@ -155,7 +155,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Food Item</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes4()}
                             </form>
                         </div>
@@ -163,7 +163,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Noise Level</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes5()}
                             </form>
                         </div>
@@ -171,7 +171,7 @@ export class NewFilter extends Component {
                             <div className="filter-title">
                                 <label>Mood</label>
                             </div>
-                            <form onSubmit={this.handleFormSubmit}>
+                            <form >
                                 {this.createCheckboxes6()}
                             </form>
                         </div>

@@ -182,7 +182,7 @@ export class ListRestaurant extends Component {
                     attr_mod = attr_mod.replace(/ /g,'');
                     if (['romantic','initmate','classy','hipster','divey','touristy','trendy','upscale','casual'].includes(attr_mod)) {
                         attr_mod = attr_mod + "': true";
-                        console.log(attr_mod);
+                        //console.log(attr_mod);
                     }
                     ///attr_mod = attr_mod.replace('-', '');
                     if (JSON.stringify(restaurant.attributes).toLowerCase().includes(attr_mod) ||
