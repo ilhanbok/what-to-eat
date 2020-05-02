@@ -119,7 +119,6 @@ export default function Signup(props) {
                     <FormLabel>Email</FormLabel>
                     <FormControl
                         autoFocus
-                        id="email"
                         type="email"
                         value={fields.email}
                         onChange={handleFieldChange}
@@ -128,7 +127,6 @@ export default function Signup(props) {
                 <FormGroup controlId="password" bsSize="large">
                     <FormLabel>Password</FormLabel>
                     <FormControl
-                        id="password"
                         type="password"
                         value={fields.password}
                         onChange={handleFieldChange}
@@ -137,7 +135,6 @@ export default function Signup(props) {
                 <FormGroup controlId="confirmPassword" bsSize="large">
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl
-                        id="confirm"
                         type="password"
                         onChange={handleFieldChange}
                         value={fields.confirmPassword}
