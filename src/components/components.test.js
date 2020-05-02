@@ -458,7 +458,7 @@ it('can "submit" form', () => {
     ReactDOM.render(<Signup />, container);
     container.querySelector('[id="email"]').value = 'a';
     container.querySelector('[id="password"]').value = 'a';
-    container.querySelector('[id="confirm"]').value = 'a';
+    container.querySelector('[id="confirmPassword"]').value = 'a';
     const submit = container.querySelector('[id="signup"]');
     submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
     expect(true).toBe(true);
