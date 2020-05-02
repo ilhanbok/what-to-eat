@@ -30,4 +30,8 @@ Starts the website
 7. Go to [http://localhost:3000](http://localhost:3000)<br />
 This may happen automatically, but use the link if necessary
 
+## Testing
+- Frontend: `npm run itest`
+- Backend: `CI=1 npm run jtest -- --coverage`
+
 Thank you for using our website!
