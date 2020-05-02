@@ -31,7 +31,7 @@ Starts the website
 This may happen automatically, but use the link if necessary
 
 ## Testing
-- Frontend: `npm run itest`
-- Backend: `CI=1 npm run jtest -- --coverage`
+- Backend: `npm run itest`
+- Frontend: `CI=1 npm run jtest -- --coverage`
 
 Thank you for using our website!
